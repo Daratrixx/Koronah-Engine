@@ -1,0 +1,57 @@
+# Project: KoronahEngine
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = main.o Camera.o Entity.o GraphicEngine.o Input.o Model.o Shader.o String.o Texture.o Window.o $(RES)
+LINKOBJ  = main.o Camera.o Entity.o GraphicEngine.o Input.o Model.o Shader.o String.o Texture.o Window.o $(RES)
+LIBS =  -L"C:/MinGW/lib" -L"C:/MinGW/SDL-2.0/lib" -mwindows -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lopengl32 -lglew32  
+INCS =  -I"C:/MinGW/include"  -I"C:/MinGW/SDL-2.0/include" 
+CXXINCS =  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/MinGW/mingw32/bin"  -I"C:/MinGW/mingw32/include"  -I"C:/MinGW/mingw32/lib"  -I"C:/MinGW/mingw32"  -I"C:/MinGW/include"  -I"C:/MinGW/SDL-2.0/include" 
+BIN  = KoronahEngine.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS = $(INCS)  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before KoronahEngine.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "KoronahEngine.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Camera.o: Camera.cpp
+	$(CPP) -c Camera.cpp -o Camera.o $(CXXFLAGS)
+
+Entity.o: Entity.cpp
+	$(CPP) -c Entity.cpp -o Entity.o $(CXXFLAGS)
+
+GraphicEngine.o: GraphicEngine.cpp
+	$(CPP) -c GraphicEngine.cpp -o GraphicEngine.o $(CXXFLAGS)
+
+Input.o: Input.cpp
+	$(CPP) -c Input.cpp -o Input.o $(CXXFLAGS)
+
+Model.o: Model.cpp
+	$(CPP) -c Model.cpp -o Model.o $(CXXFLAGS)
+
+Shader.o: Shader.cpp
+	$(CPP) -c Shader.cpp -o Shader.o $(CXXFLAGS)
+
+String.o: String.cpp
+	$(CPP) -c String.cpp -o String.o $(CXXFLAGS)
+
+Texture.o: Texture.cpp
+	$(CPP) -c Texture.cpp -o Texture.o $(CXXFLAGS)
+
+Window.o: Window.cpp
+	$(CPP) -c Window.cpp -o Window.o $(CXXFLAGS)

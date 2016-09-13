@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="95">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="f3" displayName="Graphic" projectFiles="true">
+        <logicalFolder name="f1" displayName="Model" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Face.hpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/KeyFrame.hpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Model.h</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Shape.hpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Vertex.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="Text" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/TextEngine.h</itemPath>
+        </logicalFolder>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Camera.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Shader.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Texture.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Window.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="GUI" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Logic" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/CameraHolder.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Light.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/SortedKeyChain.hpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.hpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Unit.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Main" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Game.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameState.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4" displayName="Particle" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Particle.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/ParticleEngine.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/ParticleModifier.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="Physic" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="Tools" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Input.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/String.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Time.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Types.h</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="f3" displayName="Graphic" projectFiles="true">
+        <logicalFolder name="f1" displayName="Model" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Model.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/ModelHeightMap.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/ModelObj.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="Text" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/TextEngine.cpp</itemPath>
+        </logicalFolder>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Camera.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Shader.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Texture.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Window.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6" displayName="GUI" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Button.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicLabel.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Label.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Logic" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Light.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Unit.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Main" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Game.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameState.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.cpp</itemPath>
+        <itemPath>main.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4" displayName="Particle" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/ParticleEngine.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5" displayName="Physic" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7" displayName="Tools" projectFiles="true">
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Input.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/String.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Time.cpp</itemPath>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandlineTool>g++</commandlineTool>
+          <incDir>
+            <pElem>C:/MinGW/include</pElem>
+            <pElem>C:/MinGW/SDL-2.0/include</pElem>
+          </incDir>
+          <warningLevel>2</warningLevel>
+        </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>C:/MinGW/SDL-2.0/lib</pElem>
+          </linkerAddLib>
+          <commandlineTool>g++</commandlineTool>
+          <commandLine>-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lopengl32 -lglew32 -lfreetype</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Camera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Camera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/CameraHolder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Entity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Entity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Face.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Button.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicLabel.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Label.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameState.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameState.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Input.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Input.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/KeyFrame.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Light.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Light.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Model.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Model.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ModelHeightMap.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ModelObj.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Particle.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleModifier.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Shader.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Shader.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Shape.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/SortedKeyChain.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/String.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/String.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/TextEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/TextEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Texture.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Texture.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Time.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Time.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Unit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Unit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Vertex.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>C:/MinGW/SDL-2.0/include</pElem>
+          </incDir>
+          <commandLine>-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lopengl32 -lglew32</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Camera.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Camera.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/CameraHolder.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Entity.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Entity.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Face.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Button.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicLabel.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Label.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameState.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameState.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Input.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Input.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/KeyFrame.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Light.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Light.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Model.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Model.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ModelHeightMap.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ModelObj.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Particle.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleModifier.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Shader.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Shader.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Shape.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/SortedKeyChain.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/String.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/String.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/TextEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/TextEngine.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Texture.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Texture.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Time.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Time.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Unit.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Unit.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Vertex.hpp"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

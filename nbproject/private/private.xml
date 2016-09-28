@@ -9,9 +9,10 @@
         <group>
             <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/Unit.cpp</file>
             <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/Unit.h</file>
-            <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/GameStatePlayground.cpp</file>
-            <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/GUI_DynamicLabel.cpp</file>
-            <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/GUI.h</file>
+            <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/Types.h</file>
+            <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/Entity.h</file>
+            <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/GameStateSTR.cpp</file>
+            <file>file:/C:/Users/ANTOINE/Projets/Koronah%20Engine/Entity.cpp</file>
         </group>
     </open-files>
 </project-private>

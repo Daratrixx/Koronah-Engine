@@ -132,6 +132,7 @@ build/Debug/MinGW-Windows/_ext/1021858732/GraphicEngine.o: \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_version.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_image.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Camera.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Shader.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Texture.h \
@@ -145,7 +146,8 @@ build/Debug/MinGW-Windows/_ext/1021858732/GraphicEngine.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GameObject.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/SortedKeyChain.hpp \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h \
- c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.h:
 
@@ -413,6 +415,8 @@ c:/MinGW/SDL-2.0/include/SDL2/SDL_image.h:
 
 c:/MinGW/SDL-2.0/include/SDL2/SDL.h:
 
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h:
+
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Camera.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Shader.h:
@@ -440,3 +444,5 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/SortedKeyChain.hpp:
 c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h:

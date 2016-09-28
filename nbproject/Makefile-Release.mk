@@ -38,17 +38,24 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1021858732/Camera.o \
 	${OBJECTDIR}/_ext/1021858732/Entity.o \
 	${OBJECTDIR}/_ext/1021858732/FrameBuffer.o \
+	${OBJECTDIR}/_ext/1021858732/FrameBuffer_Scan.o \
 	${OBJECTDIR}/_ext/1021858732/GUI.o \
+	${OBJECTDIR}/_ext/1021858732/GUI_Bar.o \
 	${OBJECTDIR}/_ext/1021858732/GUI_Button.o \
+	${OBJECTDIR}/_ext/1021858732/GUI_DynamicBar.o \
 	${OBJECTDIR}/_ext/1021858732/GUI_DynamicLabel.o \
 	${OBJECTDIR}/_ext/1021858732/GUI_Label.o \
+	${OBJECTDIR}/_ext/1021858732/GUI_PlayerStatMenu.o \
+	${OBJECTDIR}/_ext/1021858732/GUI_Window.o \
 	${OBJECTDIR}/_ext/1021858732/Game.o \
 	${OBJECTDIR}/_ext/1021858732/GameObject.o \
 	${OBJECTDIR}/_ext/1021858732/GameState.o \
 	${OBJECTDIR}/_ext/1021858732/GameStateMenu.o \
 	${OBJECTDIR}/_ext/1021858732/GameStatePlayground.o \
+	${OBJECTDIR}/_ext/1021858732/GameStateSTR.o \
 	${OBJECTDIR}/_ext/1021858732/Geometry.o \
 	${OBJECTDIR}/_ext/1021858732/GraphicEngine.o \
+	${OBJECTDIR}/_ext/1021858732/GraphicEngine_Scan.o \
 	${OBJECTDIR}/_ext/1021858732/HeightMapData.o \
 	${OBJECTDIR}/_ext/1021858732/Input.o \
 	${OBJECTDIR}/_ext/1021858732/Light.o \
@@ -57,13 +64,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1021858732/ModelHeightMap.o \
 	${OBJECTDIR}/_ext/1021858732/ModelObj.o \
 	${OBJECTDIR}/_ext/1021858732/ParticleEngine.o \
+	${OBJECTDIR}/_ext/1021858732/Settings.o \
 	${OBJECTDIR}/_ext/1021858732/Shader.o \
 	${OBJECTDIR}/_ext/1021858732/String.o \
 	${OBJECTDIR}/_ext/1021858732/TextEngine.o \
 	${OBJECTDIR}/_ext/1021858732/Texture.o \
 	${OBJECTDIR}/_ext/1021858732/Time.o \
 	${OBJECTDIR}/_ext/1021858732/Unit.o \
-	${OBJECTDIR}/_ext/1021858732/Window.o \
 	${OBJECTDIR}/main.o
 
 
@@ -106,15 +113,30 @@ ${OBJECTDIR}/_ext/1021858732/FrameBuffer.o: nbproject/Makefile-${CND_CONF}.mk /C
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/FrameBuffer.o /C/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.cpp
 
+${OBJECTDIR}/_ext/1021858732/FrameBuffer_Scan.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer_Scan.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/FrameBuffer_Scan.o /C/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer_Scan.cpp
+
 ${OBJECTDIR}/_ext/1021858732/GUI.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GUI.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI.cpp
 
+${OBJECTDIR}/_ext/1021858732/GUI_Bar.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Bar.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GUI_Bar.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Bar.cpp
+
 ${OBJECTDIR}/_ext/1021858732/GUI_Button.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Button.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GUI_Button.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Button.cpp
+
+${OBJECTDIR}/_ext/1021858732/GUI_DynamicBar.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_DynamicBar.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GUI_DynamicBar.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_DynamicBar.cpp
 
 ${OBJECTDIR}/_ext/1021858732/GUI_DynamicLabel.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_DynamicLabel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
@@ -125,6 +147,16 @@ ${OBJECTDIR}/_ext/1021858732/GUI_Label.o: nbproject/Makefile-${CND_CONF}.mk /C/U
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GUI_Label.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Label.cpp
+
+${OBJECTDIR}/_ext/1021858732/GUI_PlayerStatMenu.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_PlayerStatMenu.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GUI_PlayerStatMenu.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_PlayerStatMenu.cpp
+
+${OBJECTDIR}/_ext/1021858732/GUI_Window.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Window.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GUI_Window.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Window.cpp
 
 ${OBJECTDIR}/_ext/1021858732/Game.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/Game.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
@@ -151,6 +183,11 @@ ${OBJECTDIR}/_ext/1021858732/GameStatePlayground.o: nbproject/Makefile-${CND_CON
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GameStatePlayground.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStatePlayground.cpp
 
+${OBJECTDIR}/_ext/1021858732/GameStateSTR.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GameStateSTR.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.cpp
+
 ${OBJECTDIR}/_ext/1021858732/Geometry.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
 	${RM} "$@.d"
@@ -160,6 +197,11 @@ ${OBJECTDIR}/_ext/1021858732/GraphicEngine.o: nbproject/Makefile-${CND_CONF}.mk 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GraphicEngine.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.cpp
+
+${OBJECTDIR}/_ext/1021858732/GraphicEngine_Scan.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine_Scan.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/GraphicEngine_Scan.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine_Scan.cpp
 
 ${OBJECTDIR}/_ext/1021858732/HeightMapData.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/HeightMapData.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
@@ -201,6 +243,11 @@ ${OBJECTDIR}/_ext/1021858732/ParticleEngine.o: nbproject/Makefile-${CND_CONF}.mk
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/ParticleEngine.o /C/Users/ANTOINE/Projets/Koronah\ Engine/ParticleEngine.cpp
 
+${OBJECTDIR}/_ext/1021858732/Settings.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/Settings.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/Settings.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Settings.cpp
+
 ${OBJECTDIR}/_ext/1021858732/Shader.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/Shader.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
 	${RM} "$@.d"
@@ -230,11 +277,6 @@ ${OBJECTDIR}/_ext/1021858732/Unit.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/
 	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/Unit.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Unit.cpp
-
-${OBJECTDIR}/_ext/1021858732/Window.o: nbproject/Makefile-${CND_CONF}.mk /C/Users/ANTOINE/Projets/Koronah\ Engine/Window.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1021858732
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1021858732/Window.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Window.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

@@ -21,25 +21,25 @@ int Game::init() {
     if (Graphic == 0)
         return -1;
     std::cout << "GraphicEngine creation successful." << std::endl;
-
+    
     if (!Graphic->initWindow(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
         return -1;
     std::cout << "SDL initialisation successful." << std::endl;
-
+    
     if (!Graphic->initGL())
         return -1;
     std::cout << "GL initialisation successful." << std::endl;
 
-    Particle = new ParticleEngine();
-    if (Particle == 0)
-        return -1;
-    std::cout << "ParticleEngine creation successful." << std::endl;
+    //Particle = new ParticleEngine();
+    //if (Particle == 0)
+    //    return -1;
+    //std::cout << "ParticleEngine creation successful." << std::endl;
     //Particle->m_graphicEngine = Graphic;
 
-    Light = new LightEngine();
-    if (Light == 0)
-        return -1;
-    std::cout << "LightEngine creation successful." << std::endl;
+    //Light = new LightEngine();
+    //if (Light == 0)
+    //    return -1;
+    //std::cout << "LightEngine creation successful." << std::endl;
 
     Time = new TimeEngine();
     if (Time == 0)
@@ -49,19 +49,20 @@ int Game::init() {
     if (Input == 0)
         return -1;
 
-    Graphic->setLightData(Light->getLightData());
+    //Graphic->setLightData(Light->getLightData());
+    //Graphic->setResolution(1280,720);
     Graphic->loadGraphicDatas();
 
     return 0; // no problem
 }
 
 void Game::loop() {
-    GameStatePlayground* playground = new GameStatePlayground();
-    std::cout << "GameStatePlayground creation successful." << std::endl;
+    GameStateSTR* playground = new GameStateSTR();
+    std::cout << "GameStateSTR creation successful." << std::endl;
     playground->Graphic = Graphic;
     playground->Input = Input;
-    playground->Light = Light;
-    playground->Particle = Particle;
+    //playground->Light = Light;
+    //playground->Particle = Particle;
     playground->Time = Time;
     playground->load();
     GameStateMenu* menu = new GameStateMenu();
@@ -92,12 +93,10 @@ void Game::loop() {
                 break;
             default:break;
         }
-        Time->waitSeconds(0.02f);
+        Time->waitSeconds(0.010f);
     }
-    std::cout << "end of loop." << std::endl;
-
     delete playground;
-    std::cout << "GameStatePlayground deleted." << std::endl;
+    std::cout << "GameStateSTR deleted." << std::endl;
     delete menu;
     std::cout << "GameStateMenu deleted." << std::endl;
 }
@@ -114,12 +113,13 @@ void Game::close() {
     std::cout << "InputEngine deleted." << std::endl;
     delete Time;
     std::cout << "TimeEngine deleted." << std::endl;
-    delete Light;
-    std::cout << "LightEngine deleted." << std::endl;
-    delete Particle;
-    std::cout << "ParticleEngine deleted." << std::endl;
+    //delete Light;
+    //std::cout << "LightEngine deleted." << std::endl;
+    //delete Particle;
+    //std::cout << "ParticleEngine deleted." << std::endl;
     delete Graphic;
     std::cout << "GraphicEngine deleted." << std::endl;
+    std::cout << "Settings_RESOLUTION deleted." << std::endl;
     std::cout << "Leaving program without error." << std::endl;
     exit(0);
 }

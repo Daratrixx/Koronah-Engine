@@ -8,14 +8,14 @@ Camera::Camera():
 m_position(0,0,0), m_targetPoint(), m_orientation(), m_verticalAxe(0, 1, 0), m_angle(0,0,0)
 {
     setAngle(m_angle);
-    setProjection(70, 8.0/6.0, 1, 100);
+    setProjection(70, 8.0/6.0, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
 }
 
 Camera::Camera(double fov, double ratio):
 m_position(0,0,0), m_targetPoint(), m_orientation(), m_verticalAxe(0, 1, 0), m_angle(0,0,0)
 {
     setAngle(m_angle);
-    setProjection(fov, ratio, 1, 100);
+    setProjection(fov, ratio, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
 }
 
 Camera::Camera(double fov, double ratio, double close, double far):

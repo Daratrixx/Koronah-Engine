@@ -128,12 +128,13 @@ build/Debug/MinGW-Windows/main.o: main.cpp Types.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_timer.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_version.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_image.h \
- c:/MinGW/SDL-2.0/include/SDL2/SDL.h Game.h Time.h Input.h \
+ c:/MinGW/SDL-2.0/include/SDL2/SDL.h Game.h Settings.h Time.h Input.h \
  GraphicEngine.h Camera.h Shader.h Texture.h Model.h Shape.hpp Face.hpp \
  KeyFrame.hpp Vertex.hpp String.h HeightMapData.h GameObject.h \
- SortedKeyChain.hpp TextEngine.h FrameBuffer.h ParticleEngine.h \
- Particle.h ParticleModifier.h Geometry.h LightEngine.h Light.h \
- GameStatePlayground.h GameState.h GUI.h Unit.h Entity.h GameStateMenu.h
+ SortedKeyChain.hpp TextEngine.h FrameBuffer.h Geometry.h \
+ ParticleEngine.h Particle.h ParticleModifier.h LightEngine.h Light.h \
+ GameStatePlayground.h GameState.h GUI.h Unit.h Entity.h Item.h \
+ GameStateSTR.h GameStateMenu.h
 
 Types.h:
 
@@ -401,6 +402,8 @@ c:/MinGW/SDL-2.0/include/SDL2/SDL.h:
 
 Game.h:
 
+Settings.h:
+
 Time.h:
 
 Input.h:
@@ -435,13 +438,13 @@ TextEngine.h:
 
 FrameBuffer.h:
 
+Geometry.h:
+
 ParticleEngine.h:
 
 Particle.h:
 
 ParticleModifier.h:
-
-Geometry.h:
 
 LightEngine.h:
 
@@ -456,5 +459,9 @@ GUI.h:
 Unit.h:
 
 Entity.h:
+
+Item.h:
+
+GameStateSTR.h:
 
 GameStateMenu.h:

@@ -13,13 +13,15 @@ GameObject::GameObject() {
     setPosition(0, 0, 0);
     setAngle(0, 0, 0);
     setScale(1, 1, 1);
+    setColor(1, 1, 1);
     setID(GET_NEXT_ID());
     m_modelId = -1;
     m_textureId = -1;
     m_haloMapId = -1;
 }
+
 GameObject::~GameObject() {
-    std::cout << "Deleted GameObject with ID " << m_objectId <<std::endl;
+    std::cout << "Deleted GameObject with ID " << m_objectId << std::endl;
 }
 
 int GameObject::getID() const {
@@ -38,22 +40,27 @@ void GameObject::setParentObject(GameObject* parent) {
     m_parentObject = parent;
 }
 
+void GameObject::update(float time, std::vector<GameObject*> objects) {
+}
+
 void GameObject::setPosition(float x, float y, float z) {
     m_position.x = x;
     m_position.y = y;
     m_position.z = z;
 }
 
-
 void GameObject::setPositionX(float x) {
     m_position.x = x;
 }
+
 void GameObject::setPositionY(float y) {
     m_position.y = y;
 }
+
 void GameObject::setPositionZ(float z) {
     m_position.z = z;
 }
+
 void GameObject::setPosition(glm::vec3 pos) {
     m_position = pos;
 }
@@ -64,15 +71,19 @@ glm::vec3 GameObject::getPosition() const {
     else
         return m_position + m_parentObject->getPosition();
 }
-float GameObject::getPositionX() const{
+
+float GameObject::getPositionX() const {
     return m_position.x;
 }
-float GameObject::getPositionY() const{
+
+float GameObject::getPositionY() const {
     return m_position.y;
 }
-float GameObject::getPositionZ() const{
+
+float GameObject::getPositionZ() const {
     return m_position.z;
 }
+
 void GameObject::addPosition(float x, float y, float z) {
     m_position.x += x;
     m_position.y += y;
@@ -145,6 +156,23 @@ void GameObject::addScale(float x, float y, float z) {
 
 void GameObject::addScale(glm::vec3 scale) {
     m_scale += scale;
+}
+
+void GameObject::setColor(float r, float g, float b) {
+    m_color.x = r;
+    m_color.y = g;
+    m_color.z = b;
+}
+
+void GameObject::setColor(glm::vec3 color) {
+    m_color = color;
+}
+
+glm::vec3 GameObject::getColor() const {
+    if (m_parentObject == null)
+        return m_color;
+    else
+        return m_color * m_parentObject->getColor();
 }
 
 int GameObject::getModelId() const {

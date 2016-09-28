@@ -132,6 +132,7 @@ build/Debug/MinGW-Windows/_ext/1021858732/TextEngine.o: \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_version.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_image.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Shader.h
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h:
@@ -399,5 +400,7 @@ c:/MinGW/SDL-2.0/include/SDL2/SDL_version.h:
 c:/MinGW/SDL-2.0/include/SDL2/SDL_image.h:
 
 c:/MinGW/SDL-2.0/include/SDL2/SDL.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Shader.h:

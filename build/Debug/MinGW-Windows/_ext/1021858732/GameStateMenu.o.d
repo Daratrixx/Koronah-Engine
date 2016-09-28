@@ -136,6 +136,7 @@ build/Debug/MinGW-Windows/_ext/1021858732/GameStateMenu.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Time.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Input.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Camera.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Shader.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Texture.h \
@@ -150,7 +151,11 @@ build/Debug/MinGW-Windows/_ext/1021858732/GameStateMenu.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/SortedKeyChain.hpp \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h \
- c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.h:
 
@@ -426,6 +431,8 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/Input.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.h:
 
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h:
+
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Camera.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Shader.h:
@@ -454,4 +461,12 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h:
 
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h:
+
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h:

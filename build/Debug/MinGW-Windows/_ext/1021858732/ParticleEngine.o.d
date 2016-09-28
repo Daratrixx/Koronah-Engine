@@ -146,6 +146,7 @@ build/Debug/MinGW-Windows/_ext/1021858732/ParticleEngine.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/HeightMapData.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/SortedKeyChain.hpp \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Camera.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h \
@@ -444,6 +445,8 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/HeightMapData.h:
 c:/Users/ANTOINE/Projets/Koronah\ Engine/SortedKeyChain.hpp:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Camera.h:
 

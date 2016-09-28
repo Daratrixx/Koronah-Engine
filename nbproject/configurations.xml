@@ -20,7 +20,6 @@
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Shader.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Texture.h</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Window.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="GUI" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI.h</itemPath>
@@ -28,9 +27,12 @@
       <logicalFolder name="f2" displayName="Logic" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/CameraHolder.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEnigine.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Item.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Light.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Player.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/SortedKeyChain.hpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.hpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Unit.h</itemPath>
@@ -40,6 +42,7 @@
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameState.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStateSTR.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="Particle" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Particle.h</itemPath>
@@ -52,6 +55,7 @@
       <logicalFolder name="f7" displayName="Tools" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Input.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Settings.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/String.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Time.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Types.h</itemPath>
@@ -75,16 +79,21 @@
         </logicalFolder>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Camera.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer_Scan.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine_Scan.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Shader.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Texture.cpp</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Window.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f6" displayName="GUI" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Bar.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Button.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicBar.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicLabel.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Label.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_PlayerStatMenu.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Window.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="Logic" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.cpp</itemPath>
@@ -98,6 +107,7 @@
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameState.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStateMenu.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStatePlayground.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameStateSTR.cpp</itemPath>
         <itemPath>main.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="Particle" projectFiles="true">
@@ -109,6 +119,7 @@
       <logicalFolder name="f7" displayName="Tools" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Input.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Settings.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/String.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Time.cpp</itemPath>
       </logicalFolder>
@@ -190,6 +201,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer_Scan.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI.cpp"
             ex="false"
             tool="1"
@@ -200,7 +216,17 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Bar.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Button.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicBar.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -215,12 +241,27 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_PlayerStatMenu.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Window.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEnigine.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -265,6 +306,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateSTR.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateSTR.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.cpp"
             ex="false"
             tool="1"
@@ -285,6 +336,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine_Scan.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.cpp"
             ex="false"
             tool="1"
@@ -301,6 +357,11 @@
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Input.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Item.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -366,6 +427,21 @@
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleModifier.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Player.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Settings.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Settings.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -451,16 +527,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Vertex.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -532,6 +598,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/FrameBuffer_Scan.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI.cpp"
             ex="false"
             tool="1"
@@ -542,7 +613,17 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Bar.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Button.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicBar.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -557,12 +638,27 @@
             tool="1"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_PlayerStatMenu.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Window.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.cpp"
             ex="false"
             tool="1"
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Game.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEnigine.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -607,6 +703,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateSTR.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameStateSTR.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Geometry.cpp"
             ex="false"
             tool="1"
@@ -627,6 +733,11 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GraphicEngine_Scan.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/HeightMapData.cpp"
             ex="false"
             tool="1"
@@ -643,6 +754,11 @@
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Input.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Item.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -708,6 +824,21 @@
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/ParticleModifier.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Player.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Settings.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Settings.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -793,16 +924,6 @@
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Vertex.hpp"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Window.h"
             ex="false"
             tool="3"
             flavor2="0">

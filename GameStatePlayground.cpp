@@ -2,10 +2,12 @@
 #include "GameStatePlayground.h"
 
 GameStatePlayground::GameStatePlayground() : GameState() {
-    m_player = new Unit();
+    m_player = createDrakkarim("Daratrix", 10);
     m_player->setPosition(0, 15, 0);
     Particle = null;
     Light = null;
+    m_guiPlayerStatMenu = null;
+    m_guiActiveInterface = null;
 }
 
 GameStatePlayground::~GameStatePlayground() {
@@ -17,20 +19,24 @@ GameStatePlayground::~GameStatePlayground() {
 
 void GameStatePlayground::load() {
     m_guiRoot = new GUI();
+    m_guiRoot->setPosition(0, 0);
+    m_guiRoot->setSize(800, 600);
+    m_guiRoot->setDisplayColor(false);
     GUI* g = new GUI();
     g->setPosition(10, 10);
     g->setSize(200, 200);
-    g->setColor(1,1,1,1);
+    g->setColor(1, 1, 1, 1);
     g->setTextureID(loadTexture("data/gui/posBar.png"));
     m_guiRoot->addChild(g);
+    // stat
     GUI_DynamicLabel* gdl = new GUI_DynamicLabel();
     gdl->setPosition(0, 560);
     gdl->setTextureID(loadTexture("data/gui/lifeBar.png"));
     gdl->setSize(150, 30);
     gdl->setFontSize(0.5f);
-    gdl->setSource((void*)m_player);
-    gdl->setColor(1,1,1,1);
-    gdl->setGetText(GDL_getHP);
+    gdl->setSource((void*) m_player);
+    gdl->setColor(1, 1, 1, 1);
+    gdl->setGetText(GDL_getHealth);
     gdl->setGetTextColor(GDL_getHPColor);
     m_guiRoot->addChild(gdl);
     gdl = new GUI_DynamicLabel();
@@ -38,30 +44,26 @@ void GameStatePlayground::load() {
     gdl->setTextureID(loadTexture("data/gui/energyBar.png"));
     gdl->setSize(150, 30);
     gdl->setFontSize(0.5f);
-    gdl->setSource((void*)m_player);
-    gdl->setColor(1,1,1,1);
-    gdl->setGetText(GDL_getEN);
+    gdl->setSource((void*) m_player);
+    gdl->setColor(1, 1, 1, 1);
+    gdl->setGetText(GDL_getConcentration);
     gdl->setGetTextColor(GDL_getENColor);
     m_guiRoot->addChild(gdl);
-    
+    // fps
     gdl = new GUI_DynamicLabel();
-    gdl->setPosition(110, 160);
-    gdl->setSource((void*)m_player);
-    gdl->setColor(1,1,1,1);
-    gdl->setGetText(GDL_getPosX);
+    gdl->setPosition(650, 560);
+    gdl->setTextureID(loadTexture("data/gui/fpsBar.png"));
+    gdl->setSize(150, 30);
+    gdl->setColor(1, 1, 1, 1);
+    gdl->setFontSize(0.5f);
+    gdl->setSource((void*) Time);
+    gdl->setTextColor(0.75f, 0, 0);
+    gdl->setGetText(GDL_getFPS);
     m_guiRoot->addChild(gdl);
-    gdl = new GUI_DynamicLabel();
-    gdl->setPosition(110, 110);
-    gdl->setSource((void*)m_player);
-    gdl->setColor(1,1,1,1);
-    gdl->setGetText(GDL_getPosY);
-    m_guiRoot->addChild(gdl);
-    gdl = new GUI_DynamicLabel();
-    gdl->setPosition(110, 60);
-    gdl->setSource((void*)m_player);
-    gdl->setColor(1,1,1,1);
-    gdl->setGetText(GDL_getPosZ);
-    m_guiRoot->addChild(gdl);
+
+    m_guiPlayerStatMenu = new GUI_PlayerStatMenu(m_player);
+    m_guiPlayerStatMenu->setVisible(false);
+    m_guiRoot->addChild(m_guiPlayerStatMenu);
 
     m_heightMapData = new HeightMapData("data/heightmap/Sc2wB.bmp");
     m_heightMapData->setModelId(Graphic->createHeightMapModel(m_heightMapData));
@@ -115,8 +117,8 @@ void GameStatePlayground::load() {
     object->setTextureId(8);
     object->setHaloMapId(11);
     m_objects.push_back(object);
-    
-    
+
+
     object = new Entity();
     object->setPosition(60, 0, 10);
     object->setScale(3, 3, 3);
@@ -124,8 +126,8 @@ void GameStatePlayground::load() {
     object->setTextureId(12);
     object->setHaloMapId(13);
     m_objects.push_back(object);
-    
-    
+
+
     object = new Entity();
     object->setPosition(20, 0, 10);
     object->setScale(3, 3, 3);
@@ -150,7 +152,10 @@ void GameStatePlayground::onEnter() {
 }
 
 void GameStatePlayground::onLeave() {
-
+    if (m_guiActiveInterface != null) {
+        m_guiActiveInterface->setVisible(false);
+        m_guiActiveInterface = null;
+    }
 }
 
 int GameStatePlayground::mainFunction(float time) {
@@ -169,21 +174,50 @@ int GameStatePlayground::mainFunction(float time) {
 int GameStatePlayground::inputManagement() {
     if (Input->getKeyboardPushed(SDL_SCANCODE_TAB))
         return ORDER_TO_MENU;
-    if (Input->getKeyboardDown(SDL_SCANCODE_UP) || Input->getKeyboardDown(SDL_SCANCODE_W))
-        m_player->moveForward(25 * m_elapsedTime);
-    if (Input->getKeyboardDown(SDL_SCANCODE_DOWN) || Input->getKeyboardDown(SDL_SCANCODE_S))
-        m_player->moveBack(25 * m_elapsedTime);
-    if (Input->getKeyboardDown(SDL_SCANCODE_LEFT) || Input->getKeyboardDown(SDL_SCANCODE_A))
-        m_player->moveLeft(25 * m_elapsedTime);
-    if (Input->getKeyboardDown(SDL_SCANCODE_RIGHT) || Input->getKeyboardDown(SDL_SCANCODE_D))
-        m_player->moveRight(25 * m_elapsedTime);
-    if (Input->getKeyboardDown(SDL_SCANCODE_SPACE)) {
-        m_player->addSpeed(0, 100 * m_elapsedTime, 0);
-        m_player->consume(5 * m_elapsedTime);
-    } else  m_player->recover(10 * m_elapsedTime);
-    if (Input->getKeyboardDown(SDL_SCANCODE_Z))
-        m_player->moveDown(25 * m_elapsedTime);
-    m_player->addAngle(Input->getMousePositionDeltaY()*-0.35f, Input->getMousePositionDeltaX()*-0.35f, 0);
+    if (m_guiActiveInterface == null) {
+        if (Input->getKeyboardDown(SDL_SCANCODE_UP) || Input->getKeyboardDown(SDL_SCANCODE_W))
+            m_player->moveForward(25 * m_elapsedTime);
+        if (Input->getKeyboardDown(SDL_SCANCODE_DOWN) || Input->getKeyboardDown(SDL_SCANCODE_S))
+            m_player->moveBack(25 * m_elapsedTime);
+        if (Input->getKeyboardDown(SDL_SCANCODE_LEFT) || Input->getKeyboardDown(SDL_SCANCODE_A))
+            m_player->moveLeft(25 * m_elapsedTime);
+        if (Input->getKeyboardDown(SDL_SCANCODE_RIGHT) || Input->getKeyboardDown(SDL_SCANCODE_D))
+            m_player->moveRight(25 * m_elapsedTime);
+        if (Input->getKeyboardDown(SDL_SCANCODE_SPACE)) {
+            m_player->addSpeed(0, 100 * m_elapsedTime, 0);
+            m_player->consume(5 * m_elapsedTime);
+        } else m_player->recover(1);
+        if (Input->getKeyboardDown(SDL_SCANCODE_Z))
+            m_player->moveDown(25 * m_elapsedTime);
+        if (Input->getMouseMoved())
+            m_player->addAngle(Input->getMousePositionDeltaY()*-0.35f, Input->getMousePositionDeltaX()*-0.35f, 0);
+    }
+
+    if (Input->getKeyboardPushed(SDL_SCANCODE_P)) {
+        if (m_guiPlayerStatMenu->getVisible()) { // must close and hide cursor
+            m_guiPlayerStatMenu->setVisible(false);
+            Input->setCursorLock(true);
+            Input->setCursorVisible(false);
+            m_guiActiveInterface = null;
+        } else { // must open and show cursor
+            m_guiPlayerStatMenu->setVisible(true);
+            Input->setCursorLock(false);
+            Input->setCursorVisible(true);
+            m_guiActiveInterface = m_guiPlayerStatMenu;
+        }
+    } else {
+        if (Input->getMouseMoved())
+            m_guiRoot->tryHover(Input->getMousePositionX(), Input->getMousePositionY());
+    }
+    if (m_guiActiveInterface != null && Input->getMouseReleased(SDL_BUTTON_LEFT)) {
+        GUI* clicked = m_guiRoot->tryClick(Input->getMousePositionX(), Input->getMousePositionY());
+        if (m_guiActiveInterface->isCloseButton(clicked)) { // must close and hide cursor
+            m_guiActiveInterface->setVisible(false);
+            Input->setCursorLock(true);
+            Input->setCursorVisible(false);
+            m_guiActiveInterface = null;
+        }
+    }
     return ORDER_CONTINUE;
 }
 
@@ -193,34 +227,16 @@ void GameStatePlayground::update() {
     for (unsigned int i = 0; i < m_objects.size(); i++) {
         physic((Entity*) m_objects[i]);
     }
-    m_objects[m_objects.size()-3]->addAngle(0,90 * m_elapsedTime,0);
-    m_objects[m_objects.size()-2]->addAngle(0,90 * m_elapsedTime,0);
-    if(glm::length(m_objects[m_objects.size()-3]->getPosition() - m_player->getPosition())<10)
-        m_player->damage(30 * m_elapsedTime);
-    if(glm::length(m_objects[m_objects.size()-2]->getPosition() - m_player->getPosition())<10)
-        m_player->heal(30 * m_elapsedTime);
+    m_objects[m_objects.size() - 3]->addAngle(0, 90 * m_elapsedTime, 0);
+    m_objects[m_objects.size() - 2]->addAngle(0, -90 * m_elapsedTime, 0);
+    if (glm::length(m_objects[m_objects.size() - 3]->getPosition() - m_player->getPosition()) < 10)
+        m_player->addExperience((int) (m_elapsedTime * 1000));
+    if (glm::length(m_objects[m_objects.size() - 2]->getPosition() - m_player->getPosition()) < 10)
+        m_player->heal(1);
     m_guiRoot->update(m_elapsedTime);
 }
 
 void GameStatePlayground::render() {
-    Graphic->writeLine("FPS " + toString(Time->getFPS()), 10.0f, 575.0f, 1.0f, glm::vec3(0.75, 0, 0));
-    std::string x, y, z;
-    Graphic->writeLine("Pos", 10.0f, 75.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-    x = "x " + toString(m_player->getPositionX(), 2);
-    y = "y " + toString(m_player->getPositionY(), 2);
-    z = "z " + toString(m_player->getPositionZ(), 2);
-    Graphic->writeLine(x, 20.0f, 50.0f, .5f, glm::vec3(0.5, 0.8f, 0.2f));
-    Graphic->writeLine(y, 20.0f, 30.0f, .5f, glm::vec3(0.5, 0.8f, 0.2f));
-    Graphic->writeLine(z, 20.0f, 10.0f, .5f, glm::vec3(0.5, 0.8f, 0.2f));
-
-    Graphic->writeLine("Angle", 300.0f, 75.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
-    x = "x " + toString(m_player->getAngle().x, 2);
-    y = "y " + toString(m_player->getAngle().y, 2);
-    z = "z " + toString(m_player->getAngle().z, 2);
-    Graphic->writeLine(x, 310.0f, 50.0f, .5f, glm::vec3(0.5, 0.8f, 0.2f));
-    Graphic->writeLine(y, 310.0f, 30.0f, .5f, glm::vec3(0.5, 0.8f, 0.2f));
-    Graphic->writeLine(z, 310.0f, 10.0f, .5f, glm::vec3(0.5, 0.8f, 0.2f));
-
     Graphic->moveCamera(m_player);
     Graphic->addToRender(m_heightMapData);
     for (unsigned int i = 0; i < m_objects.size(); i++)

@@ -132,6 +132,7 @@ build/Debug/MinGW-Windows/_ext/1021858732/Game.o: \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_version.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL_image.h \
  c:/MinGW/SDL-2.0/include/SDL2/SDL.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Time.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Input.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.h \
@@ -149,10 +150,10 @@ build/Debug/MinGW-Windows/_ext/1021858732/Game.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/SortedKeyChain.hpp \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/ParticleEngine.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Particle.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/ParticleModifier.h \
- c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/LightEngine.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Light.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStatePlayground.h \
@@ -160,6 +161,8 @@ build/Debug/MinGW-Windows/_ext/1021858732/Game.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.h
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Game.h:
@@ -428,6 +431,8 @@ c:/MinGW/SDL-2.0/include/SDL2/SDL_image.h:
 
 c:/MinGW/SDL-2.0/include/SDL2/SDL.h:
 
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Settings.h:
+
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Time.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Input.h:
@@ -462,13 +467,13 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.h:
 
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h:
+
 c:/Users/ANTOINE/Projets/Koronah\ Engine/ParticleEngine.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Particle.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/ParticleModifier.h:
-
-c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/LightEngine.h:
 
@@ -483,5 +488,9 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h:
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.h:

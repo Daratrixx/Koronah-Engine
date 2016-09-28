@@ -17,11 +17,15 @@ public:
 
     Shader& operator=(Shader const &shaderACopier);
     void clean();
+    bool compileAll();
+    void loadAll();
     bool loadTexture();
+    bool loadScan();
     bool loadText();
     bool loadParticle();
     bool loadGUI();
     bool loadScreen();
+    bool loadSquare();
     bool compile(GLuint &shader, GLenum type, std::string const &fichierSource);
     bool link();
     GLuint getProgramID() const;

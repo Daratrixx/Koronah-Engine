@@ -51,12 +51,12 @@ void Model::load() {
     glBindVertexArray(m_vaoID);
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vboID);
-    glVertexAttribPointer(SHADER_INDEX_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(getVerticeOffset()));
-    glEnableVertexAttribArray(SHADER_INDEX_VERTEX);
-    glVertexAttribPointer(SHADER_INDEX_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(getNormalOffset()));
-    glEnableVertexAttribArray(SHADER_INDEX_NORMAL);
-    glVertexAttribPointer(SHADER_INDEX_TEXCOORD_0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(getTextureOffset()));
-    glEnableVertexAttribArray(SHADER_INDEX_TEXCOORD_0);
+    glVertexAttribPointer(SHADER_TEXTURE_LOCATION_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(getVerticeOffset()));
+    glEnableVertexAttribArray(SHADER_TEXTURE_LOCATION_VERTEX);
+    glVertexAttribPointer(SHADER_TEXTURE_LOCATION_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(getNormalOffset()));
+    glEnableVertexAttribArray(SHADER_TEXTURE_LOCATION_NORMAL);
+    glVertexAttribPointer(SHADER_TEXTURE_LOCATION_TEXCOORD_0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(getTextureOffset()));
+    glEnableVertexAttribArray(SHADER_TEXTURE_LOCATION_TEXCOORD_0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -164,8 +164,8 @@ void Model::unUseVao() {
 }
 
 void Model::drawUsingVao(Shader* s, Texture* t) {
-    if (getNormalSize() > 0)
-        glUniform1i(glGetUniformLocation(s->getProgramID(), "hasNormal"), 1);
+    //if (getNormalSize() > 0)
+    //    glUniform1i(glGetUniformLocation(s->getProgramID(), "hasNormal"), 1);
     useVao();
     if (t != null)
         glBindTexture(GL_TEXTURE_2D, t->getID());

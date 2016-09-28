@@ -17,13 +17,15 @@ class GameObject {
     
 public:
     GameObject();
-    ~GameObject();
+    virtual ~GameObject();
     
     void setID(int id);
     int getID() const;
     
     void setParentObject(GameObject* parent);
     GameObject* getParentObject() const;
+    
+    virtual void update(float time, std::vector<GameObject*> objects);
     
     /* 3D function */
     int getModelId() const;
@@ -59,6 +61,10 @@ public:
     void addScale(float x, float y, float z);
     void addScale(glm::vec3 pos);
     
+    void setColor(float x, float y, float z);
+    void setColor(glm::vec3 color);
+    glm::vec3 getColor() const;
+    
     glm::mat4 getModelMatrice();
     
 protected:
@@ -70,6 +76,7 @@ protected:
     glm::vec3 m_position; // Y hauteur
     glm::vec3 m_angle; // Y rotation horizontal
     glm::vec3 m_scale;
+    glm::vec3 m_color;
     GameObject* m_parentObject;
     
     static int OBJECT_COUNT;

@@ -51,6 +51,17 @@ void GameStateMenu::load() {
     m_buttonExit->setTextColor(0, 1, 1, GUI_HOVER);
     m_buttonExit->setOnClickCallBack(&buttonCallBack);
     m_guiRoot->addChild(m_buttonExit);
+    
+    GUI_DynamicLabel* gdl = new GUI_DynamicLabel();
+    gdl->setPosition(650, 560);
+    gdl->setTextureID(loadTexture("data/gui/fpsBar.png"));
+    gdl->setSize(150, 30);
+    gdl->setColor(1, 1, 1, 1);
+    gdl->setFontSize(0.5f);
+    gdl->setSource((void*) Time);
+    gdl->setTextColor(0.75f, 0, 0);
+    gdl->setGetText(GDL_getFPS);
+    m_guiRoot->addChild(gdl);
 }
 
 void GameStateMenu::onEnter() {
@@ -94,6 +105,5 @@ int GameStateMenu::inputManagement() {
 }
 
 void GameStateMenu::render() {
-    Graphic->writeLine("FPS " + toString(Time->getFPS()), 10.0f, 575.0f, 1.0f, glm::vec3(0.75, 0, 0));
     m_guiRoot->render(Graphic);
 }

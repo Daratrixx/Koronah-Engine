@@ -12,7 +12,7 @@ uniform int hasNormal = 0;
 uniform float lightSource[96];
 
 out vec2 coordTexture;
-out vec3 enlightmentColor;
+//out vec3 enlightmentColor;
 
 vec4 computeLight(vec3 position, vec3 color, vec3 vertexPosition, vec3 vertexNormal);
 
@@ -22,8 +22,8 @@ void main()
     vec3 vertexPosition = (model * vec4(in_Vertex, 1.0)).xyz;
     vec3 vertexNormal = (transpose(inverse(model)) * vec4(in_Normal, 1.0)).xyz;
 	
-	enlightmentColor = vec3(1, 1, 1);
-    /*if(lightCount > 0) {
+	/*enlightmentColor = vec3(1, 1, 1);
+    if(lightCount > 0) {
 		enlightmentColor = vec3(1, 1, 1);
 		vec4 computedLight[16];
 		for(int i=0; i<lightCount; i++) {

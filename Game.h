@@ -13,6 +13,10 @@
 #include "Types.h"
 #endif
 
+#ifndef SETTINGS_H
+#include "Settings.h"
+#endif
+
 #ifndef TIME_H
 #include "Time.h"
 #endif
@@ -35,6 +39,10 @@
 
 #ifndef GAMESTATEPLAYGROUND_H
 #include "GameStatePlayground.h"
+#endif
+
+#ifndef GAMESTATESTR_H
+#include "GameStateSTR.h"
 #endif
 
 #ifndef GAMESTATEMENU_H

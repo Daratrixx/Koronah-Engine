@@ -2,30 +2,38 @@
 #include "GraphicEngine.h"
 
 GraphicEngine::GraphicEngine() {
+    m_window = null;
     m_title = "Default Window";
     m_width = DEFAULT_SCREEN_WIDTH;
     m_height = DEFAULT_SCREEN_HEIGHT;
     m_playGroundObjectToRender = new SortedKeyChain();
     m_textEngine = null;
-    m_frameBuffer = new FrameBuffer(DEFAULT_SCREEN_WIDTH * 2, DEFAULT_SCREEN_HEIGHT * 2);
+    m_frameBuffer = new FrameBuffer(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
+    m_frameBufferScan = new FrameBuffer_Scan(DEFAULT_SCREEN_WIDTH / SCAN_SCALE, DEFAULT_SCREEN_HEIGHT / SCAN_SCALE);
 }
 
 GraphicEngine::GraphicEngine(std::string title, int width, int height) {
+    m_window = null;
     m_title = title;
     m_width = width;
     m_height = height;
+    Settings_setResolution(width, height);
     m_playGroundObjectToRender = new SortedKeyChain();
     m_textEngine = null;
     m_frameBuffer = new FrameBuffer(width, height);
+    m_frameBufferScan = new FrameBuffer_Scan(width / SCAN_SCALE, height / SCAN_SCALE);
 }
 
 GraphicEngine::~GraphicEngine() {
     delete m_frameBuffer;
+    delete m_frameBufferScan;
     delete m_textEngine;
     delete m_shaderScreen;
     delete m_shaderModel;
+    delete m_shaderScan;
     delete m_shaderParticle;
     delete m_shaderGUI;
+    delete m_shaderSquare;
     delete m_shaderHaloMap;
     delete m_playGroundObjectToRender;
     clearModelList();
@@ -38,11 +46,16 @@ GraphicEngine::~GraphicEngine() {
 }
 
 bool GraphicEngine::initWindow(int flags) {
-    // Initialisation de la SDL
-    if (SDL_Init(flags) < 0) {
-        std::cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << std::endl;
-        SDL_Quit();
-        return false;
+    if (m_window != null) { // re-init of window, destroy previous one
+        SDL_GL_DeleteContext(m_contexteOpenGL);
+        SDL_DestroyWindow(m_window);
+    } else {
+        // Initialisation de la SDL
+        if (SDL_Init(flags) < 0) {
+            std::cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << std::endl;
+            SDL_Quit();
+            return false;
+        }
     }
 
     // Version d'OpenGL
@@ -55,7 +68,7 @@ bool GraphicEngine::initWindow(int flags) {
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     // Création de la fenêtre
-    m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+    m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
     if (m_window == 0) {
         SDL_Quit();
         return false;
@@ -96,7 +109,7 @@ bool GraphicEngine::initGL() {
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glClearColor(0.3f, 0, 0.3f, 1);
-    glLineWidth(1.f);
+    glLineWidth(2.f);
     glPointSize(2.f);
 
     // Tout s'est bien passé, on retourne true
@@ -105,14 +118,20 @@ bool GraphicEngine::initGL() {
 }
 
 void GraphicEngine::loadGraphicDatas() {
+    m_frameBufferScan->load();
     m_frameBuffer->load();
     m_textEngine = new TextEngine();
+    m_shaderSquare = new Shader("data/shader/square.vert", "data/shader/square.frag");
+    m_shaderSquare->loadSquare();
     m_shaderScreen = new Shader("data/shader/screen.vert", "data/shader/screen.frag");
     m_shaderScreen->loadScreen();
     m_shaderHaloMap = new Shader("data/shader/haloMap.vert", "data/shader/haloMap.frag");
     m_shaderHaloMap->loadScreen();
     m_shaderModel = new Shader("data/shader/texture.vert", "data/shader/texture.frag");
     m_shaderModel->loadTexture();
+    m_shaderScan = new Shader("data/shader/scan.vert", "data/shader/scan.frag");
+    if (!m_shaderScan->loadScan())
+        std::cout << "Fail to load Shader scan" << std::endl;
     m_shaderParticle = new Shader("data/shader/particle.vert", "data/shader/particle.geom", "data/shader/particle.frag");
     m_shaderParticle->loadParticle();
     m_shaderGUI = new Shader("data/shader/GUI.vert", "data/shader/GUI.geom", "data/shader/GUI.frag");
@@ -141,7 +160,7 @@ void GraphicEngine::loadGraphicDatas() {
     loadModel("data/model/Tomb.obj");
     loadModel("data/model/Shrine.obj");
 
-    m_camera.setProjection(70, 4.f / 3.f, 0.1, 500);
+    m_camera.setProjection(70, 4.f / 3.f, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
     m_camera.setPosition(0, 25, 0);
     m_camera.setTargetPoint(0, 25, -1);
     m_projectionScene = m_camera.getProjectionMatrice();
@@ -180,6 +199,20 @@ void GraphicEngine::loadGraphicDatas() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     // Déverrouillage du VAO
     glBindVertexArray(0);
+
+    // gen vao square
+    glGenVertexArrays(1, &m_squareVAO);
+    glBindVertexArray(m_squareVAO);
+    // gen vbo square
+    glGenBuffers(1, &m_squareVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_squareVAO);
+    // stuff
+    glBufferData(GL_ARRAY_BUFFER, sizeof (float) * 2 * 4, NULL, GL_DYNAMIC_DRAW);
+    //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof (float) * 2 * 4, 0);
+    glEnableVertexAttribArray(SHADER_SQUARE_LOCATION_POSITION);
+    glVertexAttribPointer(SHADER_SQUARE_LOCATION_POSITION, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
 int GraphicEngine::createHeightMapModel(HeightMapData* data) {
@@ -200,14 +233,32 @@ void GraphicEngine::addToRender(GameObject* object) {
 
 void GraphicEngine::startRender() {
     glClearColor(0.3f, 0, 0.3f, 1);
+    glViewport(0, 0, m_width, m_height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* shader) {
+void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* shader, unsigned int colorID) {
+    glViewport(0, 0, m_width, m_height);
     glDisable(GL_DEPTH_TEST);
     shader->use();
     glBindVertexArray(vao);
-    glBindTexture(GL_TEXTURE_2D, frameBuffer->getColorBufferId(0));
+    glBindTexture(GL_TEXTURE_2D, frameBuffer->getColorBufferId(colorID));
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindVertexArray(0);
+    shader->unUse();
+    glEnable(GL_DEPTH_TEST);
+}
+
+void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* shader, unsigned int colorID, bool isHorizontal) {
+    glDisable(GL_DEPTH_TEST);
+    shader->use();
+    if (isHorizontal)
+        glUniform1i(glGetUniformLocation(shader->getProgramID(), "isHorizontal"), 1);
+    else
+        glUniform1i(glGetUniformLocation(shader->getProgramID(), "isHorizontal"), 0);
+    glBindVertexArray(vao);
+    glBindTexture(GL_TEXTURE_2D, frameBuffer->getColorBufferId(colorID));
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
@@ -216,15 +267,13 @@ void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* 
 }
 
 void GraphicEngine::renderPlayGround() {
-    glClearColor(0, 0, 0, 1);
+    glClearColor(0, 0, 0, 0);
     glm::mat4 view = m_camera.getViewMatrice();
-    // WORLD PASS
+    // WORLD PASS (0)
     m_frameBuffer->use();
     // PROGRAM - MODEL
-    m_shaderModel->use();
     // UNIFORMS
-    //glUniform1i(glGetUniformLocation(m_shaderModel->getProgramID(), "lightCount"), 2);
-    //glUniform1fv(glGetUniformLocation(m_shaderModel->getProgramID(), "lightSource"), LIGHT_COUNT * 2 * 3, m_lightData); // send 2 vec3 per light (pos+color)
+    m_shaderModel->use();
     glUniformMatrix4fv(glGetUniformLocation(m_shaderModel->getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projectionScene));
     glUniformMatrix4fv(glGetUniformLocation(m_shaderModel->getProgramID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
     // render buffered objects
@@ -233,27 +282,55 @@ void GraphicEngine::renderPlayGround() {
         renderObject((GameObject*) (current->value));
         current = current->next;
     }
-    m_frameBuffer->unUse();
+    // HALO PASS (1)
     m_shaderModel->unUse();
-    // screen render
-    renderFrameBufferToScreen(m_frameBuffer, m_shaderScreen);
-
-    // HALO PASS
+    m_frameBuffer->unUse();
+    renderFrameBufferToScreen(m_frameBuffer, m_shaderScreen, 0); // add world to scren
     m_frameBuffer->use();
     m_shaderModel->use();
-    // UNIFORMS
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderModel->getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projectionScene));
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderModel->getProgramID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
     // render buffered objects
     current = m_playGroundObjectToRender->first;
+    glUniform3f(glGetUniformLocation(m_shaderModel->getProgramID(), "modelColor"), 1, 1, 1);
     while (current != null) {
         renderObjectHaloMap((GameObject*) (current->value));
         current = current->next;
     }
-    m_frameBuffer->unUse();
     m_shaderModel->unUse();
+    m_frameBuffer->unUse();
+    // HALO PASS (1 to 2)
+    //m_frameBuffer->changeColorAttachment(2);
+    //renderFrameBufferToScreen(m_frameBuffer, m_shaderHaloMap, 0, true);
+    // HALO PASS (2 to 3)
+    //m_frameBuffer->changeColorAttachment(3);
+    //renderFrameBufferToScreen(m_frameBuffer, m_shaderHaloMap, 0, false);
+
     // screen render
-    renderFrameBufferToScreen(m_frameBuffer, m_shaderHaloMap);
+    renderFrameBufferToScreen(m_frameBuffer, m_shaderHaloMap, 0); // add world to scren
+    //renderFrameBufferToScreen(m_frameBuffer, m_shaderScreen, 1); // add halo to scree
+    //renderFrameBufferToScreen(m_frameBuffer, m_shaderScreen, 2); // add halo to screem
+    //renderFrameBufferToScreen(m_frameBuffer, m_shaderScreen, 3); // add halo to screem
+}
+
+void GraphicEngine::renderSquare(glm::vec2 start, glm::vec2 end) {
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
+    m_shaderSquare->use();
+    GLfloat vertices[4 * 2] = {
+        (start.x / m_width) * 2 - 1, (start.y / m_height) * 2 - 1,
+        (end.x / m_width) * 2 - 1, (start.y / m_height) * 2 - 1,
+        (end.x / m_width) * 2 - 1, (end.y / m_height) * 2 - 1,
+        (start.x / m_width) * 2 - 1, (end.y / m_height) * 2 - 1
+    };
+    glBindVertexArray(m_squareVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_squareVAO);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof (vertices), vertices);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    // Render quad
+    glDrawArrays(GL_LINE_LOOP, 0, 4);
+    glBindVertexArray(0);
+    m_shaderSquare->unUse();
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 }
 
 void GraphicEngine::renderObject(GameObject* object) {
@@ -263,7 +340,10 @@ void GraphicEngine::renderObject(GameObject* object) {
         glm::mat4 model = object->getModelMatrice();
         Model* modelData = getModel(idModel);
         Texture* textureData = getTexture(idTexture);
-        renderModel(modelData, textureData, model);
+        if (modelData != null && textureData != null) {
+            glUniform3f(glGetUniformLocation(m_shaderModel->getProgramID(), "modelColor"), object->getColor().x, object->getColor().y, object->getColor().z);
+            renderModel(modelData, textureData, model);
+        }
     }
 }
 
@@ -274,8 +354,9 @@ void GraphicEngine::renderObjectHaloMap(GameObject* object) {
         glm::mat4 model = object->getModelMatrice();
         Model* modelData = getModel(idModel);
         Texture* textureData = getTexture(idHaloMap);
-        if(modelData != null && textureData != null)
+        if (modelData != null && textureData != null) {
             renderModel(modelData, textureData, model);
+        }
     }
 }
 
@@ -295,12 +376,12 @@ void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* s
     m_shaderParticle->use();
 
     // PRIMITIVES
-    glVertexAttribPointer(SHADER_INDEX_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, position);
-    glEnableVertexAttribArray(SHADER_INDEX_VERTEX);
-    glVertexAttribPointer(SHADER_INDEX_OPACITY, 1, GL_FLOAT, GL_FALSE, 0, opacity);
-    glEnableVertexAttribArray(SHADER_INDEX_OPACITY);
-    glVertexAttribPointer(SHADER_INDEX_SIZE, 1, GL_FLOAT, GL_FALSE, 0, size);
-    glEnableVertexAttribArray(SHADER_INDEX_SIZE);
+    glVertexAttribPointer(SHADER_TEXTURE_LOCATION_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, position);
+    glEnableVertexAttribArray(SHADER_TEXTURE_LOCATION_VERTEX);
+    glVertexAttribPointer(SHADER_PARTICLE_LOCATION_OPACITY, 1, GL_FLOAT, GL_FALSE, 0, opacity);
+    glEnableVertexAttribArray(SHADER_PARTICLE_LOCATION_OPACITY);
+    glVertexAttribPointer(SHADER_PARTICLE_LOCATION_SIZE, 1, GL_FLOAT, GL_FALSE, 0, size);
+    glEnableVertexAttribArray(SHADER_PARTICLE_LOCATION_SIZE);
 
     // UNIFORMS
     glUniformMatrix4fv(glGetUniformLocation(m_shaderParticle->getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projectionScene));
@@ -317,48 +398,11 @@ void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* s
         glBindTexture(GL_TEXTURE_2D, 0);
 
     // Désactivation des tableaux
-    glDisableVertexAttribArray(SHADER_INDEX_SIZE);
-    glDisableVertexAttribArray(SHADER_INDEX_OPACITY);
-    glDisableVertexAttribArray(SHADER_INDEX_VERTEX);
+    glDisableVertexAttribArray(SHADER_PARTICLE_LOCATION_SIZE);
+    glDisableVertexAttribArray(SHADER_PARTICLE_LOCATION_OPACITY);
+    glDisableVertexAttribArray(SHADER_TEXTURE_LOCATION_VERTEX);
     // Désactivation du shader
     m_shaderParticle->unUse();
-}
-
-void GraphicEngine::sendVerticeData(Model* model) {
-    if (model->getVaoId() != 0) {
-    } else if (model->getVerticeSize() > 0) {
-        glVertexAttribPointer(SHADER_INDEX_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(model->getVerticeOffset()));
-        glEnableVertexAttribArray(SHADER_INDEX_VERTEX);
-    } else if (model->getVerticeData() != null) {
-        glVertexAttribPointer(SHADER_INDEX_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, model->getVerticeData());
-        glEnableVertexAttribArray(SHADER_INDEX_VERTEX);
-    }
-}
-
-void GraphicEngine::sendNormalData(Model* model) {
-    if (model->getVaoId() != 0) {
-        glUniform1i(glGetUniformLocation(m_shaderModel->getProgramID(), "hasNormal"), 1);
-    } else if (model->getNormalSize() > 0) {
-        glVertexAttribPointer(SHADER_INDEX_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(model->getNormalOffset()));
-        glEnableVertexAttribArray(SHADER_INDEX_NORMAL);
-        glUniform1i(glGetUniformLocation(m_shaderModel->getProgramID(), "hasNormal"), 1);
-    } else if (model->getNormalData() != null) {
-        glVertexAttribPointer(SHADER_INDEX_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, model->getNormalData());
-        glEnableVertexAttribArray(SHADER_INDEX_NORMAL);
-        glUniform1i(glGetUniformLocation(m_shaderModel->getProgramID(), "hasNormal"), 1);
-    } else
-        glUniform1i(glGetUniformLocation(m_shaderModel->getProgramID(), "hasNormal"), 0);
-}
-
-void GraphicEngine::sendTextureData(Model* model) {
-    if (model->getVaoId() != 0) {
-    } else if (model->getTextureSize() > 0) {
-        glVertexAttribPointer(SHADER_INDEX_TEXCOORD_0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(model->getTextureOffset()));
-        glEnableVertexAttribArray(SHADER_INDEX_TEXCOORD_0);
-    } else if (model->getTextureData() != null) {
-        glVertexAttribPointer(SHADER_INDEX_TEXCOORD_0, 2, GL_FLOAT, GL_FALSE, 0, model->getTextureData());
-        glEnableVertexAttribArray(SHADER_INDEX_TEXCOORD_0);
-    }
 }
 
 void GraphicEngine::endRender() {
@@ -393,12 +437,25 @@ float GraphicEngine::getCameraDistance(glm::vec3 position) {
 }
 
 void GraphicEngine::setResolution(int w, int h) {
+    Settings_setResolution(w, h);
     m_width = w;
     m_height = h;
     m_ratio = (float) w / (float) h;
-    m_camera.setProjection(70, m_ratio, 0.1, 500);
+    m_camera.setProjection(70, m_ratio, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
     SDL_SetWindowSize(m_window, m_width, m_height);
     m_projectionScene = m_camera.getProjectionMatrice();
+}
+
+int GraphicEngine::getWidth() const {
+    return m_width;
+}
+
+int GraphicEngine::getHeight() const {
+    return m_height;
+}
+
+float GraphicEngine::getRatio() const {
+    return m_ratio;
 }
 
 void GraphicEngine::setWindowTitle(std::string title) {

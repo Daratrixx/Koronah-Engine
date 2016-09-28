@@ -2,10 +2,13 @@
 
 Entity::Entity() : GameObject() {
     setSpeed(0, 0, 0);
+    m_radius = 2;
+    m_lastCollisionHit = 0;
+    m_behavior = UNIT_BEHAVIOR_IDLE;
 }
 
 Entity::~Entity() {
-    std::cout << "Deleted Entity with ID " << m_objectId <<std::endl;
+    std::cout << "Deleted Entity with ID " << m_objectId << std::endl;
 }
 
 void Entity::addSpeed(float x, float y, float z) {
@@ -27,14 +30,25 @@ void Entity::setSpeed(float x, float y, float z) {
     m_speed.y = y;
     m_speed.z = z;
 }
+
 void Entity::setSpeedX(float x) {
     m_speed.x = x;
 }
+
 void Entity::setSpeedY(float y) {
     m_speed.y = y;
 }
+
 void Entity::setSpeedZ(float z) {
     m_speed.z = z;
+}
+
+void Entity::setRadius(float radius) {
+    m_radius = radius;
+}
+
+float Entity::getRadius() const {
+    return m_radius;
 }
 
 glm::vec3 Entity::getSpeed() {
@@ -46,10 +60,12 @@ void Entity::scaleSpeed(float factor) {
     m_speed.y = factor * m_speed.y;
     m_speed.z = factor * m_speed.z;
 }
+
 void Entity::slowMovement(float factor) {
     m_speed.x = factor * m_speed.x;
     m_speed.z = factor * m_speed.z;
 }
+
 void Entity::slowFall(float factor) {
     m_speed.y = factor * m_speed.y;
 }
@@ -97,6 +113,21 @@ void Entity::moveAway(glm::vec3 target) {
         if (-speedY < m_speed.y && distY < 0)
             m_speed.y -= speedY * 0.2f;
     }
+}
+
+void Entity::push(float x, float z) {
+    m_position.x += x;
+    m_position.z += z;
+    if (m_behavior == UNIT_BEHAVIOR_IDLE) {
+        m_lastCollisionHit = 0;
+        m_behavior = UNIT_BEHAVIOR_PUSHED;
+    }
+}
+
+void Entity::update(float time, std::vector<GameObject*> objects) {
+    m_lastCollisionHit += time;
+    if (m_lastCollisionHit > 1.5f && m_behavior == UNIT_BEHAVIOR_PUSHED)
+        m_behavior = UNIT_BEHAVIOR_MOVING;
 }
 
 bool Entity::collision(Entity* e) {
@@ -163,3 +194,12 @@ bool Entity::adjust(Entity* e) {
 
     return false;
 }
+
+void Entity::setBehavior(unsigned int behavior) {
+    m_behavior = behavior;
+}
+
+unsigned int Entity::getBehavior() const {
+    return m_behavior;
+}
+

@@ -1,3 +1,4 @@
+
 #include "TextEngine.h"
 
 TextEngine::TextEngine() {
@@ -74,7 +75,7 @@ TextEngine::~TextEngine() {
 
 void TextEngine::writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color) {
     // Activate corresponding render state
-    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+    glm::mat4 projection = glm::ortho(0.0f, (float)Settings_getScreenWidth(), 0.0f, (float)Settings_getScreenHeight());
     s->use();
 
     glUniformMatrix4fv(glGetUniformLocation(s->getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));

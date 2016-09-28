@@ -12,6 +12,10 @@
 #include "Types.h"
 #endif
 
+#ifndef SETTINGS_H
+#include "Settings.h"
+#endif
+
 #ifndef SHADER_H
 #include "Shader.h"
 #endif

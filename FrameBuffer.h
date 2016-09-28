@@ -20,11 +20,12 @@ class FrameBuffer {
 public:
     FrameBuffer();
     FrameBuffer(int w, int h);
-    ~FrameBuffer();
+    virtual ~FrameBuffer();
     
     void clear();
-    bool load();
+    virtual bool load();
     void use() const;
+    void changeColorAttachment(unsigned int colorID) const;
     void unUse() const;
     
     void addColorBuffer(int w, int h);
@@ -38,13 +39,25 @@ public:
     glm::mat4 getProjectionMatrice() const;
 
     
-private:
+protected:
     GLuint m_idFrameBuffer;
     GLuint m_idDepthBuffer;
     Texture** m_colorBuffer;
     unsigned int m_colorBufferCount;
     int m_width, m_height;
     glm::mat4 m_projection;
+};
+
+class FrameBuffer_Scan : public FrameBuffer {
+public:
+    FrameBuffer_Scan();
+    FrameBuffer_Scan(int w, int h);
+    virtual ~FrameBuffer_Scan();
+    
+    virtual bool load();
+    
+    glm::vec3 getPixelColor(int x, int y);
+    float getPixelDepth(int x, int y);
 };
 
 #endif	/* FRAMEBUFFER_H */

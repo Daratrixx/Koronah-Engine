@@ -22,6 +22,7 @@ FrameBuffer::FrameBuffer(int w, int h) {
 }
 
 FrameBuffer::~FrameBuffer() {
+    clear();
 }
 
 void FrameBuffer::clear() {
@@ -41,29 +42,27 @@ void FrameBuffer::clear() {
 
 bool FrameBuffer::load() {
     clear();
-    
-    std::cout << " -- clear ok" << std::endl;
 
     // frame buffer
     glGenFramebuffers(1, &m_idFrameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, m_idFrameBuffer);
-    std::cout << " -- bind ok" << std::endl;
 
     // depth buffer
     glGenRenderbuffers(1, &m_idDepthBuffer);
     glBindRenderbuffer(GL_RENDERBUFFER, m_idDepthBuffer);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_width, m_height);
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    std::cout << " -- depth ok" << std::endl;
 
     // color buffers
-    addColorBuffer(m_width, m_height);
+    addColorBuffer(m_width, m_height); // world pass
+    addColorBuffer(m_width, m_height); // bloom base pass
+    addColorBuffer(m_width, m_height); // bloom H pass
+    addColorBuffer(m_width, m_height); // bloom V pass
     for (unsigned int i = 0; i < m_colorBufferCount; i++) {
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, m_colorBuffer[i]->getID(), 0);
     }
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_idDepthBuffer);
 
-    std::cout << " -- color ok" << std::endl;
     // unlock
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -80,8 +79,38 @@ bool FrameBuffer::load() {
 
 void FrameBuffer::use() const {
     glBindFramebuffer(GL_FRAMEBUFFER, m_idFrameBuffer);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, m_width, m_height);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void FrameBuffer::changeColorAttachment(unsigned int colorID) const {
+    GLenum drawBuffers0[] = {GL_COLOR_ATTACHMENT0};
+    GLenum drawBuffers1[] = {GL_COLOR_ATTACHMENT1};
+    GLenum drawBuffers2[] = {GL_COLOR_ATTACHMENT2};
+    GLenum drawBuffers3[] = {GL_COLOR_ATTACHMENT3};
+    GLenum drawBuffers4[] = {GL_COLOR_ATTACHMENT4};
+    if (colorID < m_colorBufferCount) {
+        switch (colorID) {
+            case 1:
+                glDrawBuffers(1, drawBuffers1);
+                break;
+            case 2:
+                glDrawBuffers(1, drawBuffers2);
+                break;
+            case 3:
+                glDrawBuffers(1, drawBuffers3);
+                break;
+            case 0:
+                glDrawBuffers(1, drawBuffers4);
+                break;
+            default:
+                glDrawBuffers(1, drawBuffers0);
+                break;
+
+        }
+    } else {
+        glDrawBuffers(1, drawBuffers0);
+    }
 }
 
 void FrameBuffer::unUse() const {
@@ -113,13 +142,14 @@ GLuint FrameBuffer::getDepthBufferId() const {
 GLuint FrameBuffer::getColorBufferId(unsigned int index) const {
     if (index < m_colorBufferCount)
         return m_colorBuffer[index]->getID();
-    return 0;
+    std::cout << "no color buffer at index " << index << std::endl;
+    return m_colorBuffer[0]->getID();
 }
 
 Texture* FrameBuffer::getColorBuffer(unsigned int index) const {
     if (index < m_colorBufferCount)
         return m_colorBuffer[index];
-    return 0;
+    return null;
 }
 
 int FrameBuffer::getWidth() const {

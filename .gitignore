@@ -1,6 +1,7 @@
 # NetBeans architecture
-/build/
-/dist/
+build/*
+dist/*
+dist/Debug/MinGW-Windows
 nbproject/private/private.properties
 
 # Compiled Object files

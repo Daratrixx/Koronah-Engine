@@ -133,8 +133,8 @@ build/Debug/MinGW-Windows/main.o: main.cpp Types.h \
  KeyFrame.hpp Vertex.hpp String.h HeightMapData.h GameObject.h \
  SortedKeyChain.hpp TextEngine.h FrameBuffer.h Geometry.h \
  ParticleEngine.h Particle.h ParticleModifier.h LightEngine.h Light.h \
- GameStatePlayground.h GameState.h GUI.h Unit.h Entity.h Item.h \
- GameStateSTR.h GameStateMenu.h
+ GameStatePlayground.h GameState.h GUI.h Unit.h Entity.h GameStateSTR.h \
+ GameEngine.h Player.h Missile.h GameStateMenu.h
 
 Types.h:
 
@@ -460,8 +460,12 @@ Unit.h:
 
 Entity.h:
 
-Item.h:
-
 GameStateSTR.h:
+
+GameEngine.h:
+
+Player.h:
+
+Missile.h:
 
 GameStateMenu.h:

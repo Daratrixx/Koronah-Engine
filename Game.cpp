@@ -119,7 +119,6 @@ void Game::close() {
     //std::cout << "ParticleEngine deleted." << std::endl;
     delete Graphic;
     std::cout << "GraphicEngine deleted." << std::endl;
-    std::cout << "Settings_RESOLUTION deleted." << std::endl;
     std::cout << "Leaving program without error." << std::endl;
     exit(0);
 }

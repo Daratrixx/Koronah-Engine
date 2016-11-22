@@ -18,7 +18,8 @@ GUI::GUI() {
     m_time = 0;
     m_visible = true;
     m_displayColor = true;
-    m_mode = 0;
+    m_mode = GUI_NORMAL;
+    m_positionType = GUI_FIXED;
 }
 
 GUI::~GUI() {
@@ -73,11 +74,13 @@ void GUI::loadGUI() {
             glDeleteBuffers(1, &m_vboGUI[i]);
         if (glIsVertexArray(m_vaoGUI[i]) == GL_TRUE)
             glDeleteVertexArrays(1, &m_vaoGUI[i]);
+        glm::vec2 position = getPosition(i);
+        glm::vec2 size = getSize(i);
         float data[8];
-        data[0] = (m_position[i].x / (float) Settings_getScreenWidth()) * 2.f - 1;
-        data[1] = (m_position[i].y / (float) Settings_getScreenHeight()) * 2.f - 1;
-        data[2] = (m_size[i].x / (float) Settings_getScreenWidth()) * 2.f;
-        data[3] = (m_size[i].y / (float) Settings_getScreenHeight()) * 2.f;
+        data[0] = (position.x / (float) Settings_getScreenWidth()) * 2.f - 1;
+        data[1] = (position.y / (float) Settings_getScreenHeight()) * 2.f - 1;
+        data[2] = (size.x / (float) Settings_getScreenWidth()) * 2.f;
+        data[3] = (size.y / (float) Settings_getScreenHeight()) * 2.f;
         data[4] = m_color[i].x;
         data[5] = m_color[i].y;
         data[6] = m_color[i].z;
@@ -116,6 +119,7 @@ void GUI::addChild(GUI* child) {
         m_children[m_childrenCount] = child;
         delete[] temp;
         m_childrenCount++;
+        child->setParent(this);
     }
 }
 
@@ -136,8 +140,10 @@ void GUI::removeChildAt(unsigned int index) {
         m_children = new GUI*[m_childrenCount - 1];
         int offset = 0;
         for (unsigned int i = 0; i < m_childrenCount - 1; i++) {
-            if (i == index)
-                index = 1;
+            if (i == index) {
+                temp[i]->setParent(null);
+                offset = 1;
+            }
             m_children[i] = temp[i + offset];
         }
         delete[] temp;
@@ -173,18 +179,34 @@ int GUI::getChildrenCount() const {
 }
 
 glm::vec2 GUI::getPosition() const {
+    if (m_parent != null) {
+        if (m_positionType == GUI_RELATIVE)
+            return m_position[m_mode] + m_parent->getPosition();
+    }
     return m_position[m_mode];
 }
 
 glm::vec2 GUI::getPosition(unsigned int mode) const {
+    if (m_parent != null) {
+        if (m_positionType == GUI_RELATIVE)
+            return m_position[mode] + m_parent->getPosition(mode);
+    }
     return m_position[mode];
 }
 
 glm::vec2 GUI::getSize() const {
+    if (m_parent != null) {
+        if (m_sizeType == GUI_RELATIVE)
+            return m_size[m_mode] * m_parent->getSize();
+    }
     return m_size[m_mode];
 }
 
 glm::vec2 GUI::getSize(unsigned int mode) const {
+    if (m_parent != null) {
+        if (m_sizeType == GUI_RELATIVE)
+            return m_size[mode] * m_parent->getSize(mode);
+    }
     return m_size[mode];
 }
 
@@ -210,6 +232,8 @@ bool GUI::getDisplayColor() const {
 
 void GUI::setParent(GUI* parent) {
     m_parent = parent;
+    if (m_positionType != GUI_FIXED || m_sizeType != GUI_FIXED)
+        m_needLoadGUI = true;
 }
 
 void GUI::setChildren(GUI** children) {
@@ -310,6 +334,14 @@ void GUI::setDisplayColor(bool display) {
     m_displayColor = display;
 }
 
+void GUI::setPositionType(unsigned int type) {
+    m_positionType = type;
+}
+
+void GUI::setSizeType(unsigned int type) {
+    m_sizeType = type;
+}
+
 void GUI::update(float time) {
     m_time += time;
     for (unsigned int i = 0; i < m_childrenCount; i++) {
@@ -317,16 +349,49 @@ void GUI::update(float time) {
     }
 }
 
-GUI* GUI::tryClick(float x, float y) {
+GUI* GUI::tryActive(float x, float y) {
     if (cursorPositionIn(x, y)) {
-        GUI* child = tryClickChildren(x, y);
+        GUI* child = tryActiveChildren(x, y);
         if (child == null) {
-            onClick();
+            m_mode = GUI_ACTIVE;
             return this;
         } else
             return child;
     } else
         return null;
+}
+
+GUI* GUI::tryActive(glm::vec2 pos) {
+    return tryClick(pos.x, pos.y);
+}
+
+GUI* GUI::tryActiveChildren(float x, float y) {
+    for (unsigned int i = 0; i < m_childrenCount; i++) {
+        GUI* child = getChildAt(i)->tryActive(x, y);
+        if (child != null)
+            return child;
+    }
+    return null;
+}
+
+GUI* GUI::tryActiveChildren(glm::vec2 pos) {
+    return tryActiveChildren(pos.x, pos.y);
+}
+
+GUI* GUI::tryClick(float x, float y) {
+    GUI* child = tryClickChildren(x, y);
+    if (child == null && m_mode == GUI_ACTIVE) {
+        m_mode = GUI_NORMAL;
+        tryHover(x, y);
+        if (cursorPositionIn(x, y)) {
+            onClick();
+            return this;
+        } else
+            return null;
+    }
+    m_mode = GUI_NORMAL;
+    tryHover(x, y);
+    return child;
 }
 
 GUI* GUI::tryClick(glm::vec2 pos) {
@@ -353,7 +418,7 @@ void GUI::tryHover(float x, float y) {
             m_mode = GUI_HOVER;
         }
     } else {
-        if (m_mode != GUI_NORMAL) {
+        if (m_mode == GUI_HOVER) {
             onCursorLeave();
             m_mode = GUI_NORMAL;
         }
@@ -376,7 +441,9 @@ void GUI::tryHoverChildren(glm::vec2 pos) {
 }
 
 bool GUI::cursorPositionIn(float x, float y) {
-    glm::vec2 start(m_position[m_mode].x, m_position[m_mode].y), end(m_position[m_mode].x + m_size[m_mode].x, m_position[m_mode].y + m_size[m_mode].y);
+    glm::vec2 position = getPosition();
+    glm::vec2 size = getSize();
+    glm::vec2 start(position.x, position.y), end(position.x + size.x, position.y + size.y);
     return !(x < start.x || x > end.x || y < start.y || y > end.y);
 }
 

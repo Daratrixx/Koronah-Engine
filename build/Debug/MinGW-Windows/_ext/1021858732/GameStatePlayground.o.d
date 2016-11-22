@@ -155,7 +155,6 @@ build/Debug/MinGW-Windows/_ext/1021858732/GameStatePlayground.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h \
- c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/ParticleEngine.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Particle.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/ParticleModifier.h \
@@ -473,8 +472,6 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h:
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h:
-
-c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/ParticleEngine.h:
 

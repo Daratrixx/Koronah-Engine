@@ -1,163 +1,206 @@
 
 #include "Unit.h"
 
-Unit* createHuman(std::string name, int level) {
-    Unit* u = new Unit();
-    u->setName(name);
-    u->setLevel(level);
-    u->setBase(UNIT_CONSTITUTION, 7);
-    u->setBase(UNIT_MENTAL, 7);
-    u->setBase(UNIT_DEXTERITY, 7);
-    u->setBase(UNIT_FATE, 7);
-    u->setBase(UNIT_SOCIAL, 7);
-    u->setCurrentHealth(u->getMaxHealth());
-    u->setCurrentConcentration(u->getMaxConcentration());
-    return u;
-}
-
-Unit* createElven(std::string name, int level) {
-    Unit* u = new Unit();
-    u->setName(name);
-    u->setLevel(level);
-    u->setBase(UNIT_CONSTITUTION, 6);
-    u->setBase(UNIT_MENTAL, 8);
-    u->setBase(UNIT_DEXTERITY, 8);
-    u->setBase(UNIT_FATE, 7);
-    u->setBase(UNIT_SOCIAL, 6);
-    u->setCurrentHealth(u->getMaxHealth());
-    u->setCurrentConcentration(u->getMaxConcentration());
-    return u;
-}
-
-Unit* createDwarf(std::string name, int level) {
-    Unit* u = new Unit();
-    u->setName(name);
-    u->setLevel(level);
-    u->setBase(UNIT_CONSTITUTION, 8);
-    u->setBase(UNIT_MENTAL, 6);
-    u->setBase(UNIT_DEXTERITY, 7);
-    u->setBase(UNIT_FATE, 8);
-    u->setBase(UNIT_SOCIAL, 6);
-    u->setCurrentHealth(u->getMaxHealth());
-    u->setCurrentConcentration(u->getMaxConcentration());
-    return u;
-}
-
-Unit* createOrc(std::string name, int level) {
-    Unit* u = new Unit();
-    u->setName(name);
-    u->setLevel(level);
-    u->setBase(UNIT_CONSTITUTION, 9);
-    u->setBase(UNIT_MENTAL, 6);
-    u->setBase(UNIT_DEXTERITY, 7);
-    u->setBase(UNIT_FATE, 7);
-    u->setBase(UNIT_SOCIAL, 6);
-    u->setCurrentHealth(u->getMaxHealth());
-    u->setCurrentConcentration(u->getMaxConcentration());
-    return u;
-}
-
-Unit* createDrakkarim(std::string name, int level) {
-    Unit* u = new Unit();
-    u->setName(name);
-    u->setLevel(level);
-    u->setBase(UNIT_CONSTITUTION, 8);
-    u->setBase(UNIT_MENTAL, 9);
-    u->setBase(UNIT_DEXTERITY, 7);
-    u->setBase(UNIT_FATE, 5);
-    u->setBase(UNIT_SOCIAL, 6);
-    u->setCurrentHealth(u->getMaxHealth());
-    u->setCurrentConcentration(u->getMaxConcentration());
-    return u;
-}
-
 Unit::Unit() : Entity() {
-
-    m_name = "No name";
-    m_movingSpeed = 1;
-    for (unsigned int i = 0; i < 5; i++) {
-        m_base[i] = 0;
-        m_growth[i] = 0;
-        m_bonus[i] = 0;
-        m_total[i] = 0;
-    }
-
-    //ressources
-    m_currentHealth = 0;
-    m_currentConcentration = 0;
-    m_currentFavor = 0;
-
-    m_level = 0;
+    m_attackDamage = 10;
+    m_attackRange = 20;
+    m_attackAgressionRange = 50;
+    m_attackReloadTime = .2f;
+    m_attackCooldown = 0;
+    m_behavior = UNIT_BEHAVIOR_IDLE;
+    m_buildDestination = glm::vec2(0, 0);
+    m_buildingProgress = 0;
+    m_buildingSize = glm::vec2(0, 0);
+    m_constructingBuilding = null;
+    m_constructionTime = 1;
+    m_doCollision = true;
     m_experience = 0;
-    m_bonusPoint = 0;
+    m_isAlive = true;
+    m_isBuilding = false;
+    m_level = 0;
+    m_maxHealth = 100;
+    m_missileType = null;
+    m_name = "No name";
+    m_percentHealth = 1;
+    m_rallyDestination = glm::vec2(0, 0);
+    m_rallyTarget = null;
+    m_trainingProgress = 0;
+    m_trainingUnit = null;
+}
 
-    m_alterationCold = 0;
-    m_alterationBurn = 0;
-    m_alterationExaust = 0;
-    m_alterationPoison = 0;
-    m_alterationBleending = 0;
-    for (unsigned int i = 0; i < 6; i++)
-        m_armor[i] = null;
-    for (unsigned int i = 0; i < 2; i++)
-        m_weapon[i] = null;
+Unit::Unit(Unit* u) : Entity(u) {
+    m_attackAgressionRange = u->m_attackAgressionRange;
+    m_attackCooldown = u->m_attackCooldown;
+    m_attackDamage = u->m_attackDamage;
+    m_attackRange = u->m_attackRange;
+    m_attackReloadTime = u->m_attackReloadTime;
+    m_behavior = UNIT_BEHAVIOR_IDLE;
+    m_buildDestination = glm::vec2(0, 0);
+    m_buildingSize = u->m_buildingSize;
+    m_buildingProgress = 0;
+    m_constructingBuilding = null;
+    m_constructionTime = u->m_constructionTime;
+    m_doCollision = u->m_doCollision;
+    m_isAlive = true;
+    m_isBuilding = u->m_isBuilding;
+    m_level = u->m_level;
+    m_maxHealth = u->m_maxHealth;
+    m_missileType = u->m_missileType;
+    m_name = u->m_name;
+    m_percentHealth = 1;
+    m_rallyDestination = glm::vec2(0, 0);
+    m_rallyTarget = null;
+    m_trainingProgress = 0;
+    m_trainingUnit = null;
+    std::cout << "unit cloned " << m_name << std::endl;
 }
 
 Unit::~Unit() {
+    kill();
     std::cout << "Deleted Unit with ID " << m_objectId << std::endl;
 }
 
-void Unit::moveForward(float speed) {
-    glm::vec3 direction = getForwardVector(m_angle);
-    addPosition(direction * speed);
+void Unit::kill() {
+    orderStop();
 }
 
-void Unit::moveBack(float speed) {
-    glm::vec3 direction = getBackVector(m_angle);
-    addPosition(direction * speed);
+void Unit::push(float x, float y) {
+    m_position.x += x;
+    m_position.y += y;
+    if (m_behavior == UNIT_BEHAVIOR_IDLE) {
+        m_lastCollisionHit = 0;
+        m_behavior = UNIT_BEHAVIOR_PUSHED;
+    }
 }
 
-void Unit::moveRight(float speed) {
-    glm::vec3 direction = getRightVector(m_angle);
-    addPosition(direction * speed);
+void Unit::orderStop() {
+    if (m_behavior == UNIT_BEHAVIOR_BUILDING)
+        orderCancelBuild();
+    else if (m_behavior == UNIT_BEHAVIOR_TRAINING)
+        orderCancelTrain();
+    else if (m_behavior != UNIT_BEHAVIOR_IDLE) {
+        m_target = null;
+        m_trainingUnit = null;
+        m_constructingBuilding = null;
+        m_destination = m_position;
+    }
+    m_behavior = UNIT_BEHAVIOR_IDLE;
 }
 
-void Unit::moveLeft(float speed) {
-    glm::vec3 direction = getLeftVector(m_angle);
-    addPosition(direction * speed);
+void Unit::orderHold() {
+    m_target = null;
+    m_destination = m_position;
+    m_behavior = UNIT_BEHAVIOR_HOLD;
 }
 
-void Unit::moveUp(float speed) {
-    glm::vec3 direction = getUpVector(m_angle);
-    addPosition(direction * speed);
+void Unit::orderMove(glm::vec2 dest) {
+    m_target = null;
+    m_destination = dest;
+    m_behavior = UNIT_BEHAVIOR_MOVING;
 }
 
-void Unit::moveDown(float speed) {
-    glm::vec3 direction = getDownVector(m_angle);
-    addPosition(direction * speed);
+void Unit::orderRally(glm::vec2 dest) {
+    m_rallyDestination = dest;
+    m_rallyTarget = null;
+}
+
+void Unit::orderRally(Unit* target) {
+    m_rallyTarget = target;
+}
+
+void Unit::orderFollow(Unit* target) {
+    m_target = target;
+    m_behavior = UNIT_BEHAVIOR_FOLLOWING;
+}
+
+void Unit::orderPatrol(glm::vec2 dest) {
+    m_destination = dest;
+    m_target = null;
+    m_behavior = UNIT_BEHAVIOR_PATROLING;
+}
+
+void Unit::orderAttackMove(glm::vec2 dest) {
+    m_destination = dest;
+    m_target = null;
+    m_behavior = UNIT_BEHAVIOR_ATTACK_MOVING;
+}
+
+void Unit::orderAttack(Unit* target) {
+    m_target = target;
+    m_behavior = UNIT_BEHAVIOR_ATTACKING;
+}
+
+void Unit::orderBuild(Unit* buildingType, glm::vec2 destination) {
+    if (m_behavior == UNIT_BEHAVIOR_BUILDING)
+        orderCancelBuild();
+    m_constructingBuilding = new Unit(buildingType);
+    m_buildDestination = destination;
+    m_behavior = UNIT_BEHAVIOR_BUILDING;
+}
+
+void Unit::orderCancelBuild() {
+    if (m_constructingBuilding != null) {
+        delete m_constructingBuilding;
+    }
+    orderStop();
+}
+
+void Unit::orderTrain(Unit* unitType) {
+    //if (m_behavior == UNIT_BEHAVIOR_TRAINING)
+    //    orderCancelTrain();
+    m_trainingUnit = new Unit(unitType);
+    m_trainingProgress = 0;
+    m_behavior = UNIT_BEHAVIOR_TRAINING;
+}
+
+void Unit::orderCancelTrain() {
+    if (m_trainingUnit != null) {
+        delete m_trainingUnit;
+    }
+    orderStop();
 }
 
 void Unit::damage(float damage) {
-    m_currentHealth -= damage;
-    if (m_currentHealth < 0)
-        m_currentHealth = 0;
+    if (m_isAlive) {
+        m_percentHealth -= damage / m_maxHealth;
+        if (m_percentHealth <= 0) {
+            m_percentHealth = 0;
+            m_isAlive = false;
+        }
+    }
 }
 
 void Unit::heal(float heal) {
-    m_currentHealth += heal;
-    if (m_currentHealth > getMaxHealth())
-        m_currentHealth = getMaxHealth();
+    if (m_isAlive) {
+        if (m_percentHealth < 1)
+            m_percentHealth += heal / m_maxHealth;
+        if (m_percentHealth > 1)
+            m_percentHealth = 1;
+    }
 }
 
-void Unit::consume(float consume) {
-    m_currentConcentration -= consume;
-    if (m_currentConcentration < 0)
-        m_currentConcentration = 0;
+bool Unit::isAlive()const {
+    return m_isAlive;
 }
 
-void Unit::recover(float recover) {
-    m_currentConcentration += recover;
-    if (m_currentConcentration > getMaxConcentration())
-        m_currentConcentration = getMaxConcentration();
+bool Unit::isDead() const {
+    return !m_isAlive;
+}
+
+bool Unit::isUnit()const {
+    return true;
+}
+
+bool Unit::isBuilding() const {
+    return m_isBuilding;
+}
+
+bool Unit::isBuildingDone() const {
+    return m_buildingProgress >= 1;
+}
+
+bool Unit::isTrainingDone() const {
+    return m_trainingProgress >= 1;
 }
 
 void Unit::setName(std::string name) {
@@ -168,188 +211,41 @@ std::string Unit::getName() const {
     return m_name;
 }
 
-void Unit::update(float time, std::vector<GameObject*> objects) {
-    m_lastCollisionHit += time;
-    if (m_lastCollisionHit > 1.5f && m_behavior == UNIT_BEHAVIOR_PUSHED)
-        m_behavior = UNIT_BEHAVIOR_MOVING;
-    doMovement(time);
-    doCollision(objects);
+void Unit::setOwnerId(unsigned int id) {
+    m_ownerId = id;
 }
 
-void Unit::doMovement(float time) {
-    if (m_behavior == UNIT_BEHAVIOR_MOVING) {
-        float distance, speed;
-        glm::vec3 direction = m_destination - m_position;
-        distance = glm::length(direction);
-        speed = m_movingSpeed * time;
-        if (distance - m_radius > speed) {
-            m_position += glm::normalize(direction) * speed;
-        } else {
-            m_destination = m_position;
-            m_behavior = UNIT_BEHAVIOR_IDLE;
-        }
-    }
+unsigned int Unit::getOwnerId() {
+    return m_ownerId;
 }
 
-void Unit::doCollision(std::vector<GameObject*> objects) {
-    glm::vec2 uPosition(m_position.x, m_position.z);
-    for (unsigned int i = 0; i < objects.size(); i++) {
-        Entity* o = (Entity*) objects[i];
-        if (o != this) {
-            glm::vec2 oPosition(o->getPositionX(), o->getPositionZ());
-            float radius = m_radius + o->getRadius();
-
-            glm::vec2 direction = oPosition - uPosition;
-            float distance = glm::length(direction);
-            if (distance < radius) {
-                direction = direction * (radius - distance) / radius;
-                if(m_behavior == UNIT_BEHAVIOR_HOLD && o->getBehavior() == UNIT_BEHAVIOR_HOLD) {
-                    push(-direction.x, -direction.y);
-                    o->push(direction.x, direction.y);
-                    
-                } else {
-                if (m_behavior != UNIT_BEHAVIOR_HOLD)
-                    push(-direction.x, -direction.y);
-                if (o->getBehavior() != UNIT_BEHAVIOR_HOLD)
-                    o->push(direction.x, direction.y);
-                }
-            }
-        }
-    }
+glm::vec2 Unit::getDestination() {
+    return m_destination;
 }
 
-void Unit::setDestination(glm::vec3 destination) {
+void Unit::setDestination(glm::vec2 destination) {
     m_destination = destination;
-    m_behavior = UNIT_BEHAVIOR_MOVING;
 }
 
-void Unit::setMovingSpeed(float movingSpeed) {
-    m_movingSpeed = movingSpeed;
+void Unit::setBuildingSize(float x, float y) {
+    m_buildingSize.x = x;
+    m_buildingSize.y = y;
 }
 
-int Unit::getBase(unsigned int type) const {
-    return m_base[type];
+void Unit::setBuildingSize(glm::vec2 size) {
+    m_buildingSize = size;
 }
 
-float Unit::getGrowth(unsigned int type) const {
-    return m_growth[type];
+glm::vec2 Unit::getBuildingSize() const {
+    return m_buildingSize;
 }
 
-int Unit::getBonus(unsigned int type) const {
-    return m_bonus[type];
+void Unit::build(float time) {
+    m_buildingProgress += time / m_constructionTime;
 }
 
-int Unit::getTotal(unsigned int type) const {
-    return m_total[type];
-}
-
-void Unit::setBase(unsigned int type, int value) {
-    m_total[type] += value - m_base[type];
-    m_base[type] = value;
-}
-
-void Unit::setGrowth(unsigned int type, float value) {
-    m_total[type] += value - m_growth[type];
-    m_growth[type] = value;
-}
-
-void Unit::setBonus(unsigned int type, int value) {
-    m_total[type] += value - m_bonus[type];
-    m_bonus[type] = value;
-}
-
-void Unit::addBase(unsigned int type, int value) {
-    m_total[type] += value;
-    m_base[type] += value;
-}
-
-void Unit::addGrowth(unsigned int type, float value) {
-    if (m_growth[type] <= m_base[type]) {
-        m_total[type] -= (int) m_growth[type];
-        m_growth[type] += value;
-        m_total[type] += (int) m_growth[type];
-    }
-}
-
-void Unit::addBonus(unsigned int type, int value) {
-    m_total[type] += value;
-    m_bonus[type] += value;
-}
-// ressources
-
-int Unit::getCurrentHealth() const {
-    return m_currentHealth;
-}
-
-int Unit::getCurrentConcentration() const {
-    return m_currentConcentration;
-}
-
-int Unit::getCurrentFavor() const {
-    return m_currentFavor;
-}
-
-void Unit::setCurrentHealth(int health) {
-    m_currentHealth = health;
-}
-
-void Unit::setCurrentConcentration(int concentration) {
-    m_currentConcentration = concentration;
-}
-
-void Unit::setCurrentFavor(int favor) {
-    m_currentFavor = favor;
-}
-
-int Unit::getMaxHealth() const {
-    return getTotal(UNIT_CONSTITUTION) * 2 + m_level;
-}
-
-int Unit::getMaxConcentration() const {
-    return getTotal(UNIT_MENTAL) + m_level;
-}
-
-int Unit::getMaxFavor() const {
-    return getTotal(UNIT_FATE) + m_level;
-}
-
-void Unit::addHealth(int health) {
-    m_currentHealth += health;
-    int max = getMaxHealth();
-    if (m_currentHealth > max)
-        m_currentHealth = max;
-}
-
-void Unit::addConcentration(int concentration) {
-    m_currentConcentration += concentration;
-    int max = getMaxConcentration();
-    if (m_currentConcentration > max)
-        m_currentConcentration = max;
-}
-
-void Unit::addFavor(int favor) {
-    m_currentFavor += favor;
-    int max = getMaxFavor();
-    if (m_currentFavor > max)
-        m_currentFavor = max;
-}
-
-void Unit::removeHealth(int health) {
-    m_currentHealth -= health;
-    if (m_currentHealth < 0)
-        m_currentHealth = 0;
-}
-
-void Unit::removeConcentration(int concentration) {
-    m_currentConcentration -= concentration;
-    if (m_currentConcentration < 0)
-        m_currentConcentration = 0;
-}
-
-void Unit::removeFavor(int favor) {
-    m_currentFavor -= favor;
-    if (m_currentFavor < 0)
-        m_currentFavor = 0;
+void Unit::train(float time) {
+    m_trainingProgress += time / m_trainingUnit->m_constructionTime;
 }
 
 int Unit::getLevel() const {
@@ -377,8 +273,5 @@ void Unit::addExperience(int experience) {
     if (m_experience > m_level * 50) {
         m_experience = 0;
         m_level += 1;
-    }
-    for (unsigned int i = 0; i < 5; i++) {
-        addGrowth(i, ((float) experience) / 500.f);
     }
 }

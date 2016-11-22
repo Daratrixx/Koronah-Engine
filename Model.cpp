@@ -190,7 +190,7 @@ Model* modelExists(std::string path) {
     std::vector<Model*>* MODEL_LIST = getModelList();
     for (unsigned int i = 0; i < MODEL_LIST->size(); i++)
         return (*MODEL_LIST)[i];
-    std::cout << "can load model " << path << std::endl;
+    //std::cout << "can load model " << path << std::endl;
     return null;
 }
 
@@ -198,7 +198,7 @@ Model* getModel(unsigned int index) {
     std::vector<Model*>* MODEL_LIST = getModelList();
     if (index < MODEL_LIST->size())
         return (*MODEL_LIST)[index];
-    std::cout << "no model at index " << index << " (" << MODEL_LIST->size() << ")" << std::endl;
+    //std::cout << "no model at index " << index << " (" << MODEL_LIST->size() << ")" << std::endl;
     return null;
 }
 

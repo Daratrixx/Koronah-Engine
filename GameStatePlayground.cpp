@@ -2,8 +2,8 @@
 #include "GameStatePlayground.h"
 
 GameStatePlayground::GameStatePlayground() : GameState() {
-    m_player = createDrakkarim("Daratrix", 10);
-    m_player->setPosition(0, 15, 0);
+    //m_player = createDrakkarim("Daratrix", 10);
+    m_player->setPositionXYZ(0, 15, 0);
     Particle = null;
     Light = null;
     m_guiPlayerStatMenu = null;
@@ -36,8 +36,8 @@ void GameStatePlayground::load() {
     gdl->setFontSize(0.5f);
     gdl->setSource((void*) m_player);
     gdl->setColor(1, 1, 1, 1);
-    gdl->setGetText(GDL_getHealth);
-    gdl->setGetTextColor(GDL_getHPColor);
+    //gdl->setGetText(GDL_getHealth);
+    //gdl->setGetTextColor(GDL_getHPColor);
     m_guiRoot->addChild(gdl);
     gdl = new GUI_DynamicLabel();
     gdl->setPosition(0, 520);
@@ -46,8 +46,8 @@ void GameStatePlayground::load() {
     gdl->setFontSize(0.5f);
     gdl->setSource((void*) m_player);
     gdl->setColor(1, 1, 1, 1);
-    gdl->setGetText(GDL_getConcentration);
-    gdl->setGetTextColor(GDL_getENColor);
+    //gdl->setGetText(GDL_getConcentration);
+    //gdl->setGetTextColor(GDL_getENColor);
     m_guiRoot->addChild(gdl);
     // fps
     gdl = new GUI_DynamicLabel();
@@ -58,31 +58,28 @@ void GameStatePlayground::load() {
     gdl->setFontSize(0.5f);
     gdl->setSource((void*) Time);
     gdl->setTextColor(0.75f, 0, 0);
-    gdl->setGetText(GDL_getFPS);
+    //gdl->setGetText(GDL_getFPS);
     m_guiRoot->addChild(gdl);
 
-    m_guiPlayerStatMenu = new GUI_PlayerStatMenu(m_player);
-    m_guiPlayerStatMenu->setVisible(false);
-    m_guiRoot->addChild(m_guiPlayerStatMenu);
 
     m_heightMapData = new HeightMapData("data/heightmap/Sc2wB.bmp");
     m_heightMapData->setModelId(Graphic->createHeightMapModel(m_heightMapData));
     m_heightMapData->setTextureId(1);
     m_heightMapData->setHaloMapId(10);
-    m_heightMapData->setPosition(0, 0, 0);
+    m_heightMapData->setPositionXYZ(0, 0, 0);
     m_heightMapData->setAngle(0, 0, 0);
 
     Entity* object;
 
     object = new Entity();
-    object->setPosition(0, 0, 0);
+    object->setPositionXYZ(0, 0, 0);
     object->setModelId(3);
     object->setTextureId(6);
     object->setHaloMapId(10);
     m_objects.push_back(object);
 
     object = new Entity();
-    object->setPosition(7, 0, 7);
+    object->setPositionXYZ(7, 0, 7);
     object->setAngle(0, 135, 0);
     object->setModelId(4);
     object->setTextureId(7);
@@ -90,7 +87,7 @@ void GameStatePlayground::load() {
     m_objects.push_back(object);
 
     object = new Entity();
-    object->setPosition(-7, 0, -7);
+    object->setPositionXYZ(-7, 0, -7);
     object->setAngle(0, 45, 0);
     object->setModelId(4);
     object->setTextureId(7);
@@ -98,20 +95,20 @@ void GameStatePlayground::load() {
     m_objects.push_back(object);
 
     object = new Entity();
-    object->setPosition(70, 0, 15);
+    object->setPositionXYZ(70, 0, 15);
     object->setModelId(5);
     object->setTextureId(8);
     object->setHaloMapId(11);
     m_objects.push_back(object);
     object = new Entity();
-    object->setPosition(73, 0, 8);
+    object->setPositionXYZ(73, 0, 8);
     object->setScale(1.15f, 1.3f, 1.15f);
     object->setModelId(5);
     object->setTextureId(8);
     object->setHaloMapId(11);
     m_objects.push_back(object);
     object = new Entity();
-    object->setPosition(77, 0, 11);
+    object->setPositionXYZ(77, 0, 11);
     object->setScale(1.5f, 2, 1.5f);
     object->setModelId(5);
     object->setTextureId(8);
@@ -120,7 +117,7 @@ void GameStatePlayground::load() {
 
 
     object = new Entity();
-    object->setPosition(60, 0, 10);
+    object->setPositionXYZ(60, 0, 10);
     object->setScale(3, 3, 3);
     object->setModelId(7);
     object->setTextureId(12);
@@ -129,7 +126,7 @@ void GameStatePlayground::load() {
 
 
     object = new Entity();
-    object->setPosition(20, 0, 10);
+    object->setPositionXYZ(20, 0, 10);
     object->setScale(3, 3, 3);
     object->setModelId(7);
     object->setTextureId(12);
@@ -138,7 +135,7 @@ void GameStatePlayground::load() {
 
 
     object = new Entity();
-    object->setPosition(50, 0, 50);
+    object->setPositionXYZ(50, 0, 50);
     object->setScale(0.2f, 0.2f, 0.2f);
     object->setModelId(6);
     object->setTextureId(9);
@@ -175,7 +172,7 @@ int GameStatePlayground::inputManagement() {
     if (Input->getKeyboardPushed(SDL_SCANCODE_TAB))
         return ORDER_TO_MENU;
     if (m_guiActiveInterface == null) {
-        if (Input->getKeyboardDown(SDL_SCANCODE_UP) || Input->getKeyboardDown(SDL_SCANCODE_W))
+        /*if (Input->getKeyboardDown(SDL_SCANCODE_UP) || Input->getKeyboardDown(SDL_SCANCODE_W))
             m_player->moveForward(25 * m_elapsedTime);
         if (Input->getKeyboardDown(SDL_SCANCODE_DOWN) || Input->getKeyboardDown(SDL_SCANCODE_S))
             m_player->moveBack(25 * m_elapsedTime);
@@ -185,10 +182,10 @@ int GameStatePlayground::inputManagement() {
             m_player->moveRight(25 * m_elapsedTime);
         if (Input->getKeyboardDown(SDL_SCANCODE_SPACE)) {
             m_player->addSpeed(0, 100 * m_elapsedTime, 0);
-            m_player->consume(5 * m_elapsedTime);
-        } else m_player->recover(1);
+            //m_player->consume(5 * m_elapsedTime);
+        } //else m_player->recover(1);
         if (Input->getKeyboardDown(SDL_SCANCODE_Z))
-            m_player->moveDown(25 * m_elapsedTime);
+            m_player->moveDown(25 * m_elapsedTime);*/
         if (Input->getMouseMoved())
             m_player->addAngle(Input->getMousePositionDeltaY()*-0.35f, Input->getMousePositionDeltaX()*-0.35f, 0);
     }
@@ -210,29 +207,23 @@ int GameStatePlayground::inputManagement() {
             m_guiRoot->tryHover(Input->getMousePositionX(), Input->getMousePositionY());
     }
     if (m_guiActiveInterface != null && Input->getMouseReleased(SDL_BUTTON_LEFT)) {
-        GUI* clicked = m_guiRoot->tryClick(Input->getMousePositionX(), Input->getMousePositionY());
-        if (m_guiActiveInterface->isCloseButton(clicked)) { // must close and hide cursor
-            m_guiActiveInterface->setVisible(false);
-            Input->setCursorLock(true);
-            Input->setCursorVisible(false);
-            m_guiActiveInterface = null;
-        }
+        //GUI* clicked = m_guiRoot->tryClick(Input->getMousePositionX(), Input->getMousePositionY());
     }
     return ORDER_CONTINUE;
 }
 
 void GameStatePlayground::update() {
     physic(m_player);
-    Particle->createParticle(m_objects[0]->getPosition());
+    Particle->createParticle(m_objects[0]->getPositionXYZ());
     for (unsigned int i = 0; i < m_objects.size(); i++) {
         physic((Entity*) m_objects[i]);
     }
     m_objects[m_objects.size() - 3]->addAngle(0, 90 * m_elapsedTime, 0);
     m_objects[m_objects.size() - 2]->addAngle(0, -90 * m_elapsedTime, 0);
-    if (glm::length(m_objects[m_objects.size() - 3]->getPosition() - m_player->getPosition()) < 10)
+    if (glm::length(m_objects[m_objects.size() - 3]->getPositionXYZ() - m_player->getPositionXYZ()) < 10)
         m_player->addExperience((int) (m_elapsedTime * 1000));
-    if (glm::length(m_objects[m_objects.size() - 2]->getPosition() - m_player->getPosition()) < 10)
-        m_player->heal(1);
+    //if (glm::length(m_objects[m_objects.size() - 2]->getPositionXYZ() - m_player->getPositionXYZ()) < 10)
+        //m_player->heal(1);
     m_guiRoot->update(m_elapsedTime);
 }
 
@@ -244,13 +235,13 @@ void GameStatePlayground::render() {
 }
 
 void GameStatePlayground::physic(Entity* e) {
-    e->addSpeed(0, -9.8f * m_gravityTime, 0);
-    e->addPosition(e->getSpeed() * m_elapsedTime);
+    /*e->addSpeed(0, -9.8f * m_gravityTime, 0);
+    e->addPositionXYZ(e->getSpeed() * m_elapsedTime);
     e->slowMovement(0.75 * (1 - m_elapsedTime));
 
-    float Y = m_heightMapData->collision(e->getPosition());
-    if (Y > e->getPosition().y) {
+    float Y = m_heightMapData->collision(e->getPositionXYZ());
+    if (Y > e->getPositionXYZ().y) {
         e->setPositionY(Y);
         e->setSpeedY(0);
-    }
+    }*/
 }

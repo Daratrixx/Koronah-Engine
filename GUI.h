@@ -33,6 +33,8 @@
 #include "Unit.h"
 #endif
 
+#include "Texture.h"
+
 class GUI {
 public:
     GUI();
@@ -78,9 +80,15 @@ public:
     void setTextureID(GLuint textureID);
     void setVisible(bool visible);
     void setDisplayColor(bool display);
+    void setPositionType(unsigned int type);
+    void setSizeType(unsigned int type);
 
 
     virtual void update(float time);
+    virtual GUI* tryActive(float x, float y);
+    virtual GUI* tryActive(glm::vec2 pos);
+    virtual GUI* tryActiveChildren(float x, float y);
+    virtual GUI* tryActiveChildren(glm::vec2 pos);
     virtual GUI* tryClick(float x, float y);
     virtual GUI* tryClick(glm::vec2 pos);
     virtual GUI* tryClickChildren(float x, float y);
@@ -107,7 +115,8 @@ protected:
     GLuint m_textureID;
     unsigned int m_childrenCount;
     unsigned int m_mode;
-
+    unsigned int m_positionType;
+    unsigned int m_sizeType;
     float m_time;
 
     GLuint m_vboGUI[GUI_MODE_COUNT];
@@ -245,63 +254,31 @@ protected:
     void* m_source;
 };
 
-class GUI_Window : public GUI {
+class GUI_OrderPanel : public GUI {
 public:
-    GUI_Window();
-    virtual ~GUI_Window();
-    void setCloseButton(GUI* gui);
-    bool isCloseButton(GUI* gui) const;
-protected:
-    GUI* m_closeButton;
-};
+    GUI_OrderPanel();
+    virtual ~GUI_OrderPanel();
 
-class GUI_PlayerStatMenu : public GUI_Window {
-public:
-    GUI_PlayerStatMenu(Unit* player);
-    virtual ~GUI_PlayerStatMenu();
-    void setPlayer(Unit* player);
-    Unit* getPlayer() const;
-protected:
-    Unit* m_player;
+    GUI_Button* m_orderMove;
+    GUI_Button* m_orderAttack;
+    GUI_Button* m_orderStop;
+    GUI_Button* m_orderHold;
+    GUI_Button* m_orderPatrol;
 };
 
 
 // dynamic label getText function
-
-std::string GDL_getPosX(void* source, float time);
-std::string GDL_getPosY(void* source, float time);
-std::string GDL_getPosZ(void* source, float time);
 std::string GDL_getHPMax(void* source, float time);
 std::string GDL_getHPCurrent(void* source, float time);
 std::string GDL_getHPPercent(void* source, float time);
-std::string GDL_getHealth(void* source, float time);
-std::string GDL_getENMax(void* source, float time);
-std::string GDL_getENCurrent(void* source, float time);
-std::string GDL_getENPercent(void* source, float time);
-std::string GDL_getConcentration(void* source, float time);
 std::string GDL_getFPS(void* source, float time);
 
 std::string GDL_getName(void* source, float time);
 std::string GDL_getLevel(void* source, float time);
 
-std::string GDL_getBaseConstitution(void* source, float time);
-std::string GDL_getBaseMental(void* source, float time);
-std::string GDL_getBaseDexterity(void* source, float time);
-std::string GDL_getBaseFate(void* source, float time);
-std::string GDL_getBaseSocial(void* source, float time);
-
-std::string GDL_getTotalConstitution(void* source, float time);
-std::string GDL_getTotalMental(void* source, float time);
-std::string GDL_getTotalDexterity(void* source, float time);
-std::string GDL_getTotalFate(void* source, float time);
-std::string GDL_getTotalSocial(void* source, float time);
-
-// dynamic label getTextColor function
-glm::vec3 GDL_getHPColor(void* source, float time);
-glm::vec3 GDL_getENColor(void* source, float time);
-
 // dynamic bar getBarPercent function
-float GDL_getExperiencePercent(void* source, float time);
+float GDB_getHealthPercent(void* source, float time);
+float GDB_getExperiencePercent(void* source, float time);
 
 #endif	/* GUI_H */
 

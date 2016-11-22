@@ -9,8 +9,7 @@ int GameObject::GET_NEXT_ID() {
 }
 
 GameObject::GameObject() {
-    m_parentObject = null;
-    setPosition(0, 0, 0);
+    setPositionXYZ(0, 0, 0);
     setAngle(0, 0, 0);
     setScale(1, 1, 1);
     setColor(1, 1, 1);
@@ -18,6 +17,17 @@ GameObject::GameObject() {
     m_modelId = -1;
     m_textureId = -1;
     m_haloMapId = -1;
+    m_teamColor = COLOR_WHITE;
+}
+
+GameObject::GameObject(GameObject* o) {
+    m_depth = o->m_depth;
+    m_scale = o->m_scale;
+    m_color = o->m_color;
+    m_modelId = o->m_modelId;
+    m_textureId = o->m_textureId;
+    m_haloMapId = o->m_haloMapId;
+    setID(GET_NEXT_ID());
 }
 
 GameObject::~GameObject() {
@@ -32,21 +42,26 @@ void GameObject::setID(int id) {
     m_objectId = id;
 }
 
-GameObject* GameObject::getParentObject() const {
-    return m_parentObject;
-}
-
-void GameObject::setParentObject(GameObject* parent) {
-    m_parentObject = parent;
-}
-
-void GameObject::update(float time, std::vector<GameObject*> objects) {
-}
-
-void GameObject::setPosition(float x, float y, float z) {
+void GameObject::setPositionXYZ(float x, float y, float z) {
     m_position.x = x;
     m_position.y = y;
-    m_position.z = z;
+    m_depth = z;
+}
+
+void GameObject::setPositionXYZ(glm::vec3 pos) {
+    m_position.x = pos.x;
+    m_position.y = pos.y;
+    m_depth = pos.z;
+}
+
+void GameObject::setPositionXY(float x, float y) {
+    m_position.x = x;
+    m_position.y = y;
+}
+
+void GameObject::setPositionXY(glm::vec2 pos) {
+    m_position.x = pos.x;
+    m_position.y = pos.y;
 }
 
 void GameObject::setPositionX(float x) {
@@ -58,18 +73,15 @@ void GameObject::setPositionY(float y) {
 }
 
 void GameObject::setPositionZ(float z) {
-    m_position.z = z;
+    m_depth = z;
 }
 
-void GameObject::setPosition(glm::vec3 pos) {
-    m_position = pos;
+glm::vec3 GameObject::getPositionXYZ() const {
+    return glm::vec3(m_position.x, m_position.y, m_depth);
 }
 
-glm::vec3 GameObject::getPosition() const {
-    if (m_parentObject == null)
-        return m_position;
-    else
-        return m_position + m_parentObject->getPosition();
+glm::vec2 GameObject::getPositionXY() const {
+    return m_position;
 }
 
 float GameObject::getPositionX() const {
@@ -81,17 +93,29 @@ float GameObject::getPositionY() const {
 }
 
 float GameObject::getPositionZ() const {
-    return m_position.z;
+    return m_depth;
 }
 
-void GameObject::addPosition(float x, float y, float z) {
+void GameObject::addPositionXYZ(float x, float y, float z) {
     m_position.x += x;
     m_position.y += y;
-    m_position.z += z;
+    m_depth += z;
 }
 
-void GameObject::addPosition(glm::vec3 position) {
-    m_position += position;
+void GameObject::addPositionXYZ(glm::vec3 position) {
+    m_position.x += position.x;
+    m_position.y += position.y;
+    m_depth += position.z;
+}
+
+void GameObject::addPositionXY(float x, float y) {
+    m_position.x += x;
+    m_position.y += y;
+}
+
+void GameObject::addPositionXY(glm::vec2 position) {
+    m_position.x += position.x;
+    m_position.y += position.y;
 }
 
 void GameObject::setAngle(float x, float y, float z) {
@@ -107,10 +131,7 @@ void GameObject::setAngle(glm::vec3 angle) {
 }
 
 glm::vec3 GameObject::getAngle() const {
-    if (m_parentObject == null)
-        return m_angle;
-    else
-        return m_angle + m_parentObject->getAngle();
+    return m_angle;
 }
 
 void GameObject::addAngle(float x, float y, float z) {
@@ -122,6 +143,7 @@ void GameObject::addAngle(float x, float y, float z) {
 
 void GameObject::addAngle(glm::vec3 angle) {
     m_angle += angle;
+    correctAngle();
 }
 
 void GameObject::correctAngle() {
@@ -142,10 +164,7 @@ void GameObject::setScale(glm::vec3 size) {
 }
 
 glm::vec3 GameObject::getScale() const {
-    if (m_parentObject == null)
-        return m_scale;
-    else
-        return m_scale * m_parentObject->getScale();
+    return m_scale;
 }
 
 void GameObject::addScale(float x, float y, float z) {
@@ -169,10 +188,21 @@ void GameObject::setColor(glm::vec3 color) {
 }
 
 glm::vec3 GameObject::getColor() const {
-    if (m_parentObject == null)
-        return m_color;
-    else
-        return m_color * m_parentObject->getColor();
+    return m_color;
+}
+
+void GameObject::setTeamColor(float r, float g, float b) {
+    m_teamColor.x = r;
+    m_teamColor.y = g;
+    m_teamColor.z = b;
+}
+
+void GameObject::setTeamColor(glm::vec3 color) {
+    m_teamColor = color;
+}
+
+glm::vec3 GameObject::getTeamColor() const {
+    return m_teamColor;
 }
 
 int GameObject::getModelId() const {
@@ -201,12 +231,10 @@ void GameObject::setHaloMapId(int textureId) {
 
 glm::mat4 GameObject::getModelMatrice() {
     glm::mat4 out;
-    if (m_parentObject != null)
-        out = m_parentObject->getModelMatrice();
-    out = glm::translate(out, m_position);
+    out = glm::translate(out, getPositionXYZ());
     out = glm::scale(out, m_scale);
-    out = glm::rotate(out, m_angle.y, glm::vec3(0, 1, 0));
-    out = glm::rotate(out, m_angle.x, glm::vec3(1, 0, 0));
     out = glm::rotate(out, m_angle.z, glm::vec3(0, 0, 1));
+    out = glm::rotate(out, m_angle.x, glm::vec3(1, 0, 0));
+    out = glm::rotate(out, m_angle.y, glm::vec3(0, 1, 0));
     return out;
 }

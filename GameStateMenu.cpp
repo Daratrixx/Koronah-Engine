@@ -31,7 +31,8 @@ void GameStateMenu::load() {
     m_buttonSwitchToPlayGround->setSize(400, 50);
     m_buttonSwitchToPlayGround->setColor(0, 0, 0.25f, 1);
     m_buttonSwitchToPlayGround->setText("PlayGround");
-    m_buttonSwitchToPlayGround->setFontSize(1.5f);
+    m_buttonSwitchToPlayGround->setFontSize(1.25f);
+    m_buttonSwitchToPlayGround->setFontSize(1, GUI_ACTIVE);
     m_buttonSwitchToPlayGround->setBlinkSpeed(10, GUI_HOVER);
     m_buttonSwitchToPlayGround->setBlinkText(true, GUI_HOVER);
     m_buttonSwitchToPlayGround->setTextColor(0, 0.5f, 0.5f);
@@ -44,7 +45,8 @@ void GameStateMenu::load() {
     m_buttonExit->setSize(400, 50);
     m_buttonExit->setColor(0, 0, 0.25f, 1);
     m_buttonExit->setText("Exit");
-    m_buttonExit->setFontSize(1.5f);
+    m_buttonExit->setFontSize(1.25f);
+    m_buttonExit->setFontSize(1, GUI_ACTIVE);
     m_buttonExit->setBlinkSpeed(10, GUI_HOVER);
     m_buttonExit->setBlinkText(true, GUI_HOVER);
     m_buttonExit->setTextColor(0, 0.5f, 0.5f);
@@ -90,6 +92,10 @@ void GameStateMenu::update() {
 int GameStateMenu::inputManagement() {
     if (Input->getKeyboardPushed(SDL_SCANCODE_TAB))
         return ORDER_TO_PLAYGROUND;
+
+    if (Input->getMousePushed(SDL_BUTTON_LEFT)) {
+        m_guiRoot->tryActive(Input->getMousePositionX(), Input->getMousePositionY());
+    }
     if (Input->getMouseReleased(SDL_BUTTON_LEFT)) {
         GUI* clicked = m_guiRoot->tryClick(Input->getMousePositionX(), Input->getMousePositionY());
         if (clicked == m_buttonSwitchToPlayGround)

@@ -68,7 +68,7 @@ bool GraphicEngine::initWindow(int flags) {
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     // Création de la fenêtre
-    m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN);
+    m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (m_window == 0) {
         SDL_Quit();
         return false;
@@ -109,8 +109,8 @@ bool GraphicEngine::initGL() {
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glClearColor(0.3f, 0, 0.3f, 1);
-    glLineWidth(2.f);
-    glPointSize(2.f);
+    glLineWidth(1.f);
+    glPointSize(1.f);
 
     // Tout s'est bien passé, on retourne true
     std::cout << "initGL successful." << std::endl;
@@ -130,39 +130,24 @@ void GraphicEngine::loadGraphicDatas() {
     m_shaderModel = new Shader("data/shader/texture.vert", "data/shader/texture.frag");
     m_shaderModel->loadTexture();
     m_shaderScan = new Shader("data/shader/scan.vert", "data/shader/scan.frag");
-    if (!m_shaderScan->loadScan())
-        std::cout << "Fail to load Shader scan" << std::endl;
+    m_shaderScan->loadScan();
     m_shaderParticle = new Shader("data/shader/particle.vert", "data/shader/particle.geom", "data/shader/particle.frag");
     m_shaderParticle->loadParticle();
     m_shaderGUI = new Shader("data/shader/GUI.vert", "data/shader/GUI.geom", "data/shader/GUI.frag");
     m_shaderGUI->loadTexture();
-    loadTexture("data/texture/snow.jpg");
-    loadTexture("data/texture/Sc2wB.bmp");
-    loadTexture("data/texture/metal.jpg");
-    loadTexture("data/texture/floor.jpg");
-    loadTexture("data/texture/fire.png");
-    loadTexture("data/texture/ice.png");
-    loadTexture("data/texture/fireplace.png");
-    loadTexture("data/texture/logs.png");
-    loadTexture("data/texture/boletus.jpg");
-    loadTexture("data/texture/Tomb.png");
     loadTexture("data/texture/noHalo.png");
-    loadTexture("data/texture/halo.png");
+    loadTexture("data/texture/Sc2wB.bmp");
+    loadTexture("data/texture/spike.jpg");
+    loadTexture("data/texture/boletus.png");
     loadTexture("data/texture/ShrineTexture.png");
     loadTexture("data/texture/ShrineHalo.png");
     loadTexture("data/texture/ShrineHaloGreen.png");
-    loadModel("data/model/Sword.obj");
-    loadModel("data/model/Spike.obj");
-    loadModel("data/model/Plate.obj");
-    loadModel("data/model/fireplace.obj");
-    loadModel("data/model/logs.obj");
-    loadModel("data/model/boletus.obj");
-    loadModel("data/model/Tomb.obj");
+    loadModel("data/model/spike.obj");
     loadModel("data/model/Shrine.obj");
 
-    m_camera.setProjection(70, 4.f / 3.f, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
-    m_camera.setPosition(0, 25, 0);
-    m_camera.setTargetPoint(0, 25, -1);
+    m_camera.setProjection(DEFAULT_SCREEN_FOV, 4.f / 3.f, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
+    m_camera.setPosition(0, 0, 25);
+    m_camera.setTargetPoint(0, 0, -1);
     m_projectionScene = m_camera.getProjectionMatrice();
 
     float vertices[] = {-1, -1, 1, -1, 1, 1, // Triangle 1
@@ -226,7 +211,7 @@ void GraphicEngine::setLightData(float* lightData) {
 void GraphicEngine::addToRender(GameObject* object) {
     float maxDistance = m_camera.getFar();
     float minDistance = m_camera.getClose();
-    float distance = getCameraDistance(object->getPosition());
+    float distance = getCameraDistance(object->getPositionXYZ());
     if (distance < maxDistance && distance > minDistance)
         m_playGroundObjectToRender->add(distance, (void*) object);
 }
@@ -355,6 +340,7 @@ void GraphicEngine::renderObjectHaloMap(GameObject* object) {
         Model* modelData = getModel(idModel);
         Texture* textureData = getTexture(idHaloMap);
         if (modelData != null && textureData != null) {
+            glUniform3f(glGetUniformLocation(m_shaderModel->getProgramID(), "modelColor"), object->getTeamColor().x, object->getTeamColor().y, object->getTeamColor().z);
             renderModel(modelData, textureData, model);
         }
     }
@@ -428,7 +414,7 @@ glm::vec2 GraphicEngine::getLineSize(std::string line, GLfloat scale) {
 }
 
 void GraphicEngine::moveCamera(GameObject* object) {
-    m_camera.setPosition(object->getPosition() + glm::vec3(0, 10, 0));
+    m_camera.setPosition(object->getPositionXYZ());
     m_camera.setAngle(object->getAngle());
 }
 

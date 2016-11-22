@@ -30,7 +30,7 @@ HeightMapData::HeightMapData(std::string img) : GameObject() {
 HeightMapData::~HeightMapData() {
     delete m_pixel;
     //delete m_vertice;
-    std::cout << "Deleted HeightMapData with ID " << m_objectId <<std::endl;
+    std::cout << "Deleted HeightMapData with ID " << m_objectId << std::endl;
 }
 
 void HeightMapData::loadHeightMapData(SDL_Surface *map) {
@@ -53,34 +53,34 @@ void HeightMapData::loadHeightMapData(SDL_Surface *map) {
     std::cout << "HeightMapData with " << m_verticeCount << " vertice." << std::endl;
     temp = new float[m_verticeCount * 3];
     float xStrafe, zStrafe;
-    xStrafe = ((float)m_x)/-2;
-    zStrafe = ((float)m_y)/-2;
+    xStrafe = ((float) m_x) / -2.f;
+    zStrafe = ((float) m_y) / -2.f;
     m_vertice = temp;
     for (j = 0; j < m_y; j++) {
         for (i = 0; i < m_x; i++) {
             *(temp) = i + xStrafe;
-            *(temp + 1) = getPixel(i, j);
-            *(temp + 2) = j + zStrafe;
+            *(temp + 1) = j + zStrafe;
+            *(temp + 2) = getPixel(i, j);
 
-            *(temp + 3) = i + xStrafe;
-            *(temp + 4) = getPixel(i, j + 1);
-            *(temp + 5) = j + 1.0 + zStrafe;
+            *(temp + 3) = i + 1.0 + xStrafe;
+            *(temp + 4) = j + 1.0 + zStrafe;
+            *(temp + 5) = getPixel(i + 1, j + 1);
 
-            *(temp + 6) = i + 1.0 + xStrafe;
-            *(temp + 7) = getPixel(i + 1, j + 1);
-            *(temp + 8) = j + 1.0 + zStrafe;
-            
+            *(temp + 6) = i + xStrafe;
+            *(temp + 7) = j + 1.0 + zStrafe;
+            *(temp + 8) = getPixel(i, j + 1);
+
             *(temp + 9) = i + xStrafe;
-            *(temp + 10) = getPixel(i, j);
-            *(temp + 11) = j + zStrafe;
+            *(temp + 10) = j + zStrafe;
+            *(temp + 11) = getPixel(i, j);
 
             *(temp + 12) = i + 1.0 + xStrafe;
-            *(temp + 13) = getPixel(i + 1, j + 1);
-            *(temp + 14) = j + 1.0 + zStrafe;
+            *(temp + 13) = j + zStrafe;
+            *(temp + 14) = getPixel(i + 1, j);
 
             *(temp + 15) = i + 1.0 + xStrafe;
-            *(temp + 16) = getPixel(i + 1, j);
-            *(temp + 17) = j + zStrafe;
+            *(temp + 16) = j + 1.0 + zStrafe;
+            *(temp + 17) = getPixel(i + 1, j + 1);
 
             temp = temp + 18;
         }
@@ -117,17 +117,16 @@ float* HeightMapData::getVertice() {
     return m_vertice;
 }
 
-float HeightMapData::collision(glm::vec3 p)
-{
-    glm::vec3 diff = p - getPosition();
-    float x = diff.x + ((float)m_x) / 2;
-    float y = diff.z + ((float)m_y) / 2;
-   
-    int ix = (int)x;
-    int iy = (int)y;
-   
-    float dx = x-ix;
-    float dy = y-iy;
-    return ((1-dx)*getPixel(ix,iy) + dx*getPixel(ix+1,iy)) * (1-dy)
-         + ((1-dx)*getPixel(ix,iy+1) + dx*getPixel(ix+1,iy+1)) * dy;
+float HeightMapData::collision(glm::vec3 p) {
+    glm::vec3 diff = p - getPositionXYZ();
+    float x = diff.x + ((float) m_x) / 2;
+    float y = diff.y + ((float) m_y) / 2;
+
+    int ix = (int) x;
+    int iy = (int) y;
+
+    float dx = x - ix;
+    float dy = y - iy;
+    return ((1 - dx) * getPixel(ix, iy) + dx * getPixel(ix + 1, iy)) * (1 - dy)
+            + ((1 - dx) * getPixel(ix, iy + 1) + dx * getPixel(ix + 1, iy + 1)) * dy;
 }

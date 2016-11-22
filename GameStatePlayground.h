@@ -60,8 +60,8 @@ private:
     std::vector<GameObject*> m_objects;
     HeightMapData* m_heightMapData;
     
-    GUI_Window* m_guiPlayerStatMenu;
-    GUI_Window* m_guiActiveInterface;
+    GUI_OrderPanel* m_guiPlayerStatMenu;
+    GUI_OrderPanel* m_guiActiveInterface;
 };
 
 #endif	/* GAMESTATEPLAYGROUND_H */

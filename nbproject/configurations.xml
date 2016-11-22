@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="95">
+<configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -25,17 +25,24 @@
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="Logic" projectFiles="true">
+        <logicalFolder name="f2" displayName="GameObject" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.h</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.h</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Missile.h</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Unit.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="Triggerable" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Buff.h</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Spell.h</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.h</itemPath>
+        </logicalFolder>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/CameraHolder.h</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.h</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEnigine.h</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.h</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Item.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Light.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Player.h</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/SortedKeyChain.hpp</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.hpp</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Unit.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Main" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Game.h</itemPath>
@@ -92,15 +99,31 @@
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicBar.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_DynamicLabel.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Label.cpp</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_PlayerStatMenu.cpp</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Window.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GUI_OrderPanel.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="Logic" projectFiles="true">
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.cpp</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.cpp</itemPath>
+        <logicalFolder name="f2" displayName="GameObject" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Entity.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Missile.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Unit.cpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f1" displayName="Triggerable" projectFiles="true">
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Buff.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/BuffInstance.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Spell.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/SpellInstance.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.cpp</itemPath>
+          <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/TriggerableInstance.cpp</itemPath>
+        </logicalFolder>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Building.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Collision.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Missile.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Player.cpp</itemPath>
+        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Unit.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Light.cpp</itemPath>
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/LightEngine.cpp</itemPath>
-        <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Unit.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Main" projectFiles="true">
         <itemPath>C:/Users/ANTOINE/Projets/Koronah Engine/Game.cpp</itemPath>
@@ -136,6 +159,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>C:\Users\ANTOINE\Projets\Koronah Engine</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -161,6 +187,21 @@
           <commandLine>-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lopengl32 -lglew32 -lfreetype</commandLine>
         </linkerTool>
       </compileType>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Buff.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Buff.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/BuffInstance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Camera.cpp"
             ex="false"
             tool="1"
@@ -241,12 +282,7 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_PlayerStatMenu.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Window.cpp"
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_OrderPanel.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -261,9 +297,39 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEnigine.h"
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Building.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Collision.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Missile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Player.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Unit.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.cpp"
@@ -391,6 +457,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Missile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Missile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Model.cpp"
             ex="false"
             tool="1"
@@ -466,6 +542,21 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Spell.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Spell.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/SpellInstance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/String.cpp"
             ex="false"
             tool="1"
@@ -506,9 +597,19 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.hpp"
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/TriggerableInstance.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Types.h"
@@ -558,6 +659,21 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Buff.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Buff.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/BuffInstance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Camera.cpp"
             ex="false"
             tool="1"
@@ -638,12 +754,7 @@
             tool="1"
             flavor2="0">
       </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_PlayerStatMenu.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_Window.cpp"
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GUI_OrderPanel.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -658,9 +769,39 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEnigine.h"
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Building.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Collision.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Missile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Player.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameEngine_Unit.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/GameObject.cpp"
@@ -788,6 +929,16 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Missile.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Missile.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Model.cpp"
             ex="false"
             tool="1"
@@ -863,6 +1014,21 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Spell.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Spell.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/SpellInstance.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/String.cpp"
             ex="false"
             tool="1"
@@ -903,9 +1069,19 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.hpp"
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Triggerable.h"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="C:/Users/ANTOINE/Projets/Koronah Engine/TriggerableInstance.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <item path="C:/Users/ANTOINE/Projets/Koronah Engine/Types.h"

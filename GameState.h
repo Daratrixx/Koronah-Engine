@@ -51,6 +51,11 @@ protected:
     float m_totalElapsedTime;
     float m_gravityTime;
     GUI* m_guiRoot;
+    GUI* m_guiAttackOrderButton;
+    GUI* m_guiMoveOrderButton;
+    GUI* m_guiStopOrderButton;
+    GUI* m_guiHoldOrderButton;
+    GUI* m_guiPatrolOrderButton;
 };
 
 #endif	/* GAMESTATE_H */

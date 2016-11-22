@@ -3,7 +3,7 @@
 
 GUI_Label::GUI_Label() : GUI() {
     for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
-        m_text[i] = "Fric = Pognon";
+        m_text[i] = "";
         m_textColor[i] = glm::vec3(1, 1, 1);
         m_fontSize[i] = 1;
         m_blinkSpeed[i] = 0;

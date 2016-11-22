@@ -19,6 +19,10 @@
 #include "GameState.h"
 #endif
 
+#ifndef GAMEENGINE_H
+#include "GameEngine.h"
+#endif
+
 #ifndef GAMEOBJECT_H
 #include "GameObject.h"
 #endif
@@ -52,17 +56,14 @@ public:
     void clearSelection();
     void doSquareSelection();
     virtual void render();
-    void renderSquare();
-    int selectUnit(unsigned int x, unsigned int y);
+    void renderSelectionSquare();
+    int getUnitId(unsigned int x, unsigned int y);
     glm::vec3 getClickWorldPosition(unsigned int x, unsigned int y);
     
 private:
-    bool m_scanGenerated;
-    
     GameObject* m_cameraHolder;
-    std::vector<GameObject*> m_objects;
-    int m_selectedUnit;
     HeightMapData* m_heightMapData;
+    GameEngine m_gameEngine;
     
     GUI_DynamicLabel* m_guiUnitId;
     int m_selectedUnitId;
@@ -70,6 +71,7 @@ private:
     unsigned int m_currentState;
     glm::vec2 m_clicPositionStart;
     glm::vec2 m_clicPositionEnd;
+    bool m_scanGenerated;
 };
 
 #endif	/* GAMESTATESTR_H */

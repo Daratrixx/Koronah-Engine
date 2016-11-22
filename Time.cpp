@@ -30,7 +30,7 @@ void TimeEngine::updateTime() { // only once par game tick!!!
         UPDATE_CUMULATOR -= 1;
         LAST_UPDATE_COUNT = UPDATE_COUNT;
         UPDATE_COUNT = 0;
-        std::cout << "FPS : " << LAST_UPDATE_COUNT << std::endl;
+        //std::cout << "FPS : " << LAST_UPDATE_COUNT << std::endl;
     }
     FPS_APPROX = (int) (1.f / DELTA_TIME);
 }

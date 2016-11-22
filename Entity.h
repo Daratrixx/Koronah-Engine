@@ -14,41 +14,30 @@
 class Entity : public GameObject {
 public:
     Entity();
+    Entity(Entity* e);
     virtual ~Entity();
     
-    void addSpeed(float x, float y, float z);
-    void addSpeed(glm::vec3 speed);
-    void setSpeed(float x, float y, float z);
-    void setSpeed(glm::vec3 speed);
-    void setSpeedX(float x);
-    void setSpeedY(float y);
-    void setSpeedZ(float z);
     void setRadius(float radius);
     float getRadius() const;
-    glm::vec3 getSpeed();
-    void scaleSpeed(float factor);
-    void slowMovement(float factor);
-    void slowFall(float factor);
-    void move();
-    void moveToward(glm::vec3 target);
-    void moveAway(glm::vec3 target);
     
-    void push(float x, float z);
+    virtual void push(float x, float y);
     
-    virtual void update(float time, std::vector<GameObject*> objects);
+    Entity* getTarget() const;
+    bool isTarget(Entity* e) const;
+    void setTarget(Entity* target);
     
-    bool collision(Entity* e);
-    int getCollision(Entity* e);
-    bool adjust(Entity* e);
+    float getMovingSpeed();
+    void setMovingSpeed(float movingSpeed);
     
-    void setBehavior(unsigned int behavior);
-    unsigned int getBehavior() const;
+    virtual bool isAlive() const;
+    virtual bool isUnit() const;
+    virtual bool isMissile() const;
     
-protected:
-    glm::vec3 m_speed; // mouvement dans chaque direction
-    float m_radius;
+    bool m_doCollision;
     float m_lastCollisionHit;
-    unsigned int m_behavior;
+    float m_movingSpeed;
+    float m_radius;
+    Entity* m_target;
 };
 
 #endif

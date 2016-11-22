@@ -29,7 +29,7 @@ ModelObj::ModelObj(std::string file) : Model() {
     }
     FILE.close();
 
-    std::cout << "Start building ModelObj " << file << std::endl;
+    //std::cout << "Start building ModelObj " << file << std::endl;
     if (buildModel()) {
         m_verticeData = m_shape->getVertice();
         m_normalData = m_shape->getNormal();
@@ -38,7 +38,7 @@ ModelObj::ModelObj(std::string file) : Model() {
         delete m_shape;
         delete m_keyFrame;
         load();
-        std::cout << "Success: loaded ModelObj " << file << std::endl;
+        //std::cout << "Success: loaded ModelObj " << file << std::endl;
     } else {
         std::cout << "Error: unable to load ModelObj " << file << std::endl;
     }
@@ -114,6 +114,6 @@ unsigned int loadModel(std::string path) {
     std::vector<Model*>* MODEL_LIST = getModelList();
     ModelObj* model = new ModelObj(path);
     MODEL_LIST->push_back(model);
-    std::cout << "loaded modelObj " << path << std::endl;
+    //std::cout << "loaded modelObj " << path << std::endl;
     return MODEL_LIST->size() - 1;
 }

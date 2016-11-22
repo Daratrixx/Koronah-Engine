@@ -161,8 +161,10 @@ build/Debug/MinGW-Windows/_ext/1021858732/Game.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h \
- c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Player.h \
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Missile.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.h
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Game.h:
@@ -489,8 +491,12 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h:
 
-c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h:
-
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Player.h:
+
+c:/Users/ANTOINE/Projets/Koronah\ Engine/Missile.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.h:

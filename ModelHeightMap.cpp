@@ -33,17 +33,17 @@ void ModelHeightMap::loadHeightMapData(int verticeCount, unsigned int width, uns
 
             *(temp) = xOffset;
             *(temp + 1) = yOffset;
-            *(temp + 2) = xOffset;
+            *(temp + 2) = xOffset + xSize;
             *(temp + 3) = yOffset + ySize;
-            *(temp + 4) = xOffset + xSize;
+            *(temp + 4) = xOffset;
             *(temp + 5) = yOffset + ySize;
 
             *(temp + 6) = xOffset;
             *(temp + 7) = yOffset;
             *(temp + 8) = xOffset + xSize;
-            *(temp + 9) = yOffset + ySize;
+            *(temp + 9) = yOffset;
             *(temp + 10) = xOffset + xSize;
-            *(temp + 11) = yOffset;
+            *(temp + 11) = yOffset + ySize;
 
             temp += 12;
         }

@@ -154,8 +154,7 @@ build/Debug/MinGW-Windows/_ext/1021858732/GameStateMenu.o: \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h \
  c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h \
- c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h \
- c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h
+ c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.h:
 
@@ -468,5 +467,3 @@ c:/Users/ANTOINE/Projets/Koronah\ Engine/GUI.h:
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Unit.h:
 
 c:/Users/ANTOINE/Projets/Koronah\ Engine/Entity.h:
-
-c:/Users/ANTOINE/Projets/Koronah\ Engine/Item.h:

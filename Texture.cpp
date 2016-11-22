@@ -235,7 +235,7 @@ GLuint loadTexture(std::string path) {
         std::vector<Texture*>* TEXTURE_LIST = getTextureList();
         texture = new Texture(path);
         TEXTURE_LIST->push_back(texture);
-        std::cout << "loaded texture " << path << std::endl;
+        //std::cout << "loaded texture " << path << std::endl;
     }
     if(texture != null)
         return texture->getID();
@@ -247,7 +247,7 @@ Texture* textureExists(std::string path) {
     for (unsigned int i = 0; i < TEXTURE_LIST->size(); i++)
         if ((*TEXTURE_LIST)[i]->getPath() == path)
             return (*TEXTURE_LIST)[i];
-    std::cout << "can load texture " << path << std::endl;
+    //std::cout << "can load texture " << path << std::endl;
     return null;
 }
 
@@ -255,7 +255,7 @@ Texture* getTexture(unsigned int index) {
     std::vector<Texture*>* TEXTURE_LIST = getTextureList();
     if (index < TEXTURE_LIST->size())
         return (*TEXTURE_LIST)[index];
-    std::cout << "no texture at index " << index << " (" << TEXTURE_LIST->size() << ")" << std::endl;
+    //std::cout << "no texture at index " << index << " (" << TEXTURE_LIST->size() << ")" << std::endl;
     return null;
 }
 
@@ -263,7 +263,7 @@ GLuint getTextureID(unsigned int index) {
     std::vector<Texture*>* TEXTURE_LIST = getTextureList();
     if (index < TEXTURE_LIST->size())
         return (*TEXTURE_LIST)[index]->getID();
-    std::cout << "no texture at index " << index << " (" << TEXTURE_LIST->size() << ")" << std::endl;
+    //std::cout << "no texture at index " << index << " (" << TEXTURE_LIST->size() << ")" << std::endl;
     return 0;
 }
 

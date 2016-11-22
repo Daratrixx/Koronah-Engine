@@ -17,6 +17,7 @@ class GameObject {
     
 public:
     GameObject();
+    GameObject(GameObject* o);
     virtual ~GameObject();
     
     void setID(int id);
@@ -24,8 +25,6 @@ public:
     
     void setParentObject(GameObject* parent);
     GameObject* getParentObject() const;
-    
-    virtual void update(float time, std::vector<GameObject*> objects);
     
     /* 3D function */
     int getModelId() const;
@@ -36,17 +35,22 @@ public:
     void setHaloMapId(int tectureId);
     
     
-    void setPosition(float x, float y, float z);
-    void setPosition(glm::vec3 pos);
+    void setPositionXYZ(float x, float y, float z);
+    void setPositionXYZ(glm::vec3 pos);
+    void setPositionXY(float x, float y);
+    void setPositionXY(glm::vec2 pos);
     void setPositionX(float x);
     void setPositionY(float y);
     void setPositionZ(float z);
-    glm::vec3 getPosition() const;
+    glm::vec3 getPositionXYZ() const;
+    glm::vec2 getPositionXY() const;
     float getPositionX() const;
     float getPositionY() const;
     float getPositionZ() const;
-    void addPosition(float x, float y, float z);
-    void addPosition(glm::vec3 pos);
+    void addPositionXYZ(float x, float y, float z);
+    void addPositionXYZ(glm::vec3 pos);
+    void addPositionXY(float x, float y);
+    void addPositionXY(glm::vec2 pos);
     
     void setAngle(float x, float y, float z);
     void setAngle(glm::vec3 angle);
@@ -65,19 +69,24 @@ public:
     void setColor(glm::vec3 color);
     glm::vec3 getColor() const;
     
+    void setTeamColor(float x, float y, float z);
+    void setTeamColor(glm::vec3 color);
+    glm::vec3 getTeamColor() const;
+    
     glm::mat4 getModelMatrice();
     
-protected:
+    
     int m_objectId;
     int m_modelId;
     int m_textureId;
     int m_haloMapId;
     std::string m_objectName;
-    glm::vec3 m_position; // Y hauteur
-    glm::vec3 m_angle; // Y rotation horizontal
+    glm::vec2 m_position; // Z hauteur
+    float m_depth;
+    glm::vec3 m_angle; // Z rotation horizontal
     glm::vec3 m_scale;
     glm::vec3 m_color;
-    GameObject* m_parentObject;
+    glm::vec3 m_teamColor;
     
     static int OBJECT_COUNT;
     static int GET_NEXT_ID();

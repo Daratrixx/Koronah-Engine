@@ -28,9 +28,12 @@ public:
     void removeEntityFromGame(Entity* e);
     void addUnitToGame(Unit* u);
     Unit* getUnit(unsigned int id);
+    Unit* getUnitAlive(unsigned int id);
+    Unit* getUnitDead(unsigned int id);
     void removeUnitFromGame(Unit* u);
     void addMissileToGame(Missile* m);
     void removeMissileFromGame(Missile* m);
+    void killUnit(Unit* u);
     void doRightClick(Unit* u, glm::vec2 position);
     void doRightClick(Unit* u, Unit* target);
     void updateAngle(Entity* e, glm::vec2 direction);
@@ -83,11 +86,12 @@ public:
     Player* m_players[PLAYER_COUNT];
     std::list<Unit*> m_unitType;
     std::list<Missile*> m_missileType;
-    std::list<Entity*> m_entities;
-    std::list<Missile*> m_missiles;
-    std::list<Unit*> m_unitsAlive; // all units that are alive
-    std::list<Unit*> m_unitsDead; // all units that are dead
-    std::list<Unit*> m_buildings; // all unit that are buildings
+    std::list<Entity*> m_entities; // all entites (missiles + units)
+    std::list<Missile*> m_missiles; // all missiles
+    std::list<Unit*> m_unitsAll; // all units + buildings
+    std::list<Unit*> m_unitsAlive; // all units that are alive (units + buildings)
+    std::list<Unit*> m_unitsDead; // all units that are dead (units + buildings)
+    std::list<Unit*> m_buildings; // all units that are buildings (dead + alive)
     std::list<Unit*> m_unitsPlayer[PLAYER_COUNT]; // units separated by player owner
     //Upgrade m_techTree[8];
     unsigned char** m_collisionMap;

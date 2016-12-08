@@ -338,7 +338,7 @@ void GameStateSTR::doSquareSelection() {
     square.z = std::max(std::max(targetOrigin1.x, targetOrigin2.x), std::max(targetPosition1.x, targetPosition2.x));
     square.w = std::max(std::max(targetOrigin1.y, targetOrigin2.y), std::max(targetPosition1.y, targetPosition2.y));
     // m_clicPosition
-    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAlive.begin(); it != m_gameEngine.m_unitsAlive.end(); it++) {
+    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAll.begin(); it != m_gameEngine.m_unitsAll.end(); it++) {
         Unit* u = *it;
         //if (u->getOwnerId() == m_gameEngine.m_currentPlayerId && u->isAlive()) {
         glm::vec2 unitPosition = u->getPositionXY();
@@ -363,7 +363,7 @@ void GameStateSTR::render() {
     Graphic->moveCamera(m_cameraHolder);
     Graphic->addToRender(m_heightMapData);
 
-    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAlive.begin(); it != m_gameEngine.m_unitsAlive.end(); it++) {
+    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAll.begin(); it != m_gameEngine.m_unitsAll.end(); it++) {
         Unit* u = *it;
         if (u->isAlive())
             Graphic->addToRender(u);
@@ -381,7 +381,7 @@ int GameStateSTR::getUnitId(unsigned int x, unsigned int y) {
     }
     int unitId = 0;
     Graphic->renderObjectScan(m_heightMapData, -1);
-    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAlive.begin(); it != m_gameEngine.m_unitsAlive.end(); it++) {
+    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAll.begin(); it != m_gameEngine.m_unitsAll.end(); it++) {
         Unit* u = *it;
         if (u->isAlive())
             Graphic->renderObjectScan(u, unitId);

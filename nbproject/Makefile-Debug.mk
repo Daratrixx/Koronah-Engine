@@ -35,55 +35,57 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/3ce853ac/Buff.o \
-	${OBJECTDIR}/_ext/3ce853ac/BuffInstance.o \
-	${OBJECTDIR}/_ext/3ce853ac/Camera.o \
-	${OBJECTDIR}/_ext/3ce853ac/Entity.o \
-	${OBJECTDIR}/_ext/3ce853ac/FrameBuffer.o \
-	${OBJECTDIR}/_ext/3ce853ac/FrameBuffer_Scan.o \
-	${OBJECTDIR}/_ext/3ce853ac/GUI.o \
-	${OBJECTDIR}/_ext/3ce853ac/GUI_Bar.o \
-	${OBJECTDIR}/_ext/3ce853ac/GUI_Button.o \
-	${OBJECTDIR}/_ext/3ce853ac/GUI_DynamicBar.o \
-	${OBJECTDIR}/_ext/3ce853ac/GUI_DynamicLabel.o \
-	${OBJECTDIR}/_ext/3ce853ac/GUI_Label.o \
-	${OBJECTDIR}/_ext/3ce853ac/GUI_OrderPanel.o \
-	${OBJECTDIR}/_ext/3ce853ac/Game.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameEngine.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameEngine_Building.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameEngine_Collision.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameEngine_Missile.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameEngine_Player.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameEngine_Unit.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameObject.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameState.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameStateMenu.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameStatePlayground.o \
-	${OBJECTDIR}/_ext/3ce853ac/GameStateSTR.o \
-	${OBJECTDIR}/_ext/3ce853ac/Geometry.o \
-	${OBJECTDIR}/_ext/3ce853ac/GraphicEngine.o \
-	${OBJECTDIR}/_ext/3ce853ac/GraphicEngine_Scan.o \
-	${OBJECTDIR}/_ext/3ce853ac/HeightMapData.o \
-	${OBJECTDIR}/_ext/3ce853ac/Input.o \
-	${OBJECTDIR}/_ext/3ce853ac/Light.o \
-	${OBJECTDIR}/_ext/3ce853ac/LightEngine.o \
-	${OBJECTDIR}/_ext/3ce853ac/Missile.o \
-	${OBJECTDIR}/_ext/3ce853ac/Model.o \
-	${OBJECTDIR}/_ext/3ce853ac/ModelHeightMap.o \
-	${OBJECTDIR}/_ext/3ce853ac/ModelObj.o \
-	${OBJECTDIR}/_ext/3ce853ac/ParticleEngine.o \
-	${OBJECTDIR}/_ext/3ce853ac/Settings.o \
-	${OBJECTDIR}/_ext/3ce853ac/Shader.o \
-	${OBJECTDIR}/_ext/3ce853ac/Spell.o \
-	${OBJECTDIR}/_ext/3ce853ac/SpellInstance.o \
-	${OBJECTDIR}/_ext/3ce853ac/String.o \
-	${OBJECTDIR}/_ext/3ce853ac/TextEngine.o \
-	${OBJECTDIR}/_ext/3ce853ac/Texture.o \
-	${OBJECTDIR}/_ext/3ce853ac/Time.o \
-	${OBJECTDIR}/_ext/3ce853ac/Triggerable.o \
-	${OBJECTDIR}/_ext/3ce853ac/TriggerableInstance.o \
-	${OBJECTDIR}/_ext/3ce853ac/Unit.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/src/Buff.o \
+	${OBJECTDIR}/src/BuffInstance.o \
+	${OBJECTDIR}/src/Camera.o \
+	${OBJECTDIR}/src/Entity.o \
+	${OBJECTDIR}/src/FrameBuffer.o \
+	${OBJECTDIR}/src/FrameBuffer_Scan.o \
+	${OBJECTDIR}/src/GUI.o \
+	${OBJECTDIR}/src/GUI_Bar.o \
+	${OBJECTDIR}/src/GUI_Button.o \
+	${OBJECTDIR}/src/GUI_DynamicBar.o \
+	${OBJECTDIR}/src/GUI_DynamicLabel.o \
+	${OBJECTDIR}/src/GUI_Label.o \
+	${OBJECTDIR}/src/GUI_OrderPanel.o \
+	${OBJECTDIR}/src/Game.o \
+	${OBJECTDIR}/src/GameEngine.o \
+	${OBJECTDIR}/src/GameEngine_Building.o \
+	${OBJECTDIR}/src/GameEngine_Collision.o \
+	${OBJECTDIR}/src/GameEngine_Missile.o \
+	${OBJECTDIR}/src/GameEngine_Player.o \
+	${OBJECTDIR}/src/GameEngine_Unit.o \
+	${OBJECTDIR}/src/GameObject.o \
+	${OBJECTDIR}/src/GameState.o \
+	${OBJECTDIR}/src/GameStateMenu.o \
+	${OBJECTDIR}/src/GameStatePlayground.o \
+	${OBJECTDIR}/src/GameStateSTR.o \
+	${OBJECTDIR}/src/Geometry.o \
+	${OBJECTDIR}/src/GraphicEngine.o \
+	${OBJECTDIR}/src/GraphicEngine_Pass.o \
+	${OBJECTDIR}/src/GraphicEngine_Render.o \
+	${OBJECTDIR}/src/GraphicEngine_Scan.o \
+	${OBJECTDIR}/src/HeightMapData.o \
+	${OBJECTDIR}/src/Input.o \
+	${OBJECTDIR}/src/Light.o \
+	${OBJECTDIR}/src/LightEngine.o \
+	${OBJECTDIR}/src/Missile.o \
+	${OBJECTDIR}/src/Model.o \
+	${OBJECTDIR}/src/ModelHeightMap.o \
+	${OBJECTDIR}/src/ModelObj.o \
+	${OBJECTDIR}/src/ParticleEngine.o \
+	${OBJECTDIR}/src/Settings.o \
+	${OBJECTDIR}/src/Shader.o \
+	${OBJECTDIR}/src/Spell.o \
+	${OBJECTDIR}/src/SpellInstance.o \
+	${OBJECTDIR}/src/String.o \
+	${OBJECTDIR}/src/TextEngine.o \
+	${OBJECTDIR}/src/Texture.o \
+	${OBJECTDIR}/src/Time.o \
+	${OBJECTDIR}/src/Triggerable.o \
+	${OBJECTDIR}/src/TriggerableInstance.o \
+	${OBJECTDIR}/src/Unit.o \
+	${OBJECTDIR}/src/main.o
 
 
 # C Compiler Flags
@@ -110,250 +112,260 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/koronah_engine.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	g++ -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/koronah_engine ${OBJECTFILES} ${LDLIBSOPTIONS} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lopengl32 -lglew32 -lfreetype
 
-${OBJECTDIR}/_ext/3ce853ac/Buff.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Buff.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Buff.o: src/Buff.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Buff.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Buff.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Buff.o src/Buff.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/BuffInstance.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/BuffInstance.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/BuffInstance.o: src/BuffInstance.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/BuffInstance.o /C/Users/ANTOINE/Projets/Koronah\ Engine/BuffInstance.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/BuffInstance.o src/BuffInstance.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Camera.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Camera.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Camera.o: src/Camera.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Camera.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Camera.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Camera.o src/Camera.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Entity.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Entity.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Entity.o: src/Entity.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Entity.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Entity.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Entity.o src/Entity.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/FrameBuffer.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/FrameBuffer.o: src/FrameBuffer.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/FrameBuffer.o /C/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/FrameBuffer.o src/FrameBuffer.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/FrameBuffer_Scan.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer_Scan.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/FrameBuffer_Scan.o: src/FrameBuffer_Scan.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/FrameBuffer_Scan.o /C/Users/ANTOINE/Projets/Koronah\ Engine/FrameBuffer_Scan.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/FrameBuffer_Scan.o src/FrameBuffer_Scan.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GUI.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GUI.o: src/GUI.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GUI.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GUI.o src/GUI.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GUI_Bar.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Bar.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GUI_Bar.o: src/GUI_Bar.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GUI_Bar.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Bar.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GUI_Bar.o src/GUI_Bar.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GUI_Button.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Button.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GUI_Button.o: src/GUI_Button.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GUI_Button.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Button.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GUI_Button.o src/GUI_Button.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GUI_DynamicBar.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_DynamicBar.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GUI_DynamicBar.o: src/GUI_DynamicBar.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GUI_DynamicBar.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_DynamicBar.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GUI_DynamicBar.o src/GUI_DynamicBar.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GUI_DynamicLabel.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_DynamicLabel.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GUI_DynamicLabel.o: src/GUI_DynamicLabel.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GUI_DynamicLabel.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_DynamicLabel.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GUI_DynamicLabel.o src/GUI_DynamicLabel.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GUI_Label.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Label.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GUI_Label.o: src/GUI_Label.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GUI_Label.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_Label.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GUI_Label.o src/GUI_Label.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GUI_OrderPanel.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_OrderPanel.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GUI_OrderPanel.o: src/GUI_OrderPanel.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GUI_OrderPanel.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GUI_OrderPanel.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GUI_OrderPanel.o src/GUI_OrderPanel.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Game.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Game.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Game.o: src/Game.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Game.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Game.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Game.o src/Game.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameEngine.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameEngine.o: src/GameEngine.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameEngine.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine.o src/GameEngine.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameEngine_Building.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Building.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameEngine_Building.o: src/GameEngine_Building.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameEngine_Building.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Building.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Building.o src/GameEngine_Building.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameEngine_Collision.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Collision.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameEngine_Collision.o: src/GameEngine_Collision.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameEngine_Collision.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Collision.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Collision.o src/GameEngine_Collision.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameEngine_Missile.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Missile.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameEngine_Missile.o: src/GameEngine_Missile.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameEngine_Missile.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Missile.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Missile.o src/GameEngine_Missile.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameEngine_Player.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Player.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameEngine_Player.o: src/GameEngine_Player.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameEngine_Player.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Player.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Player.o src/GameEngine_Player.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameEngine_Unit.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Unit.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameEngine_Unit.o: src/GameEngine_Unit.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameEngine_Unit.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameEngine_Unit.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Unit.o src/GameEngine_Unit.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameObject.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameObject.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameObject.o: src/GameObject.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameObject.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameObject.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameObject.o src/GameObject.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameState.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameState.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameState.o: src/GameState.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameState.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameState.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameState.o src/GameState.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameStateMenu.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameStateMenu.o: src/GameStateMenu.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameStateMenu.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStateMenu.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameStateMenu.o src/GameStateMenu.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameStatePlayground.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStatePlayground.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameStatePlayground.o: src/GameStatePlayground.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameStatePlayground.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStatePlayground.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameStatePlayground.o src/GameStatePlayground.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GameStateSTR.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GameStateSTR.o: src/GameStateSTR.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GameStateSTR.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GameStateSTR.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameStateSTR.o src/GameStateSTR.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Geometry.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Geometry.o: src/Geometry.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Geometry.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Geometry.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Geometry.o src/Geometry.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GraphicEngine.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GraphicEngine.o: src/GraphicEngine.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GraphicEngine.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GraphicEngine.o src/GraphicEngine.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/GraphicEngine_Scan.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine_Scan.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GraphicEngine_Pass.o: src/GraphicEngine_Pass.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/GraphicEngine_Scan.o /C/Users/ANTOINE/Projets/Koronah\ Engine/GraphicEngine_Scan.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GraphicEngine_Pass.o src/GraphicEngine_Pass.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/HeightMapData.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/HeightMapData.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GraphicEngine_Render.o: src/GraphicEngine_Render.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/HeightMapData.o /C/Users/ANTOINE/Projets/Koronah\ Engine/HeightMapData.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GraphicEngine_Render.o src/GraphicEngine_Render.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Input.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Input.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/GraphicEngine_Scan.o: src/GraphicEngine_Scan.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Input.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Input.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GraphicEngine_Scan.o src/GraphicEngine_Scan.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Light.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Light.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/HeightMapData.o: src/HeightMapData.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Light.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Light.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/HeightMapData.o src/HeightMapData.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/LightEngine.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/LightEngine.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Input.o: src/Input.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/LightEngine.o /C/Users/ANTOINE/Projets/Koronah\ Engine/LightEngine.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Input.o src/Input.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Missile.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Missile.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Light.o: src/Light.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Missile.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Missile.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Light.o src/Light.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Model.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Model.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/LightEngine.o: src/LightEngine.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Model.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Model.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/LightEngine.o src/LightEngine.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/ModelHeightMap.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/ModelHeightMap.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Missile.o: src/Missile.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/ModelHeightMap.o /C/Users/ANTOINE/Projets/Koronah\ Engine/ModelHeightMap.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Missile.o src/Missile.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/ModelObj.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/ModelObj.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Model.o: src/Model.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/ModelObj.o /C/Users/ANTOINE/Projets/Koronah\ Engine/ModelObj.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Model.o src/Model.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/ParticleEngine.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/ParticleEngine.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/ModelHeightMap.o: src/ModelHeightMap.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/ParticleEngine.o /C/Users/ANTOINE/Projets/Koronah\ Engine/ParticleEngine.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ModelHeightMap.o src/ModelHeightMap.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Settings.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Settings.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/ModelObj.o: src/ModelObj.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Settings.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Settings.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ModelObj.o src/ModelObj.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Shader.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Shader.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/ParticleEngine.o: src/ParticleEngine.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Shader.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Shader.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ParticleEngine.o src/ParticleEngine.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Spell.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Spell.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Settings.o: src/Settings.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Spell.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Spell.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Settings.o src/Settings.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/SpellInstance.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/SpellInstance.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Shader.o: src/Shader.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/SpellInstance.o /C/Users/ANTOINE/Projets/Koronah\ Engine/SpellInstance.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Shader.o src/Shader.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/String.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/String.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Spell.o: src/Spell.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/String.o /C/Users/ANTOINE/Projets/Koronah\ Engine/String.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Spell.o src/Spell.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/TextEngine.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/SpellInstance.o: src/SpellInstance.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/TextEngine.o /C/Users/ANTOINE/Projets/Koronah\ Engine/TextEngine.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SpellInstance.o src/SpellInstance.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Texture.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Texture.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/String.o: src/String.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Texture.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Texture.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/String.o src/String.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Time.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Time.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/TextEngine.o: src/TextEngine.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Time.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Time.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TextEngine.o src/TextEngine.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Triggerable.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Triggerable.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Texture.o: src/Texture.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Triggerable.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Triggerable.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Texture.o src/Texture.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/TriggerableInstance.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/TriggerableInstance.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Time.o: src/Time.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/TriggerableInstance.o /C/Users/ANTOINE/Projets/Koronah\ Engine/TriggerableInstance.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Time.o src/Time.cpp
 
-${OBJECTDIR}/_ext/3ce853ac/Unit.o: /C/Users/ANTOINE/Projets/Koronah\ Engine/Unit.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}/_ext/3ce853ac
+${OBJECTDIR}/src/Triggerable.o: src/Triggerable.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/3ce853ac/Unit.o /C/Users/ANTOINE/Projets/Koronah\ Engine/Unit.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Triggerable.o src/Triggerable.cpp
 
-${OBJECTDIR}/main.o: main.cpp nbproject/Makefile-${CND_CONF}.mk
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/TriggerableInstance.o: src/TriggerableInstance.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/TriggerableInstance.o src/TriggerableInstance.cpp
+
+${OBJECTDIR}/src/Unit.o: src/Unit.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Unit.o src/Unit.cpp
+
+${OBJECTDIR}/src/main.o: src/main.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Wall -I/C/MinGW/include -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
 # Subprojects
 .build-subprojects:

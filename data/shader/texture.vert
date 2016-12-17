@@ -16,8 +16,7 @@ out vec2 coordTexture;
 
 vec4 computeLight(vec3 position, vec3 color, vec3 vertexPosition, vec3 vertexNormal);
 
-void main()
-{
+void main() {
     gl_Position = projection * view * model * vec4(in_Vertex, 1.0);
     vec3 vertexPosition = (model * vec4(in_Vertex, 1.0)).xyz;
     vec3 vertexNormal = (transpose(inverse(model)) * vec4(in_Normal, 1.0)).xyz;

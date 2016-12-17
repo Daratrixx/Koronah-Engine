@@ -31,13 +31,6 @@ GraphicEngine::~GraphicEngine() {
     delete m_frameBufferColor;
     delete m_frameBufferScan;
     delete m_textEngine;
-    delete m_shaderScreen;
-    delete m_shaderModel;
-    delete m_shaderScan;
-    delete m_shaderGUI;
-    delete m_shaderSquare;
-    delete m_shaderHaloMap;
-    delete m_shaderNormal;
     delete m_playGroundObjectToRender;
     clearModelList();
     std::cout << "Model list deleted." << std::endl;
@@ -132,31 +125,26 @@ void GraphicEngine::loadGraphicDatas() {
     m_frameBufferNormal->load();
     m_frameBufferHalo->load();
     m_textEngine = new TextEngine();
-    m_shaderSquare = new Shader("data/shader/square.vert", "data/shader/square.frag");
-    m_shaderSquare->loadSquare();
-    m_shaderScreen = new Shader("data/shader/screen.vert", "data/shader/screen.frag");
-    m_shaderScreen->loadScreen();
-    m_shaderHaloMap = new Shader("data/shader/haloMap.vert", "data/shader/haloMap.frag");
-    m_shaderHaloMap->loadScreen();
-    m_shaderModel = new Shader("data/shader/texture.vert", "data/shader/texture.frag");
-    m_shaderModel->loadTexture();
-    m_shaderScan = new Shader("data/shader/scan.vert", "data/shader/scan.frag");
-    m_shaderScan->loadScan();
-    m_shaderGUI = new Shader("data/shader/GUI.vert", "data/shader/GUI.geom", "data/shader/GUI.frag");
-    m_shaderGUI->loadTexture();
-    m_shaderNormal = new Shader("data/shader/normal.vert", "data/shader/normal.frag");
-    m_shaderNormal->loadTexture();
-    loadTexture("data/texture/noHalo.png");
+    m_shaderSquare.loadSquare("data/shader/square.vert", "", "data/shader/square.frag");
+    m_shaderScreen.loadScreen("data/shader/screen.vert", "", "data/shader/screen.frag");
+    m_shaderHaloMap.loadScreen("data/shader/haloMap.vert", "", "data/shader/haloMap.frag");
+    m_shaderModel.loadTexture("data/shader/texture.vert", "", "data/shader/texture.frag");
+    m_shaderScan.loadScan("data/shader/scan.vert", "", "data/shader/scan.frag");
+    m_shaderGUI.loadTexture("data/shader/GUI.vert", "data/shader/GUI.geom", "data/shader/GUI.frag");
+    m_shaderNormal.loadTexture("data/shader/normal.vert", "", "data/shader/normal.frag");
+    loadTexture("data/texture/noHalo.png"); //0
     loadTexture("data/texture/Sc2wB.bmp");
     loadTexture("data/texture/metal.jpg");
     loadTexture("data/texture/boletus.jpg");
     loadTexture("data/texture/ShrineTexture.png");
-    loadTexture("data/texture/ShrineHalo.png");
+    loadTexture("data/texture/ShrineHalo.png"); // 5
     loadTexture("data/texture/ShrineHaloGreen.png");
     loadTexture("data/texture/halo.png");
-    loadModel("data/model/spike.obj");
+    loadTexture("data/texture/selectionCircle.png"); // 8
+    loadModel("data/model/spike.obj"); // 0
     loadModel("data/model/Shrine.obj");
     loadModel("data/model/boletus.obj");
+    loadModel("data/model/flatsquare.obj"); // 3
 
     m_camera.setProjection(DEFAULT_SCREEN_FOV, 4.f / 3.f, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
     m_camera.setPosition(0, 0, 25);
@@ -206,7 +194,6 @@ void GraphicEngine::loadGraphicDatas() {
     glBindBuffer(GL_ARRAY_BUFFER, m_squareVAO);
     // stuff
     glBufferData(GL_ARRAY_BUFFER, sizeof (float) * 2 * 4, NULL, GL_DYNAMIC_DRAW);
-    //glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof (float) * 2 * 4, 0);
     glEnableVertexAttribArray(SHADER_SQUARE_LOCATION_POSITION);
     glVertexAttribPointer(SHADER_SQUARE_LOCATION_POSITION, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
     glBindBuffer(GL_ARRAY_BUFFER, 0);

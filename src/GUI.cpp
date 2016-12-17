@@ -45,18 +45,18 @@ void GUI::renderGUI(GraphicEngine* Graphic) {
     if (m_displayColor) {
         if (m_needLoadGUI)
             loadGUI();
-        Graphic->m_shaderGUI->use();
+        Graphic->m_shaderGUI.use();
         glBindTexture(GL_TEXTURE_2D, m_textureID);
         if (m_textureID != 0)
-            glUniform1i(glGetUniformLocation(Graphic->m_shaderGUI->getProgramID(), "hasTexture"), 1);
+            glUniform1i(glGetUniformLocation(Graphic->m_shaderGUI.getProgramID(), "hasTexture"), 1);
         else
-            glUniform1i(glGetUniformLocation(Graphic->m_shaderGUI->getProgramID(), "hasTexture"), 0);
+            glUniform1i(glGetUniformLocation(Graphic->m_shaderGUI.getProgramID(), "hasTexture"), 0);
         glBindVertexArray(m_vaoGUI[m_mode]);
         glDrawArrays(GL_POINTS, 0, 1);
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        Graphic->m_shaderGUI->unUse();
+        Graphic->m_shaderGUI.unUse();
     }
 }
 

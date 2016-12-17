@@ -163,7 +163,7 @@ void Model::unUseVao() {
     glBindVertexArray(0);
 }
 
-void Model::drawUsingVao(Shader* s, Texture* t) {
+void Model::drawUsingVao(Texture* t) {
     useVao();
     if (t != null)
         glBindTexture(GL_TEXTURE_2D, t->getID());

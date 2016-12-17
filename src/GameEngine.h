@@ -41,9 +41,13 @@ public:
     // players
     void initPlayers();
     bool playerIsAlly(Player* p1, Player* p2);
+    bool playerIsAlly(unsigned p1, unsigned p2);
     void playerSetAlly(Player* p1, Player* p2);
+    void playerSetAlly(unsigned p1, unsigned p2);
     bool playerIsEnemy(Player* p1, Player* p2);
+    bool playerIsEnemy(unsigned p1, unsigned p2);
     void playerSetEnemy(Player* p1, Player* p2);
+    void playerSetEnemy(unsigned p1, unsigned p2);
 
     // units
     bool unitUpdate(Unit* u);

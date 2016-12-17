@@ -65,7 +65,7 @@ public:
     GLuint getVaoId() const;
     void useVao();
     void unUseVao();
-    void drawUsingVao(Shader* s, Texture* t);
+    void drawUsingVao(Texture* t);
     
 protected:
     int m_verticeCount;

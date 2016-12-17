@@ -26,15 +26,15 @@ void GUI_Bar::render(GraphicEngine* Graphic) {
 void GUI_Bar::renderBar(GraphicEngine* Graphic) {
     if (m_needLoadBar)
         loadBar();
-    Graphic->m_shaderGUI->use();
+    Graphic->m_shaderGUI.use();
     glBindTexture(GL_TEXTURE_2D, m_textureID);
-    glUniform1i(glGetUniformLocation(Graphic->m_shaderGUI->getProgramID(), "hasTexture"), 0);
+    glUniform1i(glGetUniformLocation(Graphic->m_shaderGUI.getProgramID(), "hasTexture"), 0);
     glBindVertexArray(m_vaoBar[m_mode]);
     glDrawArrays(GL_POINTS, 0, 1);
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-    Graphic->m_shaderGUI->unUse();
+    Graphic->m_shaderGUI.unUse();
 }
 
 void GUI_Bar::loadBar() {

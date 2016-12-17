@@ -11,21 +11,19 @@ class Shader {
 public:
     Shader();
     Shader(Shader const &shaderACopier);
-    Shader(std::string vertexSource, std::string fragmentSource);
-    Shader(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
     ~Shader();
 
     Shader& operator=(Shader const &shaderACopier);
     void clean();
     bool compileAll();
     void loadAll();
-    bool loadTexture();
-    bool loadScan();
-    bool loadText();
-    bool loadParticle();
-    bool loadGUI();
-    bool loadScreen();
-    bool loadSquare();
+    bool loadTexture(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
+    bool loadScan(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
+    bool loadText(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
+    bool loadParticle(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
+    bool loadGUI(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
+    bool loadScreen(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
+    bool loadSquare(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
     bool compile(GLuint &shader, GLenum type, std::string const &fichierSource);
     bool link();
     GLuint getProgramID() const;

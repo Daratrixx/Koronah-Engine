@@ -42,7 +42,7 @@ private:
     FT_Face face;
     GLuint VAO, VBO;
     std::map<GLchar, Character> characters;
-    Shader* s;
+    Shader s;
 };
 
 #endif	/* TEXTENGINE_H */

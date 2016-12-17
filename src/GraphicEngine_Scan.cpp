@@ -5,9 +5,9 @@ void GraphicEngine::renderScanStart() {
     glm::mat4 view = m_camera.getViewMatrice();
     glClearColor(0, 0, 1, 1);
     m_frameBufferScan->use();
-    m_shaderScan->use();
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderScan->getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projectionScene));
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderScan->getProgramID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+    m_shaderScan.use();
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderScan.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projectionScene));
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderScan.getProgramID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
 }
 
 void GraphicEngine::renderObjectScan(GameObject* object, int unitId) {
@@ -17,9 +17,9 @@ void GraphicEngine::renderObjectScan(GameObject* object, int unitId) {
         glm::mat4 model = object->getVertexMatrice();
         Model* modelData = getModel(idModel);
         if (modelData != null) {
-            glUniformMatrix4fv(glGetUniformLocation(m_shaderScan->getProgramID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-            glUniform1i(glGetUniformLocation(m_shaderScan->getProgramID(), "unitId"), unitId);
-            modelData->drawUsingVao(m_shaderScan, null);
+            glUniformMatrix4fv(glGetUniformLocation(m_shaderScan.getProgramID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+            glUniform1i(glGetUniformLocation(m_shaderScan.getProgramID(), "unitId"), unitId);
+            modelData->drawUsingVao(null);
         }
     }
 }
@@ -44,7 +44,7 @@ glm::vec3 GraphicEngine::getUnprojectedPosition(unsigned int x, unsigned int y) 
 }
 
 void GraphicEngine::renderScanEnd() {
-    m_shaderScan->unUse();
+    m_shaderScan.unUse();
     m_frameBufferScan->unUse();
     renderFrameBufferToScreen(m_frameBufferScan, m_shaderScreen, 0); // add world to screnm
 }

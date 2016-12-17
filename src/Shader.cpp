@@ -12,14 +12,6 @@ Shader::Shader(Shader const &shaderACopier) {
     m_fragmentSource = shaderACopier.m_fragmentSource;
 }
 
-Shader::Shader(std::string vertexSource, std::string fragmentSource)
-: m_vertexID(0), m_fragmentID(0), m_programID(0), m_vertexSource(vertexSource), m_geometrySource(""), m_fragmentSource(fragmentSource) {
-}
-
-Shader::Shader(std::string vertexSource, std::string geometrySource, std::string fragmentSource)
-: m_vertexID(0), m_fragmentID(0), m_programID(0), m_vertexSource(vertexSource), m_geometrySource(geometrySource), m_fragmentSource(fragmentSource) {
-}
-
 Shader::~Shader() {
     clean();
     std::cout << "Shader deleted." << std::endl;
@@ -75,7 +67,11 @@ void Shader::loadAll() {
         glAttachShader(m_programID, m_fragmentID);
 }
 
-bool Shader::loadTexture() {
+bool Shader::loadTexture(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+    // Enregistrement des chemins
+    m_vertexSource = vertexSource;
+    m_geometrySource = geometrySource;
+    m_fragmentSource = fragmentSource;
     // Destruction d'un éventuel ancien Shader
     clean();
     // Compilation des shaders
@@ -92,7 +88,11 @@ bool Shader::loadTexture() {
     return link();
 }
 
-bool Shader::loadScan() {
+bool Shader::loadScan(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+    // Enregistrement des chemins
+    m_vertexSource = vertexSource;
+    m_geometrySource = geometrySource;
+    m_fragmentSource = fragmentSource;
     // Destruction d'un éventuel ancien Shader
     clean();
     // Compilation des shaders
@@ -109,7 +109,11 @@ bool Shader::loadScan() {
     return link();
 }
 
-bool Shader::loadText() {
+bool Shader::loadText(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+    // Enregistrement des chemins
+    m_vertexSource = vertexSource;
+    m_geometrySource = geometrySource;
+    m_fragmentSource = fragmentSource;
     // Destruction d'un éventuel ancien Shader
     clean();
     // Compilation des shaders
@@ -121,7 +125,11 @@ bool Shader::loadText() {
     return link();
 }
 
-bool Shader::loadParticle() {
+bool Shader::loadParticle(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+    // Enregistrement des chemins
+    m_vertexSource = vertexSource;
+    m_geometrySource = geometrySource;
+    m_fragmentSource = fragmentSource;
     // Destruction d'un éventuel ancien Shader
     clean();
     // Compilation des shaders
@@ -139,7 +147,11 @@ bool Shader::loadParticle() {
     return link();
 }
 
-bool Shader::loadGUI() {
+bool Shader::loadGUI(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+    // Enregistrement des chemins
+    m_vertexSource = vertexSource;
+    m_geometrySource = geometrySource;
+    m_fragmentSource = fragmentSource;
     // Destruction d'un éventuel ancien Shader
     clean();
     // Compilation des shaders
@@ -156,7 +168,11 @@ bool Shader::loadGUI() {
     return link();
 }
 
-bool Shader::loadScreen() {
+bool Shader::loadScreen(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+    // Enregistrement des chemins
+    m_vertexSource = vertexSource;
+    m_geometrySource = geometrySource;
+    m_fragmentSource = fragmentSource;
     // Destruction d'un éventuel ancien Shader
     clean();
     // Compilation des shaders
@@ -172,7 +188,11 @@ bool Shader::loadScreen() {
     return link();
 }
 
-bool Shader::loadSquare() {
+bool Shader::loadSquare(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+    // Enregistrement des chemins
+    m_vertexSource = vertexSource;
+    m_geometrySource = geometrySource;
+    m_fragmentSource = fragmentSource;
     // Destruction d'un éventuel ancien Shader
     clean();
     // Compilation des shaders
@@ -223,11 +243,11 @@ bool Shader::link() {
 
 bool Shader::compile(GLuint &shader, GLenum type, std::string const &fichierSource) {
     if (fichierSource == "")
-        return true; // nothing to lad
-    // Cr�ation du shader
+        return true; // nothing to load
+    // Création du shader
     shader = glCreateShader(type);
 
-    // V�rification du shader
+    // Vérification du shader
     if (shader == 0) {
         std::cout << "Erreur, le type de shader (" << type << ") n'existe pas" << std::endl;
         return false;
@@ -254,7 +274,7 @@ bool Shader::compile(GLuint &shader, GLenum type, std::string const &fichierSour
     // Fermeture du fichier
     fichier.close();
 
-    // R�cup�ration de la chaine C du code source
+    // Récupération de la chaine C du code source
     const GLchar* chaineCodeSource = codeSource.c_str();
 
     // Envoi du code source au shader
@@ -269,7 +289,7 @@ bool Shader::compile(GLuint &shader, GLenum type, std::string const &fichierSour
 
     // S'il y a eu une erreur
     if (erreurCompilation != GL_TRUE) {
-        // R�cup�ration de la taille de l'erreur
+        // Récupération de la taille de l'erreur
         std::cout << "Erreur de compilation du Shader" << std::endl;
         GLint tailleErreur(0);
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &tailleErreur);

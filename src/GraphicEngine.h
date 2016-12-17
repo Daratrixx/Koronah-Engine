@@ -78,8 +78,8 @@ public:
 
     void addToRender(GameObject* object);
     void startRender();
-    void renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* shader, unsigned int colorID);
-    void renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* shader, unsigned int colorID, bool isHorizontal);
+    void renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID);
+    void renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID, bool isHorizontal);
     void renderPlayGround();
     void doColorPass();
     void doNormalPass();
@@ -115,14 +115,14 @@ public:
     void moveCamera(GameObject* object);
     float getCameraDistance(glm::vec3 position);
 
-    Shader* m_shaderModel;
-    Shader* m_shaderScan;
-    Shader* m_shaderParticle;
-    Shader* m_shaderGUI;
-    Shader* m_shaderSquare;
-    Shader* m_shaderScreen;
-    Shader* m_shaderHaloMap;
-    Shader* m_shaderNormal;
+    Shader m_shaderModel;
+    Shader m_shaderScan;
+    Shader m_shaderParticle;
+    Shader m_shaderGUI;
+    Shader m_shaderSquare;
+    Shader m_shaderScreen;
+    Shader m_shaderHaloMap;
+    Shader m_shaderNormal;
 
     GLuint m_screenVBO;
     GLuint m_screenVOA;

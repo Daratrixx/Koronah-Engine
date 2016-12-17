@@ -1,4 +1,6 @@
 
+#include <stdlib.h>
+
 #include "GameEngine.h"
 
 GameEngine::GameEngine() {
@@ -35,7 +37,7 @@ void GameEngine::loadGame() {
     m->m_movingSpeed = 50;
     m->setScale(1, 1, 1);
     m->setModelId(1);
-    m->setTextureId(4);
+    m->setTextureId(3);
     m->setHaloMapId(5);
     m->m_teamColor = COLOR_WHITE;
     m_missileType.push_back(m);
@@ -43,9 +45,9 @@ void GameEngine::loadGame() {
     Unit* u = new Unit();
     u->setName("soldat");
     u->setScale(1.5f, 1.5f, 1.5f);
-    u->setModelId(2);
+    u->setModelId(0);
     u->setTextureId(3);
-    u->setHaloMapId(7);
+    u->setHaloMapId(0);
     u->setMovingSpeed(25);
     u->setRadius(2);
     u->m_missileType = m_missileType.front();
@@ -61,8 +63,11 @@ void GameEngine::loadGame() {
         u->m_buildingProgress = 1;
         addUnitToGame(u);
     }*/
-    for (int i = 0; i < 100; i++) {
-        for (int j = 0; j < 2; j++) {
+    for (int j = 0; j < 2; j++) {
+        int r = 50;
+        if(j == 0)
+            r = 100;
+        for (int i = 0; i < r; i++) {
             u = new Unit(m_unitType.front());
             u->m_ownerId = j;
             u->m_teamColor = m_players[j]->m_teamColor;
@@ -245,8 +250,11 @@ void GameEngine::removeMissileFromGame(Missile* m) {
 }
 
 void GameEngine::killUnit(Unit* u) {
-    m_unitsAlive.remove(u);
-    m_unitsDead.push_back(u);
+    if (u != null) {
+        u->m_selectionCircleDisplayed = false;
+        m_unitsAlive.remove(u);
+        m_unitsDead.push_back(u);
+    }
 }
 
 void GameEngine::doRightClick(Unit* u, glm::vec2 position) {

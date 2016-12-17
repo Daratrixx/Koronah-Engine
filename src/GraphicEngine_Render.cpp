@@ -15,32 +15,32 @@ void GraphicEngine::startRender() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* shader, unsigned int colorID) {
+void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID) {
     glViewport(0, 0, m_width, m_height);
     glDisable(GL_DEPTH_TEST);
-    shader->use();
+    shader.use();
     glBindVertexArray(m_screenVOA);
     glBindTexture(GL_TEXTURE_2D, frameBuffer->getColorBufferId(colorID));
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
-    shader->unUse();
+    shader.unUse();
     glEnable(GL_DEPTH_TEST);
 }
 
-void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader* shader, unsigned int colorID, bool isHorizontal) {
+void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID, bool isHorizontal) {
     glDisable(GL_DEPTH_TEST);
-    shader->use();
+    shader.use();
     if (isHorizontal)
-        glUniform1i(glGetUniformLocation(shader->getProgramID(), "isHorizontal"), 1);
+        glUniform1i(glGetUniformLocation(shader.getProgramID(), "isHorizontal"), 1);
     else
-        glUniform1i(glGetUniformLocation(shader->getProgramID(), "isHorizontal"), 0);
+        glUniform1i(glGetUniformLocation(shader.getProgramID(), "isHorizontal"), 0);
     glBindVertexArray(m_screenVOA);
     glBindTexture(GL_TEXTURE_2D, frameBuffer->getColorBufferId(colorID));
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
-    shader->unUse();
+    shader.unUse();
     glEnable(GL_DEPTH_TEST);
 }
 
@@ -73,7 +73,7 @@ void GraphicEngine::renderPlayGround() {
 void GraphicEngine::renderSquare(glm::vec2 start, glm::vec2 end) {
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
-    m_shaderSquare->use();
+    m_shaderSquare.use();
     GLfloat vertices[4 * 2] = {
         (start.x / m_width) * 2 - 1, (start.y / m_height) * 2 - 1,
         (end.x / m_width) * 2 - 1, (start.y / m_height) * 2 - 1,
@@ -87,7 +87,7 @@ void GraphicEngine::renderSquare(glm::vec2 start, glm::vec2 end) {
     // Render quad
     glDrawArrays(GL_LINE_LOOP, 0, 4);
     glBindVertexArray(0);
-    m_shaderSquare->unUse();
+    m_shaderSquare.unUse();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 }
@@ -100,7 +100,14 @@ void GraphicEngine::renderObjectTexture(GameObject* object) {
         Model* modelData = getModel(idModel);
         Texture* textureData = getTexture(idTexture);
         if (modelData != null && textureData != null) {
-            glUniform3f(glGetUniformLocation(m_shaderModel->getProgramID(), "modelColor"), object->getColor().x, object->getColor().y, object->getColor().z);
+            glUniform3f(glGetUniformLocation(m_shaderModel.getProgramID(), "modelColor"), object->m_color.x, object->m_color.y, object->m_color.z);
+            renderModelTexture(modelData, textureData, model);
+        }
+        if(object->m_selectionCircleDisplayed) {
+            model = object->getCircleMatrice();
+            modelData = getModel(3);
+            textureData = getTexture(8);
+            glUniform3f(glGetUniformLocation(m_shaderModel.getProgramID(), "modelColor"), object->m_selectionCircleColor.x, object->m_selectionCircleColor.y, object->m_selectionCircleColor.z);
             renderModelTexture(modelData, textureData, model);
         }
     }
@@ -126,21 +133,21 @@ void GraphicEngine::renderObjectHaloMap(GameObject* object) {
         Model* modelData = getModel(idModel);
         Texture* textureData = getTexture(idHaloMap);
         if (modelData != null && textureData != null) {
-            glUniform3f(glGetUniformLocation(m_shaderModel->getProgramID(), "modelColor"), object->getTeamColor().x, object->getTeamColor().y, object->getTeamColor().z);
+            glUniform3f(glGetUniformLocation(m_shaderModel.getProgramID(), "modelColor"), object->getTeamColor().x, object->getTeamColor().y, object->getTeamColor().z);
             renderModelTexture(modelData, textureData, model);
         }
     }
 }
 
 void GraphicEngine::renderModelTexture(Model* modelData, Texture* textureData, glm::mat4 &model) {
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderModel->getProgramID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-    modelData->drawUsingVao(m_shaderModel, textureData);
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderModel.getProgramID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+    modelData->drawUsingVao(textureData);
 }
 
 void GraphicEngine::renderModelNormal(Model* modelData, glm::mat4 &model, glm::mat4 &normal) {
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderNormal->getProgramID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderNormal->getProgramID(), "normal"), 1, GL_FALSE, glm::value_ptr(normal));
-    modelData->drawUsingVao(m_shaderNormal, null);
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderNormal.getProgramID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderNormal.getProgramID(), "normal"), 1, GL_FALSE, glm::value_ptr(normal));
+    modelData->drawUsingVao(null);
 }
 
 void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* size, int count) {
@@ -151,7 +158,7 @@ void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* s
 void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* size, int count, Texture* texture, glm::mat4 &view) {
 
     // PROGRAM
-    m_shaderParticle->use();
+    m_shaderParticle.use();
 
     // PRIMITIVES
     glVertexAttribPointer(SHADER_TEXTURE_LOCATION_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, position);
@@ -162,8 +169,8 @@ void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* s
     glEnableVertexAttribArray(SHADER_PARTICLE_LOCATION_SIZE);
 
     // UNIFORMS
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderParticle->getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projectionScene));
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderParticle->getProgramID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderParticle.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(m_projectionScene));
+    glUniformMatrix4fv(glGetUniformLocation(m_shaderParticle.getProgramID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
 
     //TEXTURE
     if (texture != null)
@@ -180,7 +187,7 @@ void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* s
     glDisableVertexAttribArray(SHADER_PARTICLE_LOCATION_OPACITY);
     glDisableVertexAttribArray(SHADER_TEXTURE_LOCATION_VERTEX);
     // Désactivation du shader
-    m_shaderParticle->unUse();
+    m_shaderParticle.unUse();
 }
 
 void GraphicEngine::endRender() {

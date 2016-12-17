@@ -40,17 +40,33 @@ void GameEngine::initPlayers() {
 }
 
 bool GameEngine::playerIsAlly(Player* p1, Player* p2) {
-    return (m_playerRelation[p1->m_playerId][p1->m_playerId] & PLAYER_RELATION_ALLY) == PLAYER_RELATION_ALLY;
+    return (m_playerRelation[p1->m_playerId][p2->m_playerId] & PLAYER_RELATION_ALLY) == PLAYER_RELATION_ALLY;
+}
+
+bool GameEngine::playerIsAlly(unsigned p1, unsigned p2) {
+    return (m_playerRelation[p1][p2] & PLAYER_RELATION_ALLY) == PLAYER_RELATION_ALLY;
 }
 
 void GameEngine::playerSetAlly(Player* p1, Player* p2) {
-    m_playerRelation[p1->m_playerId][p1->m_playerId] |= PLAYER_RELATION_ALLY;
+    m_playerRelation[p1->m_playerId][p2->m_playerId] |= PLAYER_RELATION_ALLY;
+}
+
+void GameEngine::playerSetAlly(unsigned p1, unsigned p2) {
+    m_playerRelation[p1][p2] |= PLAYER_RELATION_ALLY;
 }
 
 bool GameEngine::playerIsEnemy(Player* p1, Player* p2) {
-    return (m_playerRelation[p1->m_playerId][p1->m_playerId] & PLAYER_RELATION_ALLY) == 0;
+    return (m_playerRelation[p1->m_playerId][p2->m_playerId] & PLAYER_RELATION_ALLY) == 0;
+}
+
+bool GameEngine::playerIsEnemy(unsigned p1, unsigned p2) {
+    return (m_playerRelation[p1][p2] & PLAYER_RELATION_ALLY) == 0;
 }
 
 void GameEngine::playerSetEnemy(Player* p1, Player* p2) {
-    m_playerRelation[p1->m_playerId][p1->m_playerId] &= ~PLAYER_RELATION_ALLY;
+    m_playerRelation[p1->m_playerId][p2->m_playerId] &= ~PLAYER_RELATION_ALLY;
+}
+
+void GameEngine::playerSetEnemy(unsigned p1, unsigned p2) {
+    m_playerRelation[p1][p2] &= ~PLAYER_RELATION_ALLY;
 }

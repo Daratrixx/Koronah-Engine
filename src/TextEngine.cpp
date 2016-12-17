@@ -10,8 +10,7 @@ TextEngine::TextEngine() {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
 
     FT_Set_Pixel_Sizes(face, 0, 36);
-    s = new Shader("data/shader/text.vert", "data/shader/text.frag");
-    s->loadText();
+    s.loadText("data/shader/text.vert", "", "data/shader/text.frag");
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // Disable byte-alignment restriction
     for (GLubyte c = 0; c < 128; c++) {
@@ -41,12 +40,11 @@ TextEngine::TextEngine() {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         // Now store character for later use
-        Character character = {
-            texture,
-            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-            face->glyph->advance.x
-        };
+        Character character;
+        character.TextureID = texture;
+        character.Size = glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows);
+        character.Bearing = glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top);
+        character.Advance = face->glyph->advance.x;
         characters.insert(std::pair<GLchar, Character>(c, character));
     }
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -66,7 +64,6 @@ TextEngine::TextEngine() {
 }
 
 TextEngine::~TextEngine() {
-    delete s;
     if (glIsBuffer(VBO) == GL_TRUE)
         glDeleteBuffers(1, &VAO);
     if (glIsVertexArray(VAO) == GL_TRUE)
@@ -76,11 +73,11 @@ TextEngine::~TextEngine() {
 
 void TextEngine::writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color) {
     // Activate corresponding render state
-    glm::mat4 projection = glm::ortho(0.0f, (float)getGraphicSetting()->screenWidth, 0.0f, (float)getGraphicSetting()->screenHeight);
-    s->use();
+    glm::mat4 projection = glm::ortho(0.0f, (float) getGraphicSetting()->screenWidth, 0.0f, (float) getGraphicSetting()->screenHeight);
+    s.use();
 
-    glUniformMatrix4fv(glGetUniformLocation(s->getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-    glUniform3f(glGetUniformLocation(s->getProgramID(), "textColor"), color.x, color.y, color.z);
+    glUniformMatrix4fv(glGetUniformLocation(s.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniform3f(glGetUniformLocation(s.getProgramID(), "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(VAO);
 
@@ -117,6 +114,7 @@ void TextEngine::writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
+    s.unUse();
 }
 
 float TextEngine::getLineWidth(std::string line, GLfloat scale) {

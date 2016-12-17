@@ -74,6 +74,7 @@ public:
     glm::vec3 getTeamColor() const;
     
     glm::mat4 getVertexMatrice();
+    glm::mat4 getCircleMatrice();
     glm::mat4 getNormalMatrice();
     
     
@@ -88,6 +89,10 @@ public:
     glm::vec3 m_scale;
     glm::vec3 m_color;
     glm::vec3 m_teamColor;
+    
+    bool m_selectionCircleDisplayed;
+    glm::vec3 m_selectionCircleColor;
+    float m_selectionCircleRadius;
     
     static int OBJECT_COUNT;
     static int GET_NEXT_ID();

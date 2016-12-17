@@ -147,7 +147,6 @@ int GameStateSTR::inputManagement() {
                     if (u != null) {
                         for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
                             Unit* su = m_selectedUnits[i];
-                            //if (su->getOwnerId() == m_gameEngine.m_currentPlayerId)
                             m_gameEngine.doRightClick(su, u);
                         }
                     }
@@ -181,8 +180,17 @@ int GameStateSTR::inputManagement() {
                 if (m_selectedUnitId > -1) {
                     Unit* u = m_gameEngine.getUnit(m_selectedUnitId);
                     if (u != null) {
+                        if (m_gameEngine.m_currentPlayerId == u->m_ownerId) {
+                            u->m_selectionCircleColor = glm::vec3(0, 1, 0);
+                            u->m_selectionCircleDisplayed = true;
+                        } else if (m_gameEngine.playerIsAlly(m_gameEngine.m_currentPlayerId, u->m_ownerId)) {
+                            u->m_selectionCircleColor = glm::vec3(0.75f, 0.75f, 0);
+                            u->m_selectionCircleDisplayed = true;
+                        } else {
+                            u->m_selectionCircleColor = glm::vec3(1, 0, 0);
+                            u->m_selectionCircleDisplayed = true;
+                        }
                         m_selectedUnits.push_back(u);
-                        u->setColor(0, 1, 0);
                     }
                 }
                 m_currentState = GAME_NO_STATE;
@@ -312,7 +320,7 @@ int GameStateSTR::inputManagement() {
 void GameStateSTR::clearSelection() {
     for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
         Unit* u = m_selectedUnits[i];
-        u->setColor(1, 1, 1);
+        u->m_selectionCircleDisplayed = false;
     }
     m_selectedUnits.clear();
 }
@@ -345,9 +353,17 @@ void GameStateSTR::doSquareSelection() {
         if (unitPosition.x > square.x && unitPosition.x < square.z
                 && unitPosition.y > square.y && unitPosition.y < square.w) {
             if (isPointInPolygon(squarePositions, 4, unitPosition)) {
-
+                if (m_gameEngine.m_currentPlayerId == u->m_ownerId) {
+                    u->m_selectionCircleColor = glm::vec3(0, 1, 0);
+                    u->m_selectionCircleDisplayed = true;
+                } else if (m_gameEngine.playerIsAlly(m_gameEngine.m_currentPlayerId, u->m_ownerId)) {
+                    u->m_selectionCircleColor = glm::vec3(0.75f, 0.75f, 0);
+                    u->m_selectionCircleDisplayed = true;
+                } else {
+                    u->m_selectionCircleColor = glm::vec3(1, 0, 0);
+                    u->m_selectionCircleDisplayed = true;
+                }
                 m_selectedUnits.push_back(u);
-                u->setColor(0, 1, 0);
             }
         }
         //}

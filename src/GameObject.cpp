@@ -18,6 +18,9 @@ GameObject::GameObject() {
     m_textureId = -1;
     m_haloMapId = -1;
     m_teamColor = COLOR_WHITE;
+    m_selectionCircleDisplayed = false;
+    m_selectionCircleColor = glm::vec3(0, 1, 0);
+    m_selectionCircleRadius = 2;
 }
 
 GameObject::GameObject(GameObject* o) {
@@ -28,6 +31,9 @@ GameObject::GameObject(GameObject* o) {
     m_textureId = o->m_textureId;
     m_haloMapId = o->m_haloMapId;
     setID(GET_NEXT_ID());
+    m_selectionCircleDisplayed = false;
+    m_selectionCircleColor = glm::vec3(0, 1, 0);
+    m_selectionCircleRadius = 2;
 }
 
 GameObject::~GameObject() {
@@ -236,6 +242,14 @@ glm::mat4 GameObject::getVertexMatrice() {
     out = glm::rotate(out, m_angle.z, glm::vec3(0, 0, 1));
     out = glm::rotate(out, m_angle.x, glm::vec3(1, 0, 0));
     out = glm::rotate(out, m_angle.y, glm::vec3(0, 1, 0));
+    return out;
+}
+
+glm::mat4 GameObject::getCircleMatrice() {
+    glm::mat4 out;
+    out = glm::translate(out, getPositionXYZ());
+    glm::vec3 circle(m_selectionCircleRadius, m_selectionCircleRadius, m_selectionCircleRadius);
+    out = glm::scale(out, circle);
     return out;
 }
 

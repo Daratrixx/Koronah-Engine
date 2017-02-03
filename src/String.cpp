@@ -129,3 +129,13 @@ std::string readUntil(std::string &str, std::string end) {
         return str;
     return temp;
 }
+
+string inParathesis(const string & in) {
+    string out;
+    int a, b;
+    a = in.find_first_of('(') + 1;
+    b = in.find_last_of(')');
+    if (a > -1 && b > -1)
+        out = in.substr(a, b - a);
+    return out;
+}

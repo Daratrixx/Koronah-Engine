@@ -84,6 +84,16 @@ Unit* GameEngine::unitGetAllyTarget(Unit* u) {
     return null;
 }
 
+void GameEngine::unitDamageUnit(Unit* u, Unit* target) {
+    unitDealsDamage(u, target, u->m_attackDamage);
+    unitTakesDamage(target, u, u->m_attackDamage);
+    target->damage(u->m_attackDamage);
+    if (target->isDead()) {
+        unitKills(u, target);
+        unitDies(target, u);
+    }
+}
+
 Unit* GameEngine::unitGetEnemyTarget(Unit* u) {
     Unit* closest = null;
     float distance = 0;
@@ -140,7 +150,7 @@ bool GameEngine::unitDoAttackOn(Unit* u, Unit* target) {
             m->m_position = u->m_position;
             addMissileToGame(m);
         } else { // instant attack
-            target->damage(u->m_attackDamage);
+            unitDamageUnit(u, target);
         }
         u->m_attackCooldown = u->m_attackReloadTime;
     }

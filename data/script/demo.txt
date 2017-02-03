@@ -1,0 +1,6 @@
+#EVENTS
+unitDies()
+#CONDITIONS
+unitOwnerId(DYING_UNIT) == 0
+#ACTIONS
+unitCreate(DYING_UNIT, 0, vec2(0, 0))

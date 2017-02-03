@@ -31,6 +31,11 @@
           <itemPath>src/Missile.h</itemPath>
           <itemPath>src/Unit.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="f3" displayName="Script" projectFiles="true">
+          <itemPath>src/Script.h</itemPath>
+          <itemPath>src/ScriptCommand.h</itemPath>
+          <itemPath>src/ScriptInstance.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="Triggerable" projectFiles="true">
           <itemPath>src/Buff.h</itemPath>
           <itemPath>src/Spell.h</itemPath>
@@ -101,6 +106,17 @@
       </logicalFolder>
       <logicalFolder name="f2" displayName="Logic" projectFiles="true">
         <logicalFolder name="f3" displayName="GameEngine" projectFiles="true">
+          <logicalFolder name="f1" displayName="Script" projectFiles="true">
+            <logicalFolder name="f2" displayName="Actions" projectFiles="true">
+              <itemPath>src/GameEngine_Actions.cpp</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="Events" projectFiles="true">
+              <itemPath>src/GameEngine_Events.cpp</itemPath>
+            </logicalFolder>
+            <itemPath>src/GameEngine_Script.cpp</itemPath>
+            <itemPath>src/Script.cpp</itemPath>
+            <itemPath>src/ScriptInstance.cpp</itemPath>
+          </logicalFolder>
           <itemPath>src/GameEngine.cpp</itemPath>
           <itemPath>src/GameEngine_Building.cpp</itemPath>
           <itemPath>src/GameEngine_Collision.cpp</itemPath>
@@ -172,6 +188,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>C:/MinGW/include</pElem>
@@ -235,13 +252,19 @@
       </item>
       <item path="src/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GameEngine_Actions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/GameEngine_Building.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GameEngine_Collision.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/GameEngine_Events.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/GameEngine_Missile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GameEngine_Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameEngine_Script.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GameEngine_Unit.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -320,6 +343,16 @@
       <item path="src/ParticleModifier.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Script.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Script.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ScriptCommand.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ScriptInstance.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ScriptInstance.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Settings.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -444,13 +477,19 @@
       </item>
       <item path="src/GameEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GameEngine_Actions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/GameEngine_Building.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GameEngine_Collision.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/GameEngine_Events.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/GameEngine_Missile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GameEngine_Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameEngine_Script.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GameEngine_Unit.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -529,6 +568,16 @@
       <item path="src/ParticleModifier.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Player.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Script.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Script.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ScriptCommand.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ScriptInstance.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ScriptInstance.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Settings.cpp" ex="false" tool="1" flavor2="0">
       </item>

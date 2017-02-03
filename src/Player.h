@@ -14,6 +14,7 @@ typedef struct {
     std::string m_name;
     unsigned int m_playerId;
     glm::vec3 m_teamColor;
+    glm::vec2 m_startingPosition;
     unsigned int m_race;
     
     unsigned int m_energy;

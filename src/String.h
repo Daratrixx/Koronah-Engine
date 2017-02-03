@@ -22,6 +22,7 @@ float expressionValue(std::string expr);
 bool replace(std::string &str, std::string from, std::string to);
 std::string inter(std::string str, std::string left,std:: string right);
 std::string readUntil(std::string &str, std::string end);
+std::string inParathesis(const std::string & in);
 /*
     - - String parser - -
     http://stackoverflow.com/questions/17073979/string-calculator-substr

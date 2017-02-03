@@ -10,30 +10,38 @@ void GameEngine::initPlayers() {
         switch (m_players[i]->m_playerId) {
             case PLAYER_1:
                 m_players[i]->m_teamColor = TEAM_COLOR_1;
+                m_players[i]->m_startingPosition = glm::vec2(5, 0);
                 break;
             case PLAYER_2:
                 m_players[i]->m_teamColor = TEAM_COLOR_2;
+                m_players[i]->m_startingPosition = glm::vec2(-5, 0);
                 break;
             case PLAYER_3:
                 m_players[i]->m_teamColor = TEAM_COLOR_3;
+                m_players[i]->m_startingPosition = glm::vec2(5, 0);
                 break;
             case PLAYER_4:
                 m_players[i]->m_teamColor = TEAM_COLOR_4;
+                m_players[i]->m_startingPosition = glm::vec2(-5, 0);
                 break;
             case PLAYER_5:
                 m_players[i]->m_teamColor = TEAM_COLOR_5;
+                m_players[i]->m_startingPosition = glm::vec2(5, 0);
                 break;
             case PLAYER_6:
                 m_players[i]->m_teamColor = TEAM_COLOR_6;
+                m_players[i]->m_startingPosition = glm::vec2(-5, 0);
                 break;
             case PLAYER_7:
                 m_players[i]->m_teamColor = TEAM_COLOR_7;
+                m_players[i]->m_startingPosition = glm::vec2(5, 0);
                 break;
             case PLAYER_8:
                 m_players[i]->m_teamColor = TEAM_COLOR_8;
+                m_players[i]->m_startingPosition = glm::vec2(-5, 0);
                 break;
         }
-        for(unsigned int j = 0; j < PLAYER_COUNT; j++) {
+        for (unsigned int j = 0; j < PLAYER_COUNT; j++) {
             m_playerRelation[i][j] = PLAYER_RELATION_ENEMY;
         }
     }

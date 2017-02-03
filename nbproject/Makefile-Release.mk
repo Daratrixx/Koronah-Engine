@@ -50,10 +50,13 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/GUI_OrderPanel.o \
 	${OBJECTDIR}/src/Game.o \
 	${OBJECTDIR}/src/GameEngine.o \
+	${OBJECTDIR}/src/GameEngine_Actions.o \
 	${OBJECTDIR}/src/GameEngine_Building.o \
 	${OBJECTDIR}/src/GameEngine_Collision.o \
+	${OBJECTDIR}/src/GameEngine_Events.o \
 	${OBJECTDIR}/src/GameEngine_Missile.o \
 	${OBJECTDIR}/src/GameEngine_Player.o \
+	${OBJECTDIR}/src/GameEngine_Script.o \
 	${OBJECTDIR}/src/GameEngine_Unit.o \
 	${OBJECTDIR}/src/GameObject.o \
 	${OBJECTDIR}/src/GameState.o \
@@ -74,6 +77,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/ModelHeightMap.o \
 	${OBJECTDIR}/src/ModelObj.o \
 	${OBJECTDIR}/src/ParticleEngine.o \
+	${OBJECTDIR}/src/Script.o \
+	${OBJECTDIR}/src/ScriptInstance.o \
 	${OBJECTDIR}/src/Settings.o \
 	${OBJECTDIR}/src/Shader.o \
 	${OBJECTDIR}/src/Spell.o \
@@ -187,6 +192,11 @@ ${OBJECTDIR}/src/GameEngine.o: src/GameEngine.cpp nbproject/Makefile-${CND_CONF}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine.o src/GameEngine.cpp
 
+${OBJECTDIR}/src/GameEngine_Actions.o: src/GameEngine_Actions.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Actions.o src/GameEngine_Actions.cpp
+
 ${OBJECTDIR}/src/GameEngine_Building.o: src/GameEngine_Building.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -197,6 +207,11 @@ ${OBJECTDIR}/src/GameEngine_Collision.o: src/GameEngine_Collision.cpp nbproject/
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Collision.o src/GameEngine_Collision.cpp
 
+${OBJECTDIR}/src/GameEngine_Events.o: src/GameEngine_Events.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Events.o src/GameEngine_Events.cpp
+
 ${OBJECTDIR}/src/GameEngine_Missile.o: src/GameEngine_Missile.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
@@ -206,6 +221,11 @@ ${OBJECTDIR}/src/GameEngine_Player.o: src/GameEngine_Player.cpp nbproject/Makefi
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Player.o src/GameEngine_Player.cpp
+
+${OBJECTDIR}/src/GameEngine_Script.o: src/GameEngine_Script.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/GameEngine_Script.o src/GameEngine_Script.cpp
 
 ${OBJECTDIR}/src/GameEngine_Unit.o: src/GameEngine_Unit.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -306,6 +326,16 @@ ${OBJECTDIR}/src/ParticleEngine.o: src/ParticleEngine.cpp nbproject/Makefile-${C
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ParticleEngine.o src/ParticleEngine.cpp
+
+${OBJECTDIR}/src/Script.o: src/Script.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Script.o src/Script.cpp
+
+${OBJECTDIR}/src/ScriptInstance.o: src/ScriptInstance.cpp nbproject/Makefile-${CND_CONF}.mk
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -I/C/MinGW/SDL-2.0/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ScriptInstance.o src/ScriptInstance.cpp
 
 ${OBJECTDIR}/src/Settings.o: src/Settings.cpp nbproject/Makefile-${CND_CONF}.mk
 	${MKDIR} -p ${OBJECTDIR}/src

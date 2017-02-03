@@ -6,7 +6,7 @@
  */
 
 #ifndef GAMEENIGINE_H
-#define	GAMEENIGINE_H
+#define GAMEENIGINE_H
 
 
 #include "Types.h"
@@ -14,6 +14,9 @@
 #include "Entity.h"
 #include "Player.h"
 #include "Missile.h"
+#include "Script.h"
+#include "ScriptInstance.h"
+#include <queue>
 
 class GameEngine {
 public:
@@ -37,7 +40,7 @@ public:
     void doRightClick(Unit* u, glm::vec2 position);
     void doRightClick(Unit* u, Unit* target);
     void updateAngle(Entity* e, glm::vec2 direction);
-    
+
     // players
     void initPlayers();
     bool playerIsAlly(Player* p1, Player* p2);
@@ -53,6 +56,7 @@ public:
     bool unitUpdate(Unit* u);
     Unit* unitGetAllyTarget(Unit* u);
     Unit* unitGetEnemyTarget(Unit* u);
+    void unitDamageUnit(Unit* u, Unit* target);
     bool unitDoMoveTo(Unit* u, glm::vec2 destination);
     bool unitDoAttackOn(Unit* u, Unit* target);
     void unitDoCollision(Unit* u);
@@ -81,9 +85,39 @@ public:
     bool missileUpdate(Missile* m);
     bool missileHit(Missile* m, Unit* target);
     bool missileMoveTo(Missile* m, glm::vec2 destination);
+
+    // scripts
+    void scriptMain();
+    bool checkConditions(ScriptInstance *si);
+    void runScript(ScriptInstance *si);
+    bool parseCondition(ScriptInstance *si, const std::string & condition);
+    void parseAction(ScriptInstance *si, std::string action);
+    std::vector<std::string> scriptArguments(const std::string & function);
+    bool scriptStartsWith(const std::string & script, const std::string & start);
+    Unit* scriptToUnit(ScriptInstance* si, const std::string & script);
+    Player* scriptToPlayer(ScriptInstance* si, const std::string & script);
+    unsigned scriptToPlayerId(ScriptInstance* si, const std::string & script);
+    glm::vec2 scriptToPosition(ScriptInstance* si, const std::string & script);
+    glm::vec4 scriptToArea(ScriptInstance* si, const std::string & script);
+    
+    // events
+    void unitEntersGame(Unit* unit);
+    void unitDealsDamage(Unit* damaging, Unit* damaged, const float & damage) ;
+    void unitTakesDamage(Unit* damaged, Unit* damager, const float & damage);
+    void unitKills(Unit* killer, Unit* dead);
+    void unitDies(Unit* dead, Unit* killer);
+    void unitEntersArea(Unit* unit, glm::vec4 area);
+    void unitLeavesArea(Unit* unit, glm::vec4 area);
+    
+    // actions
+    void unitCreate(Unit* unitType, unsigned ownerId, glm::vec2 position);
+    void unitMove(Unit* u, glm::vec2 position);
+    void unitKill(Unit* u);
     
     // fields
-
+    std::vector<Script*> m_scriptList;
+    std::queue<ScriptInstance*> m_scriptInstanceQueue;
+    
     unsigned int m_currentPlayerId;
     unsigned int m_playerRelation[PLAYER_COUNT][PLAYER_COUNT];
     float m_tickDuration;
@@ -103,5 +137,5 @@ public:
     float m_dayTime;
 };
 
-#endif	/* GAMEENIGINE_H */
+#endif /* GAMEENIGINE_H */
 

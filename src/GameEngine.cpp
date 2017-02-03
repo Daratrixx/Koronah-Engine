@@ -29,10 +29,15 @@ void GameEngine::clearGame() {
         m_unitsPlayer[i].clear();
         delete m_players[i];
     }
+    for(Script* s : m_scriptList)
+        delete s;
+    while(!m_scriptInstanceQueue.empty()) {
+        delete m_scriptInstanceQueue.front();
+        m_scriptInstanceQueue.pop();
+    }
 }
 
 void GameEngine::loadGame() {
-    std::cout << "start loading str" << std::endl;
     Missile* m = new Missile();
     m->m_movingSpeed = 50;
     m->setScale(1, 1, 1);
@@ -64,14 +69,12 @@ void GameEngine::loadGame() {
         addUnitToGame(u);
     }*/
     for (int j = 0; j < 2; j++) {
-        int r = 50;
-        if(j == 0)
-            r = 100;
+        int r = 10;
         for (int i = 0; i < r; i++) {
             u = new Unit(m_unitType.front());
             u->m_ownerId = j;
             u->m_teamColor = m_players[j]->m_teamColor;
-            u->setPositionXY(25 - (j * 50), 50 - i);
+            u->setPositionXY(5 - (j * 10), r/2 - i);
             u->m_trainingProgress = 1;
             u->m_buildingProgress = 1;
             u->orderAttackMove(glm::vec2(0, 0));
@@ -104,6 +107,13 @@ void GameEngine::loadGame() {
     u->m_rallyDestination = glm::vec2(50, 0);
     u->orderTrain(m_unitType.front());
     addUnitToGame(u);*/
+    Script* s = new Script();
+    s->m_autoTrigger = false;
+    s->m_enabledTrigger = true;
+    s->m_events.push_back("unitDies()");
+    s->m_actions.push_back("unitCreate(DYING_UNIT, unitOwnerId(DYING_UNIT), playerStartPosition(unitOwner(DYING_UNIT)))");
+    
+    m_scriptList.push_back(s);
 }
 
 void GameEngine::gameTick(float time) {

@@ -12,7 +12,7 @@ bool GameEngine::missileUpdate(Missile* m) {
 
 bool GameEngine::missileHit(Missile* m, Unit* target) {
     if(m->m_radius + target->m_radius >= glm::length(target->m_position - m->m_position)) {
-        target->damage(m->m_damage);
+        unitDamageUnit((Unit*)m->m_missileOwner, target);
         return true;
     }
     return false;

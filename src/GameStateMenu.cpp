@@ -7,6 +7,7 @@ void buttonCallBack() {
 
 GameStateMenu::GameStateMenu() : GameState() {
     m_buttonSwitchToPlayGround = null;
+    m_buttonSwitchToSettings = null;
 }
 
 GameStateMenu::~GameStateMenu() {
@@ -37,11 +38,23 @@ void GameStateMenu::load() {
     m_buttonSwitchToPlayGround->setBlinkText(true, GUI_HOVER);
     m_buttonSwitchToPlayGround->setTextColor(0, 0.5f, 0.5f);
     m_buttonSwitchToPlayGround->setTextColor(0, 1, 1, GUI_HOVER);
-    m_buttonSwitchToPlayGround->setOnClickCallBack(&buttonCallBack);
     m_guiRoot->addChild(m_buttonSwitchToPlayGround);
-    
+
+    m_buttonSwitchToSettings = new GUI_Button();
+    m_buttonSwitchToSettings->setPosition(200, 200);
+    m_buttonSwitchToSettings->setSize(400, 50);
+    m_buttonSwitchToSettings->setColor(0, 0, 0.25f, 1);
+    m_buttonSwitchToSettings->setText("Settings");
+    m_buttonSwitchToSettings->setFontSize(1.25f);
+    m_buttonSwitchToSettings->setFontSize(1, GUI_ACTIVE);
+    m_buttonSwitchToSettings->setBlinkSpeed(10, GUI_HOVER);
+    m_buttonSwitchToSettings->setBlinkText(true, GUI_HOVER);
+    m_buttonSwitchToSettings->setTextColor(0, 0.5f, 0.5f);
+    m_buttonSwitchToSettings->setTextColor(0, 1, 1, GUI_HOVER);
+    m_guiRoot->addChild(m_buttonSwitchToSettings);
+
     m_buttonExit = new GUI_Button();
-    m_buttonExit->setPosition(200, 200);
+    m_buttonExit->setPosition(200, 100);
     m_buttonExit->setSize(400, 50);
     m_buttonExit->setColor(0, 0, 0.25f, 1);
     m_buttonExit->setText("Exit");
@@ -51,9 +64,8 @@ void GameStateMenu::load() {
     m_buttonExit->setBlinkText(true, GUI_HOVER);
     m_buttonExit->setTextColor(0, 0.5f, 0.5f);
     m_buttonExit->setTextColor(0, 1, 1, GUI_HOVER);
-    m_buttonExit->setOnClickCallBack(&buttonCallBack);
     m_guiRoot->addChild(m_buttonExit);
-    
+
     GUI_DynamicLabel* gdl = new GUI_DynamicLabel();
     gdl->setPosition(650, 560);
     gdl->setTextureID(loadTexture("data/gui/fpsBar.png"));
@@ -69,16 +81,20 @@ void GameStateMenu::load() {
 void GameStateMenu::onEnter() {
     Input->setCursorLock(false);
     Input->setCursorVisible(true);
+    resetInput();
+    m_orderOut = ORDER_CONTINUE;
+    m_guiActive = null;
+    m_guiHover = null;
 }
 
 void GameStateMenu::onLeave() {
 
 }
 
-int GameStateMenu::mainFunction(float time) {
+UShort GameStateMenu::mainFunction(float time) {
     Graphic->startRender();
     setLoopTime(time);
-    int order = inputManagement();
+    UShort order = inputManagement();
     update();
     render();
     Graphic->endRender();
@@ -89,23 +105,78 @@ void GameStateMenu::update() {
     m_guiRoot->update(m_elapsedTime);
 }
 
-int GameStateMenu::inputManagement() {
-    if (Input->getKeyboardPushed(SDL_SCANCODE_TAB))
-        return ORDER_TO_PLAYGROUND;
-
-    if (Input->getMousePushed(SDL_BUTTON_LEFT)) {
-        m_guiRoot->tryActive(Input->getMousePositionX(), Input->getMousePositionY());
+UShort GameStateMenu::inputManagement() {
+    SDL_Event e;
+    while (SDL_PollEvent(&e)) {
+        // Enregistrement de l'input
+        Input->updateEvents(e);
+        if (!guiEvent(e)) {
+            // Switch sur le type d'évènement
+            switch (e.type) {
+                    // Cas d'une touche enfoncée
+                case SDL_KEYDOWN:
+                    m_orderOut = keyboardInput(e);
+                    break;
+                    // Cas d'une touche relâchée
+                case SDL_KEYUP:
+                    m_orderOut = keyboardInput(e);
+                    break;
+                    // Cas de pression sur un bouton de la souris
+                case SDL_MOUSEBUTTONDOWN:
+                    m_orderOut = mouseInput(e);
+                    break;
+                    // Cas du relâchement d'un bouton de la souris
+                case SDL_MOUSEBUTTONUP:
+                    m_orderOut = mouseInput(e);
+                    break;
+                    // Cas d'un mouvement de souris
+                case SDL_MOUSEMOTION:
+                    m_orderOut = mouseInput(e);
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (m_orderOut != ORDER_CONTINUE)
+            return m_orderOut;
     }
-    if (Input->getMouseReleased(SDL_BUTTON_LEFT)) {
-        GUI* clicked = m_guiRoot->tryClick(Input->getMousePositionX(), Input->getMousePositionY());
-        if (clicked == m_buttonSwitchToPlayGround)
-            return ORDER_TO_PLAYGROUND;
-        if (clicked == m_buttonExit) {
-            return ORDER_EXIT;
+    return ORDER_CONTINUE;
+}
+
+UShort GameStateMenu::mouseInput(SDL_Event & EVENT_QUEUE) {
+    return ORDER_CONTINUE;
+}
+
+bool GameStateMenu::guiMouseUp(SDL_Event & e) {
+    if (e.button.button == SDL_BUTTON_LEFT) {
+        if (m_guiActive != null) {
+            if (m_guiActive == m_guiRoot)
+                return false; // event not consumed
+            glm::vec2 pos(e.button.x, 600 - e.button.y);
+            m_guiActive->setMode(GUI_NORMAL);
+            m_guiActive->onClick();
+            if (m_guiActive->cursorPositionIn(pos)) {
+                if (m_guiActive == m_buttonSwitchToPlayGround) {
+                    m_orderOut = ORDER_TO_PLAYGROUND;
+                }
+                if (m_guiActive == m_buttonSwitchToSettings) {
+                    m_orderOut = ORDER_TO_SETTINGS;
+                }
+                if (m_guiActive == m_buttonExit) {
+                    m_orderOut = ORDER_EXIT;
+                }
+            }
+            m_guiActive = null;
+            return true;
         }
     }
-    if (Input->getMouseMoved()) {
-        m_guiRoot->tryHover(Input->getMousePositionX(), Input->getMousePositionY());
+    return false; // event not consumed
+}
+
+UShort GameStateMenu::keyboardInput(SDL_Event & EVENT_QUEUE) {
+    if (EVENT_QUEUE.type == SDL_KEYDOWN) {
+        if (EVENT_QUEUE.key.keysym.scancode == SDL_SCANCODE_TAB)
+            return ORDER_TO_PLAYGROUND;
     }
     return ORDER_CONTINUE;
 }

@@ -86,7 +86,7 @@ void ParticleEngine::generate() {
     m_opacity = new float[m_particleCount];
     m_size = new float[m_particleCount];
     //m_texture = new int[m_particleCount];
-    int i = 0;
+    UInt i = 0;
     KeyLink* current = m_paticleToRender->first;
     while (current != null) {
         Particle* p = (Particle*) (current->value);

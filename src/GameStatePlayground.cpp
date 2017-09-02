@@ -155,7 +155,7 @@ void GameStatePlayground::onLeave() {
     }
 }
 
-int GameStatePlayground::mainFunction(float time) {
+UShort GameStatePlayground::mainFunction(float time) {
     Graphic->startRender();
     setLoopTime(time);
     int order = inputManagement();
@@ -168,7 +168,7 @@ int GameStatePlayground::mainFunction(float time) {
     return order;
 }
 
-int GameStatePlayground::inputManagement() {
+UShort GameStatePlayground::inputManagement() {
     if (Input->getKeyboardPushed(SDL_SCANCODE_TAB))
         return ORDER_TO_MENU;
     if (m_guiActiveInterface == null) {

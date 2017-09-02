@@ -17,20 +17,20 @@
 class TimeEngine {
 public:
     TimeEngine();
-    float getDeltaTime();
-    float getCurrentTime();
-    float getCurrentTick();
+    float getDeltaTime() const;
+    float getCurrentTime() const;
+    float getCurrentTick() const;
     void updateTime();
-    void waitSeconds(float seconds);
-    int getFPS();
+    void waitSeconds(float seconds) const;
+    UShort getFPS() const;
     
 private:
     float CURRENT_TIME;
     float DELTA_TIME;
     float UPDATE_CUMULATOR;
-    int UPDATE_COUNT;
-    int LAST_UPDATE_COUNT;
-    int FPS_APPROX;
+    UShort UPDATE_COUNT;
+    UShort LAST_UPDATE_COUNT;
+    UShort FPS_APPROX;
 };
 
 #endif	/* TIME_H */

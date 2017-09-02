@@ -66,7 +66,7 @@ public:
         count = 0;
     }
     KeyLink* first;
-    int count;
+    UInt count;
 };
 
 #endif	/* SORTEDKEYCHAIN_HPP */

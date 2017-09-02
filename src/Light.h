@@ -18,13 +18,13 @@ public:
     ~Light();
     void setData(float* dataOrigin);
     glm::vec3 getPosition() const;
-    void setPosition(float x, float y, float z);
-    void setPosition(glm::vec3 position);
+    void setPosition(const float & x, const float & y, const float & z);
+    void setPosition(const glm::vec3 & position);
     glm::vec3 getColor() const;
-    void setColor(float r, float g, float b);
-    void setColor(glm::vec3 color);
+    void setColor(const float & r, const float & g, const float & b);
+    void setColor(const glm::vec3 & color);
     float getEnergy() const;
-    void setEnergy(float energy);
+    void setEnergy(const float & energy);
     void UpdateColor();
 private:
     float* m_data;

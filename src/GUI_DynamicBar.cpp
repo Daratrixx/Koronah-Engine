@@ -22,11 +22,11 @@ void GUI_DynamicBar::render(GraphicEngine* Graphic) {
     }
 }
 
-void GUI_DynamicBar::setGetBarPercent(float(*getBarPercent)(void*, float)) {
+void GUI_DynamicBar::setGetBarPercent(float(*getBarPercent)(void*, const float &)) {
     m_getBarPercent = getBarPercent;
 }
 
-void GUI_DynamicBar::setGetBarColor(glm::vec3(*getBarColor)(void*, float)) {
+void GUI_DynamicBar::setGetBarColor(glm::vec3(*getBarColor)(void*, const float &)) {
     m_getBarColor = getBarColor;
 }
 
@@ -48,7 +48,7 @@ glm::vec3 GUI_DynamicBar::getBarColor() {
     return m_barColor[m_mode];
 }
 
-glm::vec3 GUI_DynamicBar::getBarColor(unsigned int mode) {
+glm::vec3 GUI_DynamicBar::getBarColor(const UShort & mode) {
     if (m_source != null && m_getBarColor != null) {
         return m_getBarColor(m_source, m_time);
     }

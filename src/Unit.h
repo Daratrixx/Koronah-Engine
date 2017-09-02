@@ -28,10 +28,12 @@ public:
     Unit();
     Unit(Unit *u);
     virtual ~Unit();
+    virtual bool writeInFile(std::ofstream & fout);
+    virtual bool readFromFile(std::ifstream & fin);
     
     void kill();
     
-    virtual void push(float x, float y);
+    virtual void push(const float & x, const float & y);
     // global
     virtual bool isAlive() const;
     virtual bool isDead() const;
@@ -41,48 +43,48 @@ public:
     virtual bool isTrainingDone() const;
     
     std::string getName() const;
-    void setName(std::string name);
-    unsigned int getOwnerId();
-    void setOwnerId(unsigned int id);
+    void setName(const std::string & name);
+    UShort getOwnerId() const;
+    void setOwnerId(const UShort & id);
     
-    int getLevel() const;
-    void setLevel(int level);
-    void addLevel(int level);
+    UInt getLevel() const;
+    void setLevel(const UInt & level);
+    void addLevel(const UInt & level);
 
-    int getExperience() const;
-    void setExperience(int experience);
-    void addExperience(int experience);
+    UInt getExperience() const;
+    void setExperience(const UInt & experience);
+    void addExperience(const UInt & experience);
 
     std::string m_name;
-    unsigned int m_ownerId;
+    UShort m_ownerId;
     float m_constructionTime; // both for building construction and unit training total duration
 
-    unsigned int m_level;
-    unsigned int m_experience;
+    UInt m_level;
+    UInt m_experience;
 
     bool m_isAlive;
     bool m_isBuilding;
-    unsigned int m_behavior;
+    UShort m_behavior;
 
     std::list<Spell*> m_speelList;
     
     // orders
     void orderStop();
     void orderHold();
-    void orderMove(glm::vec2 dest);
-    void orderRally(glm::vec2 dest);
+    void orderMove(const glm::vec2 & dest);
+    void orderRally(const glm::vec2 & dest);
     void orderRally(Unit* target);
     void orderFollow(Unit* target);
-    void orderPatrol(glm::vec2 dest);
-    void orderAttackMove(glm::vec2 dest);
+    void orderPatrol(const glm::vec2 & dest);
+    void orderAttackMove(const glm::vec2 & dest);
     void orderAttack(Unit* target);
-    void orderBuild(Unit* buildingType, glm::vec2 destination);
+    void orderBuild(Unit* buildingType, const glm::vec2 & destination);
     void orderCancelBuild();
     void orderTrain(Unit* unitType);
     void orderCancelTrain();
     
     glm::vec2 getDestination();
-    void setDestination(glm::vec2 destination);
+    void setDestination(const glm::vec2 & destination);
     
     glm::vec2 m_destination;
 
@@ -91,33 +93,43 @@ public:
     glm::vec2 m_buildDestination;
     
     // building
-    void setBuildingSize(float x, float y);
-    void setBuildingSize(glm::vec2 size);
+    void setBuildingSize(const float & x, const float & y);
+    void setBuildingSize(const glm::vec2 & size);
     glm::vec2 getBuildingSize() const;
     glm::vec2 m_buildingSize;
     
-    void build(float time);
+    void build(const float & time);
     float m_buildingProgress;
-    void train(float time);
+    void train(const float & time);
+    float getDamage();
     Unit* m_trainingUnit;
     float m_trainingProgress;
     glm::vec2 m_rallyDestination;
     Unit* m_rallyTarget;
     
-    // fight
-    float m_maxHealth;
-    float m_percentHealth;
-    float m_attackAgressionRange;
+    // resources
+    int m_costEnergy;
+    int m_costMaterials;
+    int m_costSupply;
     
-    void damage(float damage);
-    void heal(float heal);
+    
+    // fight
+    float m_healthMax;
+    float m_healthRegenerationRate;
+    float m_healthPercent;
+    
+    void damage(const float & damage);
+    void heal(const float & heal);
 
     float m_attackDamage;
     float m_attackRange;
     float m_attackReloadTime;
     float m_attackCooldown;
+    float m_attackAggressionRange;
     
     Entity* m_missileType;
+    
+    int m_unitId;
 };
 
 #endif	/* UNIT_H */

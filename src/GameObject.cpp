@@ -2,9 +2,9 @@
 #include "GameObject.h"
 
 
-int GameObject::OBJECT_COUNT = 0;
+UInt GameObject::OBJECT_COUNT = 0;
 
-int GameObject::GET_NEXT_ID() {
+UInt GameObject::GET_NEXT_ID() {
     return OBJECT_COUNT++;
 }
 
@@ -37,48 +37,61 @@ GameObject::GameObject(GameObject* o) {
 }
 
 GameObject::~GameObject() {
-    std::cout << "Deleted GameObject with ID " << m_objectId << std::endl;
 }
 
-int GameObject::getID() const {
+bool GameObject::writeInFile(std::ofstream & fout) {
+    /*unsigned addr = (unsigned)this;
+    unsigned size = sizeof(this);
+    fout.write((char*) &addr, sizeof(unsigned));
+    fout.write((char*) &size, sizeof(unsigned));
+    fout.write((char*) this, size);*/
+    return true;
+}
+
+bool GameObject::readFromFile(std::ifstream & fin) {
+    fin.read((char*) this, sizeof(this));
+    return true;
+}
+
+UInt GameObject::getID() const {
     return m_objectId;
 }
 
-void GameObject::setID(int id) {
+void GameObject::setID(const UInt & id) {
     m_objectId = id;
 }
 
-void GameObject::setPositionXYZ(float x, float y, float z) {
+void GameObject::setPositionXYZ(const float & x, const float & y, const float & z) {
     m_position.x = x;
     m_position.y = y;
     m_depth = z;
 }
 
-void GameObject::setPositionXYZ(glm::vec3 pos) {
+void GameObject::setPositionXYZ(const glm::vec3 & pos) {
     m_position.x = pos.x;
     m_position.y = pos.y;
     m_depth = pos.z;
 }
 
-void GameObject::setPositionXY(float x, float y) {
+void GameObject::setPositionXY(const float & x, const float & y) {
     m_position.x = x;
     m_position.y = y;
 }
 
-void GameObject::setPositionXY(glm::vec2 pos) {
+void GameObject::setPositionXY(const glm::vec2 & pos) {
     m_position.x = pos.x;
     m_position.y = pos.y;
 }
 
-void GameObject::setPositionX(float x) {
+void GameObject::setPositionX(const float & x) {
     m_position.x = x;
 }
 
-void GameObject::setPositionY(float y) {
+void GameObject::setPositionY(const float & y) {
     m_position.y = y;
 }
 
-void GameObject::setPositionZ(float z) {
+void GameObject::setPositionZ(const float & z) {
     m_depth = z;
 }
 
@@ -102,36 +115,36 @@ float GameObject::getPositionZ() const {
     return m_depth;
 }
 
-void GameObject::addPositionXYZ(float x, float y, float z) {
+void GameObject::addPositionXYZ(const float & x, const float & y, const float & z) {
     m_position.x += x;
     m_position.y += y;
     m_depth += z;
 }
 
-void GameObject::addPositionXYZ(glm::vec3 position) {
+void GameObject::addPositionXYZ(const glm::vec3 & position) {
     m_position.x += position.x;
     m_position.y += position.y;
     m_depth += position.z;
 }
 
-void GameObject::addPositionXY(float x, float y) {
+void GameObject::addPositionXY(const float & x, const float & y) {
     m_position.x += x;
     m_position.y += y;
 }
 
-void GameObject::addPositionXY(glm::vec2 position) {
+void GameObject::addPositionXY(const glm::vec2 & position) {
     m_position.x += position.x;
     m_position.y += position.y;
 }
 
-void GameObject::setAngle(float x, float y, float z) {
+void GameObject::setAngle(const float & x, const float & y, const float & z) {
     m_angle.x = x;
     m_angle.y = y;
     m_angle.z = z;
     correctAngle();
 }
 
-void GameObject::setAngle(glm::vec3 angle) {
+void GameObject::setAngle(const glm::vec3 & angle) {
     m_angle = angle;
     correctAngle();
 }
@@ -140,14 +153,14 @@ glm::vec3 GameObject::getAngle() const {
     return m_angle;
 }
 
-void GameObject::addAngle(float x, float y, float z) {
+void GameObject::addAngle(const float & x, const float & y, const float & z) {
     m_angle.x += x;
     m_angle.y += y;
     m_angle.z += z;
     correctAngle();
 }
 
-void GameObject::addAngle(glm::vec3 angle) {
+void GameObject::addAngle(const glm::vec3 & angle) {
     m_angle += angle;
     correctAngle();
 }
@@ -159,13 +172,13 @@ void GameObject::correctAngle() {
         m_angle.x = -89.9;
 }
 
-void GameObject::setScale(float x, float y, float z) {
+void GameObject::setScale(const float & x, const float & y, const float & z) {
     m_scale.x = x;
     m_scale.y = y;
     m_scale.z = z;
 }
 
-void GameObject::setScale(glm::vec3 size) {
+void GameObject::setScale(const glm::vec3 & size) {
     m_scale = size;
 }
 
@@ -173,23 +186,23 @@ glm::vec3 GameObject::getScale() const {
     return m_scale;
 }
 
-void GameObject::addScale(float x, float y, float z) {
+void GameObject::addScale(const float & x, const float & y, const float & z) {
     m_scale.x += x;
     m_scale.y += y;
     m_scale.z += z;
 }
 
-void GameObject::addScale(glm::vec3 scale) {
+void GameObject::addScale(const glm::vec3 & scale) {
     m_scale += scale;
 }
 
-void GameObject::setColor(float r, float g, float b) {
+void GameObject::setColor(const float & r, const float & g, const float & b) {
     m_color.x = r;
     m_color.y = g;
     m_color.z = b;
 }
 
-void GameObject::setColor(glm::vec3 color) {
+void GameObject::setColor(const glm::vec3 & color) {
     m_color = color;
 }
 
@@ -197,13 +210,13 @@ glm::vec3 GameObject::getColor() const {
     return m_color;
 }
 
-void GameObject::setTeamColor(float r, float g, float b) {
+void GameObject::setTeamColor(const float & r, const float & g, const float & b) {
     m_teamColor.x = r;
     m_teamColor.y = g;
     m_teamColor.z = b;
 }
 
-void GameObject::setTeamColor(glm::vec3 color) {
+void GameObject::setTeamColor(const glm::vec3 & color) {
     m_teamColor = color;
 }
 
@@ -211,27 +224,27 @@ glm::vec3 GameObject::getTeamColor() const {
     return m_teamColor;
 }
 
-int GameObject::getModelId() const {
+UInt GameObject::getModelId() const {
     return m_modelId;
 }
 
-void GameObject::setModelId(int modelId) {
+void GameObject::setModelId(const UInt & modelId) {
     m_modelId = modelId;
 }
 
-int GameObject::getTextureId() const {
+UInt GameObject::getTextureId() const {
     return m_textureId;
 }
 
-void GameObject::setTextureId(int textureId) {
+void GameObject::setTextureId(const UInt & textureId) {
     m_textureId = textureId;
 }
 
-int GameObject::getHaloMapId() const {
+UInt GameObject::getHaloMapId() const {
     return m_haloMapId;
 }
 
-void GameObject::setHaloMapId(int textureId) {
+void GameObject::setHaloMapId(const UInt & textureId) {
     m_haloMapId = textureId;
 }
 

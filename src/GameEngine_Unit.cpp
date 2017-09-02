@@ -85,12 +85,14 @@ Unit* GameEngine::unitGetAllyTarget(Unit* u) {
 }
 
 void GameEngine::unitDamageUnit(Unit* u, Unit* target) {
-    unitDealsDamage(u, target, u->m_attackDamage);
-    unitTakesDamage(target, u, u->m_attackDamage);
-    target->damage(u->m_attackDamage);
+    float damage = u->getDamage();
+    unitDealsDamage(u, target, damage);
+    unitTakesDamage(target, u, damage);
+    target->damage(damage);
     if (target->isDead()) {
         unitKills(u, target);
         unitDies(target, u);
+        killUnit(target);
     }
 }
 
@@ -102,11 +104,11 @@ Unit* GameEngine::unitGetEnemyTarget(Unit* u) {
             Unit* u2 = (Unit*) * it;
             float dist = glm::length(u2->m_position - u->m_position);
             if (closest != null) {
-                if (dist < distance && dist < u->m_attackAgressionRange) {
+                if (dist < distance && dist < u->m_attackAggressionRange) {
                     closest = u2;
                     distance = dist;
                 }
-            } else if (dist < u->m_attackAgressionRange) {
+            } else if (dist < u->m_attackAggressionRange) {
                 closest = u2;
                 distance = dist;
             }
@@ -115,10 +117,10 @@ Unit* GameEngine::unitGetEnemyTarget(Unit* u) {
     return closest;
 }
 
-bool GameEngine::unitDoMoveTo(Unit* u, glm::vec2 destination) {
+bool GameEngine::unitDoMoveTo(Unit* u, const glm::vec2 & destination) {
     float radius, distance, speed;
     speed = u->m_movingSpeed * m_tickDuration;
-    radius = u->m_radius;
+    radius = u->m_collisionRadius;
     if (u->m_target != null) {
         if (u->m_behavior == UNIT_BEHAVIOR_FOLLOWING) {
             radius += u->m_target->getRadius();
@@ -139,7 +141,7 @@ bool GameEngine::unitDoMoveTo(Unit* u, glm::vec2 destination) {
 }
 
 bool GameEngine::unitDoAttackOn(Unit* u, Unit* target) {
-    if (u->m_attackRange + u->m_radius + target->m_radius < glm::length(target->m_position - u->m_position))
+    if (u->m_attackRange + u->m_collisionRadius + target->m_collisionRadius < glm::length(target->m_position - u->m_position))
         return false; // not in range, get closer
     if (u->m_attackCooldown <= 0) {
         if (u->m_missileType != null && u->m_missileType->isMissile()) { // missile attack
@@ -179,7 +181,7 @@ bool GameEngine::unitIsEnemy(Unit* u1, Unit* u2) {
     return playerIsEnemy(m_players[u1->m_ownerId], m_players[u2->m_ownerId]);
 }
 
-void GameEngine::unitDoRightClick(Unit* u, glm::vec2 position) {
+void GameEngine::unitDoRightClick(Unit* u, const glm::vec2 & position) {
     u->orderMove(position);
 }
 
@@ -191,7 +193,7 @@ void GameEngine::unitDoRightClick(Unit* u, Unit* target) {
 }
 
 bool GameEngine::unitDoStartBuilding(Unit* u, Unit* b) {
-    if (glm::length(u->m_destination - u->m_position) < u->m_radius) {
+    if (glm::length(u->m_destination - u->m_position) < u->m_collisionRadius) {
 
         return true;
     }

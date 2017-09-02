@@ -4,10 +4,10 @@
  *
  * Created on 24 septembre 2016, 15:42
  */
+#pragma once
 
 #ifndef GAMEENIGINE_H
 #define GAMEENIGINE_H
-
 
 #include "Types.h"
 #include "Unit.h"
@@ -16,53 +16,60 @@
 #include "Missile.h"
 #include "Script.h"
 #include "ScriptInstance.h"
+#include "String.h"
+#include "Math.h"
+#include "Serializable.h"
 #include <queue>
+#include <stack>
 
-class GameEngine {
+class GameEngine : public Serializable {
 public:
     // general
     GameEngine();
     ~GameEngine();
+    virtual bool toFile(std::ofstream & fout);
+    
+    
     void clearGame();
     void loadGame();
-    void gameTick(float time);
+    void gameTick(const float & time);
 
     void addEntityToGame(Entity* e);
     void removeEntityFromGame(Entity* e);
     void addUnitToGame(Unit* u);
-    Unit* getUnit(unsigned int id);
-    Unit* getUnitAlive(unsigned int id);
-    Unit* getUnitDead(unsigned int id);
+    Unit* getUnit(const UInt & id);
+    Unit* getUnitAlive(const UInt & id);
+    Unit* getUnitDead(const UInt & id);
     void removeUnitFromGame(Unit* u);
     void addMissileToGame(Missile* m);
     void removeMissileFromGame(Missile* m);
     void killUnit(Unit* u);
-    void doRightClick(Unit* u, glm::vec2 position);
+    void doRightClick(Unit* u, const glm::vec2 & position);
     void doRightClick(Unit* u, Unit* target);
-    void updateAngle(Entity* e, glm::vec2 direction);
+    void updateAngle(Entity* e, const glm::vec2 & direction);
 
     // players
     void initPlayers();
     bool playerIsAlly(Player* p1, Player* p2);
-    bool playerIsAlly(unsigned p1, unsigned p2);
+    bool playerIsAlly(const UShort & p1, const UShort & p2);
     void playerSetAlly(Player* p1, Player* p2);
-    void playerSetAlly(unsigned p1, unsigned p2);
+    void playerSetAlly(const UShort & p1, const UShort & p2);
     bool playerIsEnemy(Player* p1, Player* p2);
-    bool playerIsEnemy(unsigned p1, unsigned p2);
+    bool playerIsEnemy(const UShort & p1, const UShort & p2);
     void playerSetEnemy(Player* p1, Player* p2);
-    void playerSetEnemy(unsigned p1, unsigned p2);
+    void playerSetEnemy(const UShort & p1, const UShort & p2);
 
     // units
     bool unitUpdate(Unit* u);
     Unit* unitGetAllyTarget(Unit* u);
     Unit* unitGetEnemyTarget(Unit* u);
     void unitDamageUnit(Unit* u, Unit* target);
-    bool unitDoMoveTo(Unit* u, glm::vec2 destination);
+    bool unitDoMoveTo(Unit* u, const glm::vec2 & destination);
     bool unitDoAttackOn(Unit* u, Unit* target);
     void unitDoCollision(Unit* u);
     bool unitIsAlly(Unit* u1, Unit* u2);
     bool unitIsEnemy(Unit* u1, Unit* u2);
-    void unitDoRightClick(Unit* u, glm::vec2 position);
+    void unitDoRightClick(Unit* u, const glm::vec2 & position);
     void unitDoRightClick(Unit* u, Unit* target);
     bool unitDoStartBuilding(Unit* u, Unit* b);
 
@@ -73,7 +80,7 @@ public:
     bool buildingDoTraining(Unit* b);
     void buildingDoEndTraining(Unit* b);
     void buildingDoCollision(Unit* b);
-    void buildingDoRightClick(Unit* b, glm::vec2 position);
+    void buildingDoRightClick(Unit* b, const glm::vec2 & position);
     void buildingDoRightClick(Unit* b, Unit* target);
 
     // collision
@@ -84,7 +91,7 @@ public:
     // missile
     bool missileUpdate(Missile* m);
     bool missileHit(Missile* m, Unit* target);
-    bool missileMoveTo(Missile* m, glm::vec2 destination);
+    bool missileMoveTo(Missile* m, const glm::vec2 & destination);
 
     // scripts
     void scriptMain();
@@ -99,6 +106,9 @@ public:
     unsigned scriptToPlayerId(ScriptInstance* si, const std::string & script);
     glm::vec2 scriptToPosition(ScriptInstance* si, const std::string & script);
     glm::vec4 scriptToArea(ScriptInstance* si, const std::string & script);
+    int scriptToInt(ScriptInstance* si, const std::string & script);
+    float scriptToFloat(ScriptInstance* si, const std::string & script);
+    std::string scriptToString(ScriptInstance* si, const std::string & script);
     
     // events
     void unitEntersGame(Unit* unit);
@@ -110,18 +120,19 @@ public:
     void unitLeavesArea(Unit* unit, glm::vec4 area);
     
     // actions
-    void unitCreate(Unit* unitType, unsigned ownerId, glm::vec2 position);
-    void unitMove(Unit* u, glm::vec2 position);
+    void unitCreate(Unit* unitType, Player* owner, const glm::vec2 & position);
+    void unitMove(Unit* u, const glm::vec2 & position);
     void unitKill(Unit* u);
     
     // fields
     std::vector<Script*> m_scriptList;
     std::queue<ScriptInstance*> m_scriptInstanceQueue;
     
-    unsigned int m_currentPlayerId;
-    unsigned int m_playerRelation[PLAYER_COUNT][PLAYER_COUNT];
+    UShort m_currentPlayerId;
+    UShort m_playerRelation[PLAYER_COUNT][PLAYER_COUNT];
     float m_tickDuration;
     Player* m_players[PLAYER_COUNT];
+    std::stack<int> m_freeUnitId;
     std::list<Unit*> m_unitType;
     std::list<Missile*> m_missileType;
     std::list<Entity*> m_entities; // all entites (missiles + units)

@@ -31,14 +31,18 @@ public:
     virtual void load();
     virtual void onEnter();
     virtual void onLeave();
-    virtual int mainFunction(float time);
+    virtual UShort mainFunction(float time);
     virtual void update();
-    virtual int inputManagement();
+    virtual UShort inputManagement();
+    virtual UShort mouseInput(SDL_Event & EVENT_QUEUE);
+    virtual bool guiMouseUp(SDL_Event & e);
+    virtual UShort keyboardInput(SDL_Event & EVENT_QUEUE);
     virtual void render();
     
     
 private:
     GUI_Button* m_buttonSwitchToPlayGround;
+    GUI_Button* m_buttonSwitchToSettings;
     GUI_Button* m_buttonExit;
 };
 

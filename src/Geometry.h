@@ -12,20 +12,20 @@
 #include "Types.h"
 #endif
 
-glm::vec3 getForwardVector(glm::vec3 angle);
-glm::vec3 getBackVector(glm::vec3 angle);
-glm::vec3 getRightVector(glm::vec3 angle);
-glm::vec3 getLeftVector(glm::vec3 angle);
-glm::vec3 getUpVector(glm::vec3 angle);
-glm::vec3 getDownVector(glm::vec3 angle);
-bool isPointInRectangle(glm::vec2 point, glm::vec2 center, glm::vec2 size);
-bool isPointInCircle(glm::vec2 point, glm::vec2 center, float radius);
+glm::vec3 getForwardVector(const glm::vec3 & angle);
+glm::vec3 getBackVector(const glm::vec3 & angle);
+glm::vec3 getRightVector(const glm::vec3 & angle);
+glm::vec3 getLeftVector(const glm::vec3 & angle);
+glm::vec3 getUpVector(const glm::vec3 & angle);
+glm::vec3 getDownVector(const glm::vec3 & angle);
+bool isPointInRectangle(const glm::vec2 & point, const glm::vec2 & center, const glm::vec2 & size);
+bool isPointInCircle(const glm::vec2 & point, const glm::vec2 & center, const float & radius);
 
 // http://jeux.developpez.com/tutoriels/theorie-des-collisions/formes-complexes/
-bool isPointInPolygon(glm::vec2 tab[], unsigned int nbp, glm::vec2 P);
+bool isPointInPolygon(const glm::vec2 tab[], const UShort & nbp, const glm::vec2 & P);
 
 
-glm::vec2 positionAlongLine(glm::vec2 origin, glm::vec2 destination, float distance);
+glm::vec2 positionAlongLine(const glm::vec2 & origin, const glm::vec2 & destination, const float & distance);
 
 #endif	/* GEOMETRY_H */
 

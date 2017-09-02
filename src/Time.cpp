@@ -9,15 +9,15 @@ TimeEngine::TimeEngine() {
     LAST_UPDATE_COUNT = 0;
 }
 
-float TimeEngine::getDeltaTime() {
+float TimeEngine::getDeltaTime() const {
     return DELTA_TIME;
 }
 
-float TimeEngine::getCurrentTime() {
+float TimeEngine::getCurrentTime() const {
     return CURRENT_TIME;
 }
 
-float TimeEngine::getCurrentTick() {
+float TimeEngine::getCurrentTick() const {
     return (float) SDL_GetTicks() / 1000.f;
 }
 
@@ -32,14 +32,14 @@ void TimeEngine::updateTime() { // only once par game tick!!!
         UPDATE_COUNT = 0;
         //std::cout << "FPS : " << LAST_UPDATE_COUNT << std::endl;
     }
-    FPS_APPROX = (int) (1.f / DELTA_TIME);
+    FPS_APPROX = (UShort) (1.f / DELTA_TIME);
 }
 
-void TimeEngine::waitSeconds(float seconds) {
+void TimeEngine::waitSeconds(float seconds) const {
     if (seconds > 0)
-        SDL_Delay((int) (seconds * 1000));
+        SDL_Delay((UInt) (seconds * 1000));
 }
 
-int TimeEngine::getFPS() {
+UShort TimeEngine::getFPS() const {
     return FPS_APPROX;
 }

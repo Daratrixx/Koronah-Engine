@@ -29,15 +29,15 @@ public:
         m_frameTexture = NULL;
     }
 
-    void addVertexData(float x, float y, float z) {
+    void addVertexData(const float & x, const float & y, const float & z) {
         m_verticeList.push_back(VertexData(x, y, z));
     }
 
-    void addNormalData(float x, float y, float z) {
+    void addNormalData(const float & x, const float & y, const float & z) {
         m_normalList.push_back(VertexData(x, y, z));
     }
 
-    void addTextureData(float x, float y) {
+    void addTextureData(const float & x, const float & y) {
         m_textureList.push_back(TextureData(x, y));
     }
 
@@ -74,7 +74,7 @@ public:
             return null;
         }
 
-        for (unsigned int i = 0; i < m_verticeList.size(); i++) {
+        for (UInt i = 0; i < m_verticeList.size(); i++) {
             VertexData temp = m_verticeList[i];
             *(vertices + i * 3 + 0) = temp.getPos(0);
             *(vertices + i * 3 + 1) = temp.getPos(1);
@@ -96,7 +96,7 @@ public:
             return null;
         }
 
-        for (unsigned int i = 0; i < m_normalList.size(); i++) {
+        for (UInt i = 0; i < m_normalList.size(); i++) {
             VertexData temp = m_normalList[i];
             *(normal + i * 3 + 0) = temp.getPos(0);
             *(normal + i * 3 + 1) = temp.getPos(1);
@@ -118,7 +118,7 @@ public:
             return null;
         }
 
-        for (unsigned int i = 0; i < m_textureList.size(); i++) {
+        for (UInt i = 0; i < m_textureList.size(); i++) {
             TextureData temp = m_textureList[i];
             *(verticesT + i * 2 + 0) = temp.getPos(0);
             *(verticesT + i * 2 + 1) = temp.getPos(1);
@@ -132,6 +132,7 @@ public:
             m_frameVertice = createVertice();
         return m_frameVertice;
     }
+
     float* getNormal() {
         if (!m_frameNormal)
             m_frameNormal = createNormal();
@@ -143,12 +144,15 @@ public:
             m_frameTexture = createTexture();
         return m_frameTexture;
     }
+
     int getVerticeCount() {
         return m_verticeList.size();
     }
+
     int getNormalCount() {
         return m_normalList.size();
     }
+
     int getTextureCount() {
         return m_textureList.size();
     }

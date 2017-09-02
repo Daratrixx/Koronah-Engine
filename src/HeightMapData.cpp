@@ -1,8 +1,8 @@
 
 #include "HeightMapData.h"
 
-Uint32 getPixelColor(SDL_Surface* surface, int x, int y) {
-    int bpp = surface->format->BytesPerPixel;
+Uint32 getPixelColor(SDL_Surface* surface, UInt x, UInt y) {
+    UShort bpp = surface->format->BytesPerPixel;
     Uint8 *p = (Uint8 *) surface->pixels + y * surface->pitch + x * bpp;
 
     switch (bpp) {
@@ -35,7 +35,7 @@ HeightMapData::~HeightMapData() {
 
 void HeightMapData::loadHeightMapData(SDL_Surface *map) {
     float *temp(0);
-    int i, j;
+    UInt i, j;
     Uint8 red, green, blue;
     Uint32 infopixel;
 
@@ -88,25 +88,25 @@ void HeightMapData::loadHeightMapData(SDL_Surface *map) {
     SDL_FreeSurface(map);
 }
 
-int HeightMapData::getX() {
+UInt HeightMapData::getX() {
     return m_x;
 }
 
-int HeightMapData::getY() {
+UInt HeightMapData::getY() {
     return m_y;
 }
 
-int HeightMapData::getVerticeCount() {
+UInt HeightMapData::getVerticeCount() {
     return m_verticeCount;
 }
 
-float HeightMapData::getPixel(int X, int Y) {
+float HeightMapData::getPixel(UInt X, UInt Y) {
     if (X < 0 || X >= m_x || Y < 0 || Y >= m_y)
         return 0;
     return *(m_pixel + X + Y * m_x);
 }
 
-void HeightMapData::setPixel(int X, int Y, float value) {
+void HeightMapData::setPixel(UInt X, UInt Y, float value) {
     if (X >= 0 || X < m_x || Y >= 0 || Y < m_y)
         *(m_pixel + X + Y * m_x) = value;
     else
@@ -122,8 +122,8 @@ float HeightMapData::collision(glm::vec3 p) {
     float x = diff.x + ((float) m_x) / 2;
     float y = diff.y + ((float) m_y) / 2;
 
-    int ix = (int) x;
-    int iy = (int) y;
+    UInt ix = (UInt) x;
+    UInt iy = (UInt) y;
 
     float dx = x - ix;
     float dy = y - iy;

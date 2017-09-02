@@ -21,18 +21,18 @@ public:
     ScriptInstance(Script* script);
     ~ScriptInstance();
     
-    void setArg(unsigned argId, void* argValue);
-    void* getArg(unsigned argId);
+    void setArg(const UInt & argId, void* argValue);
+    void* getArg(const UInt & argId);
     std::string getNextAction();
     void continueScript();
-    bool canContinue();
+    bool canContinue() const;
+    bool isDone() const;
     
     Script* m_script;
-    unsigned int m_progression;
+    UInt m_progression;
     float m_waitTime;
-    bool m_done;
     // arg list
-    std::map<unsigned, void*> m_args;
+    std::map<UInt, void*> m_args;
 };
 
 

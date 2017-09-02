@@ -19,7 +19,7 @@ public:
     ~Texture();
     bool charger();
     bool charger(SDL_Surface* image);
-    bool chargerVide(int w, int h);
+    bool chargerVide(const UInt & w, const UInt & h);
     GLuint getID() const;
     void setFichierImage(const std::string &fichierImage);
     void setBlending(bool value);
@@ -32,17 +32,27 @@ private:
     std::string m_fichierImage;
     bool m_hasBlending;
 
-    int m_width, m_height;
+    UInt m_width, m_height;
     GLenum m_colors;
     GLenum m_format;
     bool m_isEmpty;
 };
 
-std::vector<Texture*>* getTextureList();
-GLuint loadTexture(std::string path);
-Texture* textureExists(std::string path);
-Texture* getTexture(unsigned int index);
-GLuint getTextureID(unsigned int index);
+class TextureListHolder {
+public:
+    TextureListHolder();
+    ~TextureListHolder();
+
+    std::map<std::string, Texture*> textureList;
+    std::vector<std::string> pathList;
+};
+
+GLuint loadTexture(const std::string & path);
+Texture* textureExists(const std::string & path);
+Texture* getTexture(const std::string & path);
+Texture* getTexture(const UInt & index);
+GLuint getTextureID(const std::string & path);
+GLuint getTextureID(const UInt & index);
 void clearTextureList();
 
 #endif

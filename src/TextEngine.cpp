@@ -1,6 +1,20 @@
 
 #include "TextEngine.h"
-#include "Settings.h"
+
+static TextEngine textEngine;
+
+TextEngine* getTextEngine() {
+    return &textEngine;
+}
+void writeLine(const std::string & line, const GLfloat & x, const GLfloat & y, const GLfloat & scale, const glm::vec3 & color) {
+    textEngine.writeLine(line, x, y, scale, color);
+}
+float getLineWidth(const std::string & line, const GLfloat & scale) {
+    return textEngine.getLineWidth(line, scale);
+}
+glm::vec2 getLineSize(const std::string & line, const GLfloat & scale) {
+    return textEngine.getLineSize(line, scale);
+}
 
 TextEngine::TextEngine() {
     if (FT_Init_FreeType(&ft))
@@ -71,11 +85,11 @@ TextEngine::~TextEngine() {
     std::cout << "TextEngine deleted." << std::endl;
 }
 
-void TextEngine::writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color) {
+void TextEngine::writeLine(const std::string & line, const GLfloat & x, const GLfloat & y, const GLfloat & scale, const glm::vec3 & color) {
     // Activate corresponding render state
     glm::mat4 projection = glm::ortho(0.0f, (float) getGraphicSetting()->screenWidth, 0.0f, (float) getGraphicSetting()->screenHeight);
     s.use();
-
+    GLfloat xCursor = x;
     glUniformMatrix4fv(glGetUniformLocation(s.getProgramID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     glUniform3f(glGetUniformLocation(s.getProgramID(), "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
@@ -110,14 +124,14 @@ void TextEngine::writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale
         // Render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+        xCursor += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     s.unUse();
 }
 
-float TextEngine::getLineWidth(std::string line, GLfloat scale) {
+float TextEngine::getLineWidth(const std::string & line, const GLfloat & scale) {
     float x = 0;
     // Iterate through all characters
     std::string::const_iterator c;
@@ -128,7 +142,7 @@ float TextEngine::getLineWidth(std::string line, GLfloat scale) {
     return x;
 }
 
-glm::vec2 TextEngine::getLineSize(std::string line, GLfloat scale) {
+glm::vec2 TextEngine::getLineSize(const std::string & line, const GLfloat & scale) {
     glm::vec2 out(0, 0); //(x,y)
     // Iterate through all characters
     std::string::const_iterator c;

@@ -20,7 +20,7 @@ typedef struct {
     float remainingDuration;
     glm::vec3 position;
     glm::vec3 angle;
-    int textureIndex;
+    UShort textureIndex;
 } Particle;
 
 #endif	/* PARTICLE_H */

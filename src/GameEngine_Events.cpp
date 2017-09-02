@@ -1,7 +1,7 @@
 #include "GameEngine.h"
 
 void GameEngine::unitEntersGame(Unit* unit) {
-    std::cout << "unitEntersGame" << std::endl;
+    //std::cout << "unitEntersGame" << std::endl;
     for (std::vector<Script*>::iterator it = m_scriptList.begin(); it != m_scriptList.end(); it++) {
         Script* s = *it;
         if (s->isEnabled() && s->hasTrigger("unitEntersGame")) {
@@ -14,7 +14,7 @@ void GameEngine::unitEntersGame(Unit* unit) {
 }
 
 void GameEngine::unitDealsDamage(Unit* damaging, Unit* damaged, const float & damage) {
-    std::cout << "unitDealsDamage" << std::endl;
+    //std::cout << "unitDealsDamage" << std::endl;
     for (std::vector<Script*>::iterator it = m_scriptList.begin(); it != m_scriptList.end(); it++) {
         Script* s = *it;
         if (s->isEnabled() && s->hasTrigger("unitDealsDamage")) {
@@ -30,7 +30,7 @@ void GameEngine::unitDealsDamage(Unit* damaging, Unit* damaged, const float & da
 }
 
 void GameEngine::unitTakesDamage(Unit* damaged, Unit* damaging, const float & damage) {
-    std::cout << "unitTakesDamage" << std::endl;
+    //std::cout << "unitTakesDamage" << std::endl;
     for (std::vector<Script*>::iterator it = m_scriptList.begin(); it != m_scriptList.end(); it++) {
         Script* s = *it;
         if (s->isEnabled() && s->hasTrigger("unitTakesDamage")) {
@@ -46,7 +46,7 @@ void GameEngine::unitTakesDamage(Unit* damaged, Unit* damaging, const float & da
 }
 
 void GameEngine::unitKills(Unit* killer, Unit* dead) {
-    std::cout << "unitKills" << std::endl;
+    //std::cout << "unitKills" << std::endl;
     for (std::vector<Script*>::iterator it = m_scriptList.begin(); it != m_scriptList.end(); it++) {
         Script* s = *it;
         if (s->isEnabled() && s->hasTrigger("unitKills")) {
@@ -61,7 +61,7 @@ void GameEngine::unitKills(Unit* killer, Unit* dead) {
 }
 
 void GameEngine::unitDies(Unit* dead, Unit* killer) {
-    std::cout << "unitDies" << std::endl;
+    //std::cout << "unitDies" << std::endl;
     for (std::vector<Script*>::iterator it = m_scriptList.begin(); it != m_scriptList.end(); it++) {
         Script* s = *it;
         if (s->isEnabled() && s->hasTrigger("unitDies")) {
@@ -76,7 +76,7 @@ void GameEngine::unitDies(Unit* dead, Unit* killer) {
 }
 
 void GameEngine::unitEntersArea(Unit* unit, glm::vec4 area) {
-    std::cout << "unitEntersArea" << std::endl;
+    //std::cout << "unitEntersArea" << std::endl;
     for (std::vector<Script*>::iterator it = m_scriptList.begin(); it != m_scriptList.end(); it++) {
         Script* s = *it;
         if (s->isEnabled() && s->hasTrigger("unitEntersArea")) {
@@ -92,7 +92,7 @@ void GameEngine::unitEntersArea(Unit* unit, glm::vec4 area) {
 }
 
 void GameEngine::unitLeavesArea(Unit* unit, glm::vec4 area) {
-    std::cout << "unitLeavesArea" << std::endl;
+    //std::cout << "unitLeavesArea" << std::endl;
     for (std::vector<Script*>::iterator it = m_scriptList.begin(); it != m_scriptList.end(); it++) {
         Script* s = *it;
         if (s->isEnabled() && s->hasTrigger("unitLeavesArea")) {

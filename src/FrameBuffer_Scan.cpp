@@ -4,9 +4,6 @@
 FrameBuffer_Scan::FrameBuffer_Scan() : FrameBuffer() {
 }
 
-FrameBuffer_Scan::FrameBuffer_Scan(int w, int h) : FrameBuffer(w, h) {
-}
-
 FrameBuffer_Scan::~FrameBuffer_Scan() {
 }
 
@@ -44,13 +41,13 @@ bool FrameBuffer_Scan::load() {
     return true;
 }
 
-glm::vec3 FrameBuffer_Scan::getPixelColor(int x, int y) {
+glm::vec3 FrameBuffer_Scan::getPixelColor(const UInt & x, const UInt & y) {
     unsigned char pixel[3];
     glReadPixels(x / SCAN_SCALE, y / SCAN_SCALE, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
     return glm::vec3((int) pixel[0], (int) pixel[1], (int) pixel[2]);
 }
 
-float FrameBuffer_Scan::getPixelDepth(int x, int y) {
+float FrameBuffer_Scan::getPixelDepth(const UInt & x, const UInt & y) {
     float depth;
     glReadPixels(x / SCAN_SCALE, y / SCAN_SCALE, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
     return depth;

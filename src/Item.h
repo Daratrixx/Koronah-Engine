@@ -18,8 +18,8 @@ public:
     ~Item();
 protected:
     std::string m_name;
-    int m_goldValue;
-    int m_weight;
+    UShort m_goldValue;
+    UShort m_weight;
     bool m_sellable;
 };
 
@@ -36,9 +36,9 @@ public:
     Equipement();
     ~Equipement();
 protected:
-    unsigned int m_equipementMaterial; // cloth, leather, steel...
-    unsigned int m_equipementWeight; // cloth, light, heavy
-    unsigned int m_equipementSlot;
+    UShort m_equipementMaterial; // cloth, leather, steel...
+    UShort m_equipementWeight; // cloth, light, heavy
+    UShort m_equipementSlot;
     bool m_isArmor;
     bool m_isWeapon;
     

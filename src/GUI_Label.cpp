@@ -2,10 +2,10 @@
 #include "GUI.h"
 
 GUI_Label::GUI_Label() : GUI() {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_text[i] = "";
         m_textColor[i] = glm::vec3(1, 1, 1);
-        m_fontSize[i] = 1;
+        m_fontSize[i] = 0.5f;
         m_blinkSpeed[i] = 0;
         m_blinkText[i] = false;
         m_textAlignement[i] = TEXT_ALIGN_CENTER;
@@ -35,15 +35,18 @@ void GUI_Label::render(GraphicEngine* Graphic) {
 
 void GUI_Label::renderLabel(GraphicEngine* Graphic) const {
     if (m_displayText) {
-        glm::vec2 lineSize = Graphic->getLineSize(getText(m_mode), m_fontSize[m_mode]);
-        glm::vec2 pos = m_position[m_mode];
-        pos.y = pos.y + m_size[m_mode].y / 2 - lineSize.y / 2;
+        std::string text = getText(m_mode);
+        glm::vec2 lineSize = Graphic->getLineSize(text, m_fontSize[m_mode]);
+        glm::vec2 pos = getPosition(m_mode);
+        glm::vec2 size = getSize(m_mode);
+        pos.y = pos.y + size.y / 2 - lineSize.y / 2;
         if (m_textAlignement[m_mode] == TEXT_ALIGN_RIGHT) {
-            pos.x = pos.x - lineSize.x;
+            pos.x = pos.x + size.x - lineSize.x;
         } else if (m_textAlignement[m_mode] == TEXT_ALIGN_CENTER) {
-            pos.x = pos.x + m_size[m_mode].x / 2 - lineSize.x / 2;
+            pos.x = pos.x + (size.x - lineSize.x) / 2;
         }
-        Graphic->writeLine(getText(m_mode), pos.x, pos.y, m_fontSize[m_mode], getTextColor(m_mode));
+        //Graphic->writeLine(text, pos.x, pos.y, m_fontSize[m_mode], getTextColor(m_mode));
+        writeLine(text, pos.x, pos.y, m_fontSize[m_mode], getTextColor(m_mode));
     }
 }
 
@@ -51,7 +54,7 @@ std::string GUI_Label::getText() const {
     return m_text[m_mode];
 }
 
-std::string GUI_Label::getText(unsigned int mode) const {
+std::string GUI_Label::getText(const UShort & mode) const {
     return m_text[mode];
 }
 
@@ -63,7 +66,7 @@ glm::vec3 GUI_Label::getTextColor() const {
     return m_textColor[m_mode];
 }
 
-glm::vec3 GUI_Label::getTextColor(unsigned int mode) const {
+glm::vec3 GUI_Label::getTextColor(const UShort & mode) const {
     if (m_blinkText[mode]) {
         float blink = std::cos(m_time * m_blinkSpeed[mode]) / 4 + 0.75;
         return m_textColor[mode] * blink;
@@ -71,11 +74,11 @@ glm::vec3 GUI_Label::getTextColor(unsigned int mode) const {
     return m_textColor[m_mode];
 }
 
-unsigned int GUI_Label::getTextAlignement() const {
+UShort GUI_Label::getTextAlignement() const {
     return m_textAlignement[m_mode];
 }
 
-unsigned int GUI_Label::getTextAlignement(unsigned int mode) const {
+UShort GUI_Label::getTextAlignement(const UShort & mode) const {
     return m_textAlignement[mode];
 }
 
@@ -83,7 +86,7 @@ float GUI_Label::getFontSize() const {
     return m_fontSize[m_mode];
 }
 
-float GUI_Label::getFontSize(unsigned int mode) const {
+float GUI_Label::getFontSize(const UShort & mode) const {
     return m_fontSize[mode];
 }
 
@@ -91,7 +94,7 @@ float GUI_Label::getBlinkSpeed() const {
     return m_blinkSpeed[m_mode];
 }
 
-float GUI_Label::getBlinkSpeed(unsigned int mode) const {
+float GUI_Label::getBlinkSpeed(const UShort & mode) const {
     return m_blinkSpeed[mode];
 }
 
@@ -99,7 +102,7 @@ bool GUI_Label::getBlinkText() const {
     return m_blinkText[m_mode];
 }
 
-bool GUI_Label::getBlinkText(unsigned int mode) const {
+bool GUI_Label::getBlinkText(const UShort & mode) const {
     return m_blinkText[mode];
 }
 
@@ -107,81 +110,81 @@ bool GUI_Label::getDisplayText() const {
     return m_displayText;
 }
 
-void GUI_Label::setText(std::string text) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+void GUI_Label::setText(const std::string & text) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_text[i] = text;
     }
 }
 
-void GUI_Label::setText(std::string text, unsigned int mode) {
+void GUI_Label::setText(const std::string & text, const UShort & mode) {
     m_text[mode] = text;
 }
 
-void GUI_Label::setTextAlignement(unsigned int alignement) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+void GUI_Label::setTextAlignement(const UShort & alignement) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_textAlignement[i] = alignement;
     }
 }
 
-void GUI_Label::setTextAlignement(unsigned int alignement, unsigned int mode) {
+void GUI_Label::setTextAlignement(const UShort & alignement, const UShort & mode) {
     m_textAlignement[mode] = alignement;
 }
 
-void GUI_Label::setTextColor(glm::vec3 color) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+void GUI_Label::setTextColor(const glm::vec3 & color) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_textColor[i] = color;
     }
 }
 
-void GUI_Label::setTextColor(glm::vec3 color, unsigned int mode) {
+void GUI_Label::setTextColor(const glm::vec3 & color, const UShort & mode) {
     m_textColor[mode] = color;
 }
 
-void GUI_Label::setTextColor(float r, float g, float b) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+void GUI_Label::setTextColor(const float & r, const float & g, const float & b) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_textColor[i].x = r;
         m_textColor[i].y = g;
         m_textColor[i].z = b;
     }
 }
 
-void GUI_Label::setTextColor(float r, float g, float b, unsigned int mode) {
+void GUI_Label::setTextColor(const float & r, const float & g, const float & b, const UShort & mode) {
     m_textColor[mode].x = r;
     m_textColor[mode].y = g;
     m_textColor[mode].z = b;
 }
 
-void GUI_Label::setFontSize(float size) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+void GUI_Label::setFontSize(const float & size) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_fontSize[i] = size;
     }
 }
 
-void GUI_Label::setFontSize(float size, unsigned int mode) {
+void GUI_Label::setFontSize(const float & size, const UShort & mode) {
     m_fontSize[mode] = size;
 }
 
-void GUI_Label::setBlinkSpeed(float speed) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+void GUI_Label::setBlinkSpeed(const float & speed) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_blinkSpeed[i] = speed;
     }
 }
 
-void GUI_Label::setBlinkSpeed(float speed, unsigned int mode) {
+void GUI_Label::setBlinkSpeed(const float & speed, const UShort & mode) {
     m_blinkSpeed[mode] = speed;
 }
 
-void GUI_Label::setBlinkText(bool blink) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+void GUI_Label::setBlinkText(const bool & blink) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_blinkText[i] = blink;
     }
 }
 
-void GUI_Label::setBlinkText(bool blink, unsigned int mode) {
+void GUI_Label::setBlinkText(const bool & blink, const UShort & mode) {
     m_blinkText[mode] = blink;
 }
 
-void GUI_Label::setDisplayText(bool display) {
+void GUI_Label::setDisplayText(const bool & display) {
     m_displayText = display;
 }
 

@@ -6,7 +6,7 @@ void GraphicEngine::addToRender(GameObject* object) {
     float minDistance = m_camera.getClose();
     float distance = getCameraDistance(object->getPositionXYZ());
     if (distance < maxDistance && distance > minDistance)
-        m_playGroundObjectToRender->add(distance, (void*) object);
+        m_playGroundObjectToRender.add(distance, (void*) object);
 }
 
 void GraphicEngine::startRender() {
@@ -15,12 +15,12 @@ void GraphicEngine::startRender() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID) {
+void GraphicEngine::renderFrameBufferToScreen(FrameBuffer & frameBuffer, Shader & shader, unsigned int colorID) {
     glViewport(0, 0, m_width, m_height);
     glDisable(GL_DEPTH_TEST);
     shader.use();
     glBindVertexArray(m_screenVOA);
-    glBindTexture(GL_TEXTURE_2D, frameBuffer->getColorBufferId(colorID));
+    glBindTexture(GL_TEXTURE_2D, frameBuffer.getColorBufferId(colorID));
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
@@ -28,7 +28,7 @@ void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader &
     glEnable(GL_DEPTH_TEST);
 }
 
-void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID, bool isHorizontal) {
+void GraphicEngine::renderFrameBufferToScreen(FrameBuffer & frameBuffer, Shader & shader, unsigned int colorID, bool isHorizontal) {
     glDisable(GL_DEPTH_TEST);
     shader.use();
     if (isHorizontal)
@@ -36,7 +36,7 @@ void GraphicEngine::renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader &
     else
         glUniform1i(glGetUniformLocation(shader.getProgramID(), "isHorizontal"), 0);
     glBindVertexArray(m_screenVOA);
-    glBindTexture(GL_TEXTURE_2D, frameBuffer->getColorBufferId(colorID));
+    glBindTexture(GL_TEXTURE_2D, frameBuffer.getColorBufferId(colorID));
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindVertexArray(0);
@@ -192,5 +192,5 @@ void GraphicEngine::renderParticle(glm::vec3* position, float* opacity, float* s
 
 void GraphicEngine::endRender() {
     SDL_GL_SwapWindow(m_window);
-    m_playGroundObjectToRender->clear();
+    m_playGroundObjectToRender.clear();
 }

@@ -7,7 +7,7 @@
 #pragma once
 
 #ifndef TYPES_H
-#define	TYPES_H
+#define TYPES_H
 
 #define _USE_MATH_DEFINES
 
@@ -73,18 +73,22 @@
 #define PARTICLE_MAX_COUNT 10000
 #define LIGHT_COUNT 16
 
-#define ORDER_EXIT -1
-#define ORDER_CONTINUE 0
-#define ORDER_TO_PLAYGROUND 1
-#define ORDER_TO_MENU 2
+#define ORDER_EXIT 0
+#define ORDER_CONTINUE 1
+#define ORDER_TO_PLAYGROUND 2
+#define ORDER_TO_MENU 3
+#define ORDER_TO_SETTINGS 4
 
 #define GUI_NORMAL 0
 #define GUI_HOVER 1
 #define GUI_ACTIVE 2
 #define GUI_MODE_COUNT 3
 
-#define GUI_FIXED 0
-#define GUI_RELATIVE 1
+#define GUI_POSITION_FIXED 0
+#define GUI_POSITION_RELATIVE 1
+
+#define GUI_SIZE_FIXED 0
+#define GUI_SIZE_RELATIVE 1
 
 #define TEXT_ALIGN_LEFT 0
 #define TEXT_ALIGN_RIGHT 1
@@ -107,9 +111,9 @@
 #define PLAYER_7 6
 #define PLAYER_8 7
 #define PLAYER_COUNT 8
-#define MAX_PLAYER_UNIT_COUNT 200;
+#define MAX_PLAYER_UNIT_COUNT 2000;
 #define MAX_MAP_SIZE 128
-#define MAX_UNIT_COUNT 10000
+#define MAX_UNIT_COUNT 16000
 
 #define COLOR_GREEN glm::vec3(0,1,0)
 #define COLOR_PURPLE glm::vec3(.5f,0,.5f)
@@ -139,6 +143,10 @@
 #define GAME_LEFT_WAIT_ORDER_ATTACK 5
 #define GAME_LEFT_WAIT_ORDER_MOVE 6
 #define GAME_LEFT_WAIT_ORDER_PATROL 7
+
+#define SETTING_NO_STATE 0
+#define SETTING_MAPPING 1
+#define SETTING_SLIDING 2
 
 #define UNIT_BEHAVIOR_HOLD 0
 #define UNIT_BEHAVIOR_IDLE 1
@@ -184,6 +192,8 @@
 
 // forward class declaration
 
+class GameEngine;
+class Serializable;
 class GameObject;
 class Entity;
 class Unit;
@@ -195,6 +205,28 @@ class BuffInstance;
 class Spell;
 class SpellInstance;
 
+class TextEngine;
+class GraphicEngine;
 
+class Model;
+class Texture;
 
-#endif	/* TYPES_H */
+typedef int8_t Short;
+typedef uint8_t UShort;
+
+typedef int16_t Int;
+typedef int16_t Integer;
+typedef uint16_t UInt;
+
+typedef int32_t Long;
+typedef uint32_t ULong;
+
+typedef float Float;
+typedef float Real;
+
+typedef std::string String;
+
+typedef glm::vec2 Point;
+typedef glm::vec4 Region;
+
+#endif /* TYPES_H */

@@ -11,13 +11,13 @@ m_position(0, 0, 0), m_targetPoint(), m_orientation(), m_verticalAxe(0, 0, 1), m
     setProjection(DEFAULT_SCREEN_FOV, 8.0 / 6.0, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
 }
 
-Camera::Camera(double fov, double ratio) :
+Camera::Camera(const double & fov, const double & ratio) :
 m_position(0, 0, 0), m_targetPoint(), m_orientation(), m_verticalAxe(0, 0, 1), m_angle(0, 0, 0) {
     setAngle(m_angle);
     setProjection(fov, ratio, DEFAULT_SCREEN_NEAR, DEFAULT_SCREEN_FAR);
 }
 
-Camera::Camera(double fov, double ratio, double close, double far) :
+Camera::Camera(const double & fov, const double & ratio, const double & close, const double & far) :
 m_position(0, 0, 0), m_targetPoint(), m_orientation(), m_verticalAxe(0, 0, 1), m_angle(0, 0, 0) {
     setAngle(m_angle);
     setProjection(fov, ratio, close, far);
@@ -32,7 +32,7 @@ void Camera::lookAt(glm::mat4 &modelview) {
     modelview = glm::lookAt(m_position, m_targetPoint, m_verticalAxe);
 }
 
-void Camera::setProjection(double fov, double ratio, double close, double far) {
+void Camera::setProjection(const double & fov, const double & ratio, const double & close, const double & far) {
     m_projection = glm::perspective(fov, ratio, close, far);
     m_fov = fov;
     m_ratio = ratio;
@@ -40,7 +40,7 @@ void Camera::setProjection(double fov, double ratio, double close, double far) {
     m_far = far;
 }
 
-void Camera::setAngle(glm::vec3 angle) {
+void Camera::setAngle(const glm::vec3 & angle) {
     // Récupération des angles
     this->m_angle = angle;
 
@@ -65,11 +65,11 @@ void Camera::setAngle(glm::vec3 angle) {
     lookAt(m_view);
 }
 
-void Camera::setAngle(float x, float y, float z) {
+void Camera::setAngle(const float & x, const float & y, const float & z) {
     setAngle(glm::vec3(x, y, z));
 }
 
-void Camera::setTargetPoint(glm::vec3 pointCible) {
+void Camera::setTargetPoint(const glm::vec3 & pointCible) {
     // Calcul du vecteur orientation
     m_orientation = m_targetPoint - m_position;
     m_orientation = normalize(m_orientation);
@@ -89,11 +89,11 @@ void Camera::setTargetPoint(glm::vec3 pointCible) {
     lookAt(m_view);
 }
 
-void Camera::setTargetPoint(float x, float y, float z) {
+void Camera::setTargetPoint(const float & x, const float & y, const float & z) {
     setTargetPoint(glm::vec3(x, y, z));
 }
 
-void Camera::setPosition(glm::vec3 position) {
+void Camera::setPosition(const glm::vec3 & position) {
     // Mise à jour de la position
     m_position = position;
 
@@ -101,7 +101,7 @@ void Camera::setPosition(glm::vec3 position) {
     setTargetPoint(m_position + m_orientation);
 }
 
-void Camera::setPosition(float x, float y, float z) {
+void Camera::setPosition(const float & x, const float & y, const float & z) {
     setPosition(glm::vec3(x, y, z));
 }
 

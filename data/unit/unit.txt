@@ -1,0 +1,21 @@
+UNIT #XXX
+name Unit name
+description Unit description
+costEnergy 0
+costMaterials 0
+costSupply 1
+attackDamage 1
+attackRange 1
+attackReloadTime 1
+attackAggressionRange
+healtMax 1
+healthRegenerationRate 0
+movingSpeed 1
+collisionRadius 1
+selectionRadius
+modelPath data/model/boletus.obj
+iconPath data/texture/boletusIcon.png
+spellList
+trainingList
+buildingList
+END

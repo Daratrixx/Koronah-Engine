@@ -9,6 +9,7 @@
           <itemPath>src/Face.hpp</itemPath>
           <itemPath>src/KeyFrame.hpp</itemPath>
           <itemPath>src/Model.h</itemPath>
+          <itemPath>src/ParserFBX.h</itemPath>
           <itemPath>src/Shape.hpp</itemPath>
           <itemPath>src/Vertex.hpp</itemPath>
         </logicalFolder>
@@ -34,7 +35,9 @@
         <logicalFolder name="f3" displayName="Script" projectFiles="true">
           <itemPath>src/Script.h</itemPath>
           <itemPath>src/ScriptCommand.h</itemPath>
+          <itemPath>src/ScriptFunctionLibrary.h</itemPath>
           <itemPath>src/ScriptInstance.h</itemPath>
+          <itemPath>src/ScriptNode.h</itemPath>
         </logicalFolder>
         <logicalFolder name="f1" displayName="Triggerable" projectFiles="true">
           <itemPath>src/Buff.h</itemPath>
@@ -55,6 +58,7 @@
         <itemPath>src/GameStateMenu.h</itemPath>
         <itemPath>src/GameStatePlayground.h</itemPath>
         <itemPath>src/GameStateSTR.h</itemPath>
+        <itemPath>src/GameStateSettings.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="Particle" projectFiles="true">
         <itemPath>src/Particle.h</itemPath>
@@ -67,6 +71,8 @@
       <logicalFolder name="f7" displayName="Tools" projectFiles="true">
         <itemPath>src/Geometry.h</itemPath>
         <itemPath>src/Input.h</itemPath>
+        <itemPath>src/Math.h</itemPath>
+        <itemPath>src/Serializable.h</itemPath>
         <itemPath>src/Settings.h</itemPath>
         <itemPath>src/String.h</itemPath>
         <itemPath>src/Time.h</itemPath>
@@ -101,8 +107,10 @@
         <itemPath>src/GUI_Button.cpp</itemPath>
         <itemPath>src/GUI_DynamicBar.cpp</itemPath>
         <itemPath>src/GUI_DynamicLabel.cpp</itemPath>
+        <itemPath>src/GUI_InputSettingsPannel.cpp</itemPath>
         <itemPath>src/GUI_Label.cpp</itemPath>
         <itemPath>src/GUI_OrderPanel.cpp</itemPath>
+        <itemPath>src/GUI_PlayerInfoPanel.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="Logic" projectFiles="true">
         <logicalFolder name="f3" displayName="GameEngine" projectFiles="true">
@@ -147,6 +155,7 @@
         <itemPath>src/GameStateMenu.cpp</itemPath>
         <itemPath>src/GameStatePlayground.cpp</itemPath>
         <itemPath>src/GameStateSTR.cpp</itemPath>
+        <itemPath>src/GameStateSettings.cpp</itemPath>
         <itemPath>src/main.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="Particle" projectFiles="true">
@@ -158,6 +167,10 @@
       <logicalFolder name="f7" displayName="Tools" projectFiles="true">
         <itemPath>src/Geometry.cpp</itemPath>
         <itemPath>src/Input.cpp</itemPath>
+        <itemPath>src/Math.cpp</itemPath>
+        <itemPath>src/Real.cpp</itemPath>
+        <itemPath>src/Real.h</itemPath>
+        <itemPath>src/Serializable.cpp</itemPath>
         <itemPath>src/Settings.cpp</itemPath>
         <itemPath>src/String.cpp</itemPath>
         <itemPath>src/Time.cpp</itemPath>
@@ -176,30 +189,37 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>C:\Users\ANTOINE\Projets\Koronah Engine</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
+          <architecture>1</architecture>
+          <standard>11</standard>
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>C:/MinGW/include</pElem>
-            <pElem>C:/MinGW/SDL-2.0/include</pElem>
+            <pElem>./SDL-2.0/include</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
+        <asmTool>
+          <architecture>1</architecture>
+          <commandlineTool>as</commandlineTool>
+          <warningLevel>2</warningLevel>
+        </asmTool>
         <linkerTool>
           <linkerAddLib>
             <pElem>C:/MinGW/SDL-2.0/lib</pElem>
           </linkerAddLib>
+          <linkerCopySharedLibs>true</linkerCopySharedLibs>
           <commandlineTool>g++</commandlineTool>
           <commandLine>-lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lopengl32 -lglew32 -lfreetype</commandLine>
         </linkerTool>
@@ -240,9 +260,13 @@
       </item>
       <item path="src/GUI_DynamicLabel.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/GUI_InputSettingsPannel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/GUI_Label.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GUI_OrderPanel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GUI_PlayerInfoPanel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -288,6 +312,10 @@
       </item>
       <item path="src/GameStateSTR.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GameStateSettings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameStateSettings.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Geometry.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Geometry.h" ex="false" tool="3" flavor2="0">
@@ -322,6 +350,10 @@
       </item>
       <item path="src/LightEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Math.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Missile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Missile.h" ex="false" tool="3" flavor2="0">
@@ -334,6 +366,8 @@
       </item>
       <item path="src/ModelObj.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/ParserFBX.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Particle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ParticleEngine.cpp" ex="false" tool="1" flavor2="0">
@@ -344,15 +378,27 @@
       </item>
       <item path="src/Player.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Real.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Real.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Script.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Script.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ScriptCommand.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ScriptFunctionLibrary.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ScriptInstance.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ScriptInstance.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ScriptNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Serializable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Serializable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Settings.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -417,6 +463,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>8</standard>
           <incDir>
             <pElem>C:/MinGW/SDL-2.0/include</pElem>
           </incDir>
@@ -465,9 +512,13 @@
       </item>
       <item path="src/GUI_DynamicLabel.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/GUI_InputSettingsPannel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="src/GUI_Label.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GUI_OrderPanel.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GUI_PlayerInfoPanel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -513,6 +564,10 @@
       </item>
       <item path="src/GameStateSTR.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GameStateSettings.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GameStateSettings.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Geometry.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Geometry.h" ex="false" tool="3" flavor2="0">
@@ -547,6 +602,10 @@
       </item>
       <item path="src/LightEngine.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Math.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Math.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Missile.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Missile.h" ex="false" tool="3" flavor2="0">
@@ -559,6 +618,8 @@
       </item>
       <item path="src/ModelObj.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/ParserFBX.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Particle.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ParticleEngine.cpp" ex="false" tool="1" flavor2="0">
@@ -569,15 +630,27 @@
       </item>
       <item path="src/Player.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Real.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Real.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Script.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Script.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ScriptCommand.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/ScriptFunctionLibrary.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ScriptInstance.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ScriptInstance.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ScriptNode.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Serializable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Serializable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Settings.cpp" ex="false" tool="1" flavor2="0">
       </item>

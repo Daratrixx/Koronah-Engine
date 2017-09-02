@@ -2,6 +2,9 @@
 #include "FrameBuffer.h"
 
 FrameBuffer::FrameBuffer() {
+}
+
+void FrameBuffer::init() {
     m_idFrameBuffer = 0;
     m_idDepthBuffer = 0;
     m_colorBuffer = null;
@@ -10,8 +13,7 @@ FrameBuffer::FrameBuffer() {
     m_height = DEFAULT_FRAMEBUFFER_HEIGHT;
     m_projection = glm::perspective(70.0, 4.0 / 3.0, 1.0, 100.0);
 }
-
-FrameBuffer::FrameBuffer(int w, int h) {
+void FrameBuffer::init(const UInt & w, const UInt & h) {
     m_idFrameBuffer = 0;
     m_idDepthBuffer = 0;
     m_colorBuffer = null;
@@ -80,7 +82,7 @@ void FrameBuffer::use() const {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void FrameBuffer::changeColorAttachment(unsigned int colorID) const {
+void FrameBuffer::changeColorAttachment(const UShort & colorID) const {
     GLenum drawBuffers0[] = {GL_COLOR_ATTACHMENT0};
     GLenum drawBuffers1[] = {GL_COLOR_ATTACHMENT1};
     GLenum drawBuffers2[] = {GL_COLOR_ATTACHMENT2};
@@ -114,13 +116,13 @@ void FrameBuffer::unUse() const {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FrameBuffer::addColorBuffer(int w, int h) {
+void FrameBuffer::addColorBuffer(const UInt & w, const UInt & h) {
     if (m_colorBufferCount < 16) {
         Texture* newTexture = new Texture();
         newTexture->chargerVide(w, h);
         Texture** temp = m_colorBuffer;
         m_colorBuffer = new Texture*[m_colorBufferCount + 1];
-        for (unsigned int i = 0; i < m_colorBufferCount; i++)
+        for (UShort i = 0; i < m_colorBufferCount; i++)
             m_colorBuffer[i] = temp[i];
         m_colorBuffer[m_colorBufferCount] = newTexture;
         delete[] temp;
@@ -136,14 +138,14 @@ GLuint FrameBuffer::getDepthBufferId() const {
     return m_idDepthBuffer;
 }
 
-GLuint FrameBuffer::getColorBufferId(unsigned int index) const {
+GLuint FrameBuffer::getColorBufferId(const UShort & index) const {
     if (index < m_colorBufferCount)
         return m_colorBuffer[index]->getID();
     std::cout << "no color buffer at index " << index << std::endl;
     return m_colorBuffer[0]->getID();
 }
 
-Texture* FrameBuffer::getColorBuffer(unsigned int index) const {
+Texture* FrameBuffer::getColorBuffer(const UShort & index) const {
     if (index < m_colorBufferCount)
         return m_colorBuffer[index];
     return null;

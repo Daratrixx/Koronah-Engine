@@ -49,19 +49,32 @@
 #include "GameStateMenu.h"
 #endif
 
+#ifndef GAMESTATESETTINGS_H
+#include "GameStateSettings.h"
+#endif
+
 class Game {
 public:
     Game();
-    int init();
+    Short init();
     void loop();
     void close();
     void switchTo(GameState* state);
+    
+    // input
+    void keyboardDown(SDL_Event & e);
+    void keyboardUp(SDL_Event & e);
+    void mouseDown(SDL_Event & e);
+    void mouseUp(SDL_Event & e);
+    void mouseMotion(SDL_Event & e);
+    
 private:
-    TimeEngine* Time;
-    InputEngine* Input;
-    GraphicEngine* Graphic;
-    LightEngine* Light;
-    ParticleEngine* Particle;
+    TimeEngine Time;
+    InputEngine Input;
+    GraphicEngine Graphic;
+    //LightEngine Light;
+    //ParticleEngine Particle;
+    InputMapping Mapping;
     
     GameState* m_currentState;
 };

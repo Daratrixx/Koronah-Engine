@@ -4,15 +4,21 @@
 #include "GameEngine.h"
 
 GameEngine::GameEngine() {
-    for (unsigned int i = 0; i < PLAYER_COUNT; i++)
+    for (UShort i = 0; i < PLAYER_COUNT; i++)
         m_players[i] = null;
     m_currentPlayerId = PLAYER_1;
+    for (UInt i = MAX_UNIT_COUNT - 1; i >= 0; i--)
+        m_freeUnitId.push(i);
     initPlayers();
     loadGame();
 }
 
 GameEngine::~GameEngine() {
     clearGame();
+}
+
+bool GameEngine::toFile(std::ofstream & fout) {
+    return writeInFile(fout);
 }
 
 void GameEngine::clearGame() {
@@ -25,13 +31,13 @@ void GameEngine::clearGame() {
     m_unitsDead.clear();
     m_buildings.clear();
     m_missiles.clear();
-    for (unsigned int i = 0; i < PLAYER_COUNT; i++) {
+    for (UShort i = 0; i < PLAYER_COUNT; i++) {
         m_unitsPlayer[i].clear();
         delete m_players[i];
     }
-    for(Script* s : m_scriptList)
+    for (Script* s : m_scriptList)
         delete s;
-    while(!m_scriptInstanceQueue.empty()) {
+    while (!m_scriptInstanceQueue.empty()) {
         delete m_scriptInstanceQueue.front();
         m_scriptInstanceQueue.pop();
     }
@@ -56,6 +62,7 @@ void GameEngine::loadGame() {
     u->setMovingSpeed(25);
     u->setRadius(2);
     u->m_missileType = m_missileType.front();
+    u->m_costSupply = 3;
     m_unitType.push_back(u);
     /*for (unsigned int i = 0; i < 50; i++) {
         int playerId = rand() % PLAYER_COUNT;
@@ -68,17 +75,21 @@ void GameEngine::loadGame() {
         u->m_buildingProgress = 1;
         addUnitToGame(u);
     }*/
-    for (int j = 0; j < 2; j++) {
-        int r = 10;
-        for (int i = 0; i < r; i++) {
-            u = new Unit(m_unitType.front());
-            u->m_ownerId = j;
-            u->m_teamColor = m_players[j]->m_teamColor;
-            u->setPositionXY(5 - (j * 10), r/2 - i);
-            u->m_trainingProgress = 1;
-            u->m_buildingProgress = 1;
-            u->orderAttackMove(glm::vec2(0, 0));
-            addUnitToGame(u);
+    for (UShort j = 0; j < 2; j++) {
+        UShort r = 10;
+        for (UShort i = 0; i < r; i++) {
+            if (!m_freeUnitId.empty()) { // can still create units
+                u = new Unit(m_unitType.front());
+                u->m_ownerId = j;
+                u->m_teamColor = m_players[j]->m_teamColor;
+                u->setPositionXY(5 - (j * 10), r / 2 - i);
+                u->m_trainingProgress = 1;
+                u->m_buildingProgress = 1;
+                u->orderAttackMove(glm::vec2(0, 0));
+                u->m_unitId = m_freeUnitId.top();
+                m_freeUnitId.pop();
+                addUnitToGame(u);
+            }
         }
     }
     /*u = new Unit();
@@ -108,17 +119,21 @@ void GameEngine::loadGame() {
     u->orderTrain(m_unitType.front());
     addUnitToGame(u);*/
     Script* s = new Script();
+    s->m_name = "Respawn";
     s->m_autoTrigger = false;
     s->m_enabledTrigger = true;
     s->m_events.push_back("unitDies()");
-    s->m_actions.push_back("unitCreate(DYING_UNIT, unitOwnerId(DYING_UNIT), playerStartPosition(unitOwner(DYING_UNIT)))");
-    
+    s->m_actions.push_back("scriptWait(0.5)");
+    s->m_actions.push_back("unitCreate(DYING_UNIT, unitOwner(DYING_UNIT), vec2(-(5, *(unitOwnerId(DYING_UNIT), 10)), randomFloatBetween(-5, 5)))");
+
     m_scriptList.push_back(s);
 }
 
-void GameEngine::gameTick(float time) {
+void GameEngine::gameTick(const float & time) {
     m_tickDuration = time;
     m_gameTime += time;
+
+    scriptMain();
 
     std::list<Unit*>::iterator prevU;
 
@@ -147,7 +162,7 @@ void GameEngine::gameTick(float time) {
                     //it = prevU;
                 }
             }
-        }
+        };
         //prevU = it;
     }
 
@@ -167,7 +182,6 @@ void GameEngine::gameTick(float time) {
         }
         prevM = it;
     }
-
 }
 
 void GameEngine::addEntityToGame(Entity* e) {
@@ -184,10 +198,11 @@ void GameEngine::addUnitToGame(Unit* u) {
     if (u->m_isBuilding)
         m_buildings.push_back(u);
     m_unitsPlayer[u->getOwnerId()].push_back(u);
+    m_players[u->getOwnerId()]->m_unitCount += u->m_costSupply;
     addEntityToGame(u);
 }
 
-Unit* GameEngine::getUnit(unsigned int id) {
+Unit* GameEngine::getUnit(const UInt & id) {
     if (id < m_unitsAll.size()) {
         unsigned int current = 0;
         for (std::list<Unit*>::iterator it = m_unitsAll.begin(); it != m_unitsAll.end(); it++) {
@@ -199,7 +214,7 @@ Unit* GameEngine::getUnit(unsigned int id) {
     return null;
 }
 
-Unit* GameEngine::getUnitAlive(unsigned int id) {
+Unit* GameEngine::getUnitAlive(const UInt & id) {
     if (id < m_unitsAlive.size()) {
         unsigned int current = 0;
         for (std::list<Unit*>::iterator it = m_unitsAlive.begin(); it != m_unitsAlive.end(); it++) {
@@ -211,7 +226,7 @@ Unit* GameEngine::getUnitAlive(unsigned int id) {
     return null;
 }
 
-Unit* GameEngine::getUnitDead(unsigned int id) {
+Unit* GameEngine::getUnitDead(const UInt & id) {
     if (id < m_unitsDead.size()) {
         unsigned int current = 0;
         for (std::list<Unit*>::iterator it = m_unitsDead.begin(); it != m_unitsDead.end(); it++) {
@@ -224,29 +239,33 @@ Unit* GameEngine::getUnitDead(unsigned int id) {
 }
 
 void GameEngine::removeUnitFromGame(Unit* u) {
-    m_unitsAll.remove(u);
-    if (u->isAlive())
-        m_unitsAlive.remove(u);
-    else
+    if (u != null) {
+        m_freeUnitId.push(u->m_unitId);
+
+        m_unitsAll.remove(u);
+        if (u->isAlive())
+            killUnit(u);
         m_unitsDead.remove(u);
-    if (u->isBuilding())
-        m_buildings.remove(u);
 
-    m_unitsPlayer[u->getOwnerId()].remove(u);
+        if (u->isBuilding())
+            m_buildings.remove(u);
 
-    for (std::list<Unit*>::iterator it = m_unitsAll.begin(); it != m_unitsAll.end(); it++) {
-        Unit* unit = *it;
-        if (unit->m_target == u)
-            unit->m_target = null;
+        m_unitsPlayer[u->getOwnerId()].remove(u);
+
+        for (std::list<Unit*>::iterator it = m_unitsAll.begin(); it != m_unitsAll.end(); it++) {
+            Unit* unit = *it;
+            if (unit->m_target == u)
+                unit->m_target = null;
+        }
+        for (std::list<Missile*>::iterator it = m_missiles.begin(); it != m_missiles.end(); it++) {
+            Missile* m = *it;
+            if (m->m_target == u)
+                m->m_target = null;
+            if (m->m_missileOwner == u)
+                m->m_missileOwner = null;
+        }
+        removeEntityFromGame(u);
     }
-    for (std::list<Missile*>::iterator it = m_missiles.begin(); it != m_missiles.end(); it++) {
-        Missile* m = *it;
-        if (m->m_target == u)
-            m->m_target = null;
-        if (m->m_missileOwner == u)
-            m->m_missileOwner = null;
-    }
-    removeEntityFromGame(u);
 }
 
 void GameEngine::addMissileToGame(Missile* m) {
@@ -264,10 +283,11 @@ void GameEngine::killUnit(Unit* u) {
         u->m_selectionCircleDisplayed = false;
         m_unitsAlive.remove(u);
         m_unitsDead.push_back(u);
+        m_players[u->m_ownerId]->m_unitCount -= u->m_costSupply;
     }
 }
 
-void GameEngine::doRightClick(Unit* u, glm::vec2 position) {
+void GameEngine::doRightClick(Unit* u, const glm::vec2 & position) {
     if (u->isBuilding())
         buildingDoRightClick(u, position);
     else
@@ -282,12 +302,12 @@ void GameEngine::doRightClick(Unit* u, Unit* target) {
         unitDoRightClick(u, target);
 }
 
-void GameEngine::updateAngle(Entity* e, glm::vec2 direction) {
-    direction = glm::normalize(direction);
-    float angle = glm::asin(direction.y) * 180 / PI;
-    if (direction.x < 0)
+void GameEngine::updateAngle(Entity* e, const glm::vec2 & direction) {
+    glm::vec2 dir = glm::normalize(direction);
+    float angle = glm::asin(dir.y) * 180 / PI;
+    if (dir.x < 0)
         angle += 90;
-    if (direction.y < 0)
+    if (dir.y < 0)
         angle *= -1;
     e->m_angle.z = angle;
 }

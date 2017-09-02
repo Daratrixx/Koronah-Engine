@@ -73,7 +73,7 @@ bool Texture::charger() {
             format = GL_RGB;
         else
             format = GL_BGR;
-    }        // Détermination du format et du format interne pour les images à 4 composantes
+    }// Détermination du format et du format interne pour les images à 4 composantes
     else if (imageInversee->format->BytesPerPixel == 4) {
         // Format interne
         formatInterne = GL_RGBA;
@@ -152,7 +152,7 @@ bool Texture::charger(SDL_Surface* imageSDL) {
     return true;
 }
 
-bool Texture::chargerVide(int w, int h) {
+bool Texture::chargerVide(const UInt & w, const UInt & h) {
     m_width = w;
     m_height = h;
     // Destruction d'une éventuelle ancienne texture
@@ -224,52 +224,54 @@ SDL_Surface* Texture::inverserPixels(SDL_Surface *imageSource) const {
 
 // static
 
-std::vector<Texture*>* getTextureList() {
-    static std::vector<Texture*>* TEXTURE_LIST = new std::vector<Texture*>();
-    return TEXTURE_LIST;
+TextureListHolder::TextureListHolder() {
+
 }
 
-GLuint loadTexture(std::string path) {
-    Texture* texture = textureExists(path);
+TextureListHolder::~TextureListHolder() {
+    clearTextureList();
+}
+
+static TextureListHolder textureListHolder;
+
+GLuint loadTexture(const std::string & path) {
+    Texture* texture = getTexture(path);
     if (texture == null) { // does not exist
-        std::vector<Texture*>* TEXTURE_LIST = getTextureList();
         texture = new Texture(path);
-        TEXTURE_LIST->push_back(texture);
-        //std::cout << "loaded texture " << path << std::endl;
+        textureListHolder.textureList[path] = texture;
+        textureListHolder.pathList.push_back(path);
     }
-    if(texture != null)
+    if (texture != null)
         return texture->getID();
     return 0;
 }
 
-Texture* textureExists(std::string path) {
-    std::vector<Texture*>* TEXTURE_LIST = getTextureList();
-    for (unsigned int i = 0; i < TEXTURE_LIST->size(); i++)
-        if ((*TEXTURE_LIST)[i]->getPath() == path)
-            return (*TEXTURE_LIST)[i];
-    //std::cout << "can load texture " << path << std::endl;
+Texture* getTexture(const std::string & path) {
+    return textureListHolder.textureList[path];
+}
+
+Texture* getTexture(const UInt & index) {
+    if (index < textureListHolder.pathList.size())
+        return textureListHolder.textureList[textureListHolder.pathList[index]];
     return null;
 }
 
-Texture* getTexture(unsigned int index) {
-    std::vector<Texture*>* TEXTURE_LIST = getTextureList();
-    if (index < TEXTURE_LIST->size())
-        return (*TEXTURE_LIST)[index];
-    //std::cout << "no texture at index " << index << " (" << TEXTURE_LIST->size() << ")" << std::endl;
-    return null;
+GLuint getTextureID(const std::string & path) {
+    Texture* texture = textureListHolder.textureList[path];
+    if (texture != null)
+        return texture->getID();
+    return 0;
 }
 
-GLuint getTextureID(unsigned int index) {
-    std::vector<Texture*>* TEXTURE_LIST = getTextureList();
-    if (index < TEXTURE_LIST->size())
-        return (*TEXTURE_LIST)[index]->getID();
-    //std::cout << "no texture at index " << index << " (" << TEXTURE_LIST->size() << ")" << std::endl;
+GLuint getTextureID(const UInt & index) {
+    if (index < textureListHolder.pathList.size())
+        return textureListHolder.textureList[textureListHolder.pathList[index]]->getID();
     return 0;
 }
 
 void clearTextureList() {
-    std::vector<Texture*>* TEXTURE_LIST = getTextureList();
-    for (unsigned int i = 0; i < TEXTURE_LIST->size(); i++)
-        delete (*TEXTURE_LIST)[i];
-    TEXTURE_LIST->clear();
+    for (UInt i = 0; i < textureListHolder.pathList.size(); i++)
+        delete textureListHolder.textureList[textureListHolder.pathList[i]];
+    textureListHolder.textureList.clear();
+    textureListHolder.pathList.clear();
 }

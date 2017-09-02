@@ -1,6 +1,7 @@
 # Blender v2.72 (sub 0) OBJ File: ''
 # www.blender.org
 o Ohniste_Circle.004
+cpt data/texture/fireplaceTexture.png
 v 1.737920 -0.356295 1.735180
 v 1.786720 -0.247689 1.814642
 v 3.516087 0.002498 0.855232

@@ -2,34 +2,33 @@
 #include "Game.h"
 
 Game::Game() {
-    Graphic = null;
-    Input = null;
-    Time = null;
-    Particle = null;
-    Light = null;
     m_currentState = null;
+    std::cout << "game created." << std::endl;
 }
 
-int Game::init() {
+Short Game::init() {
     std::ofstream LOG_FILE;
     LOG_FILE.open("log.txt");
     LOG_FILE.close();
     std::cout << "log file cleaned." << std::endl;
-    
+
     loadSettings();
     std::cout << "settings loaded" << std::endl;
-    
+
     std::string title = "Koronah Engine";
-    Graphic = new GraphicEngine(title);
-    if (Graphic == 0)
-        return -1;
+    //Graphic.init(title);
+    getGraphicEngine()->init(title);
     std::cout << "GraphicEngine creation successful." << std::endl;
-    
-    if (!Graphic->initWindow(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
+
+    //if (!Graphic.initWindow(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
+    //    return -1;
+    if (!getGraphicEngine()->initWindow(SDL_INIT_VIDEO | SDL_INIT_AUDIO))
         return -1;
     std::cout << "SDL initialisation successful." << std::endl;
-    
-    if (!Graphic->initGL())
+
+    //if (!Graphic.initGL())
+    //    return -1;
+    if (!getGraphicEngine()->initGL())
         return -1;
     std::cout << "GL initialisation successful." << std::endl;
 
@@ -44,44 +43,44 @@ int Game::init() {
     //    return -1;
     //std::cout << "LightEngine creation successful." << std::endl;
 
-    Time = new TimeEngine();
-    if (Time == 0)
-        return -1;
-
-    Input = new InputEngine();
-    if (Input == 0)
-        return -1;
-
     //Graphic->setLightData(Light->getLightData());
     //Graphic->setResolution(1280,720);
-    Graphic->loadGraphicDatas();
-
+    //Graphic.loadGraphicDatas();
+    getGraphicEngine()->loadGraphicDatas();
+    std::cout << "loadGraphicDatas successful." << std::endl;
+    Mapping.reset();
+    Mapping.load();
+    std::cout << "mapping loaded successful." << std::endl;
     return 0; // no problem
 }
 
 void Game::loop() {
-    GameStateSTR* playground = new GameStateSTR();
+    GameStateSTR playground;
+    GameStateMenu menu;
+    GameStateSettings settings;
     std::cout << "GameStateSTR creation successful." << std::endl;
-    playground->Graphic = Graphic;
-    playground->Input = Input;
-    //playground->Light = Light;
-    //playground->Particle = Particle;
-    playground->Time = Time;
-    playground->load();
-    GameStateMenu* menu = new GameStateMenu();
-    menu->Graphic = Graphic;
-    menu->Input = Input;
-    menu->Time = Time;
-    menu->load();
+    playground.Graphic = getGraphicEngine();
+    playground.Input = &Input;
+    playground.InputSetting = &Mapping;
+    playground.Time = &Time;
+    playground.load();
+    menu.Graphic = getGraphicEngine();
+    menu.Input = &Input;
+    menu.InputSetting = &Mapping;
+    menu.Time = &Time;
+    menu.load();
+    settings.Graphic = getGraphicEngine();
+    settings.Input = &Input;
+    settings.InputSetting = &Mapping;
+    settings.Time = &Time;
+    settings.load();
     std::cout << "start of loop." << std::endl;
-    m_currentState = menu;
+    m_currentState = &menu;
     bool close = false;
     while (!close) {
-        Time->updateTime();
-        float time = Time->getDeltaTime();
-        Input->updateEvents();
-        if (Input->getKeyboardPushed(SDL_SCANCODE_ESCAPE))
-            close = true;
+        Time.updateTime();
+        float time = Time.getDeltaTime();
+        Input.resetEvents();
         switch (m_currentState->mainFunction(time)) {
             case ORDER_EXIT:
                 close = true;
@@ -89,42 +88,32 @@ void Game::loop() {
             case ORDER_CONTINUE:
                 break;
             case ORDER_TO_PLAYGROUND:
-                switchTo(playground);
+                switchTo(&playground);
+                break;
+            case ORDER_TO_SETTINGS:
+                switchTo(&settings);
                 break;
             case ORDER_TO_MENU:
-                switchTo(menu);
+                switchTo(&menu);
                 break;
             default:break;
         }
-        Time->waitSeconds(0.010f);
+        if (Input.getKeyboardPushed(SDL_SCANCODE_ESCAPE))
+            close = true;
+        Time.waitSeconds(0.010f);
     }
-    delete playground;
-    std::cout << "GameStateSTR deleted." << std::endl;
-    delete menu;
-    std::cout << "GameStateMenu deleted." << std::endl;
 }
 
 void Game::switchTo(GameState* state) {
-    if(m_currentState != null)
+    if (m_currentState != null)
         m_currentState->onLeave();
     m_currentState = state;
     m_currentState->onEnter();
 }
 
 void Game::close() {
-    delete Input;
-    std::cout << "InputEngine deleted." << std::endl;
-    delete Time;
-    std::cout << "TimeEngine deleted." << std::endl;
-    //delete Light;
-    //std::cout << "LightEngine deleted." << std::endl;
-    //delete Particle;
-    //std::cout << "ParticleEngine deleted." << std::endl;
-    delete Graphic;
-    std::cout << "GraphicEngine deleted." << std::endl;
-    
     saveSettings();
     std::cout << "settings saved" << std::endl;
-    
+
     std::cout << "Leaving program without error." << std::endl;
 }

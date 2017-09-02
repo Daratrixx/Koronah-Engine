@@ -10,21 +10,21 @@
 class Shader {
 public:
     Shader();
-    Shader(Shader const &shaderACopier);
+    Shader(const Shader & shaderACopier);
     ~Shader();
 
-    Shader& operator=(Shader const &shaderACopier);
+    Shader& operator=(const Shader & shaderACopier);
     void clean();
     bool compileAll();
     void loadAll();
-    bool loadTexture(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
-    bool loadScan(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
-    bool loadText(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
-    bool loadParticle(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
-    bool loadGUI(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
-    bool loadScreen(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
-    bool loadSquare(std::string vertexSource, std::string geometrySource, std::string fragmentSource);
-    bool compile(GLuint &shader, GLenum type, std::string const &fichierSource);
+    bool loadTexture(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource);
+    bool loadScan(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource);
+    bool loadText(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource);
+    bool loadParticle(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource);
+    bool loadGUI(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource);
+    bool loadScreen(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource);
+    bool loadSquare(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource);
+    bool compile(GLuint & shader, const GLenum & type, const std::string & fichierSource);
     bool link();
     GLuint getProgramID() const;
     void use() const;

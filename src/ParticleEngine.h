@@ -49,14 +49,14 @@ public:
     void render();
     void createParticle(glm::vec3 position); // before mainFunction in a tick
 private:
-    int m_particleCount;
+    UInt m_particleCount;
     std::vector<Particle*> m_particles;
     std::vector<ParticleModifier*> m_modifiers;
     SortedKeyChain* m_paticleToRender;
     glm::vec3* m_position;
     float* m_opacity;
     float* m_size;
-    int* m_texture;
+    UShort* m_texture;
 };
 
 #endif	/* PARTICLEENGINE_H */

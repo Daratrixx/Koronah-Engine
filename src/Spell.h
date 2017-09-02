@@ -26,9 +26,9 @@ public:
     Spell();
     ~Spell();
 
-    virtual void onAttacking(Unit* owner, int &damage); // trigger when attacking
-    virtual void onAttackHiting(Unit* owner, Unit* target, int &damage); // trigger when attack hits something
-    virtual void onAttackHited(Unit* owner, Unit* origin, int &damage); // trigger when being hit by an attack
+    virtual void onAttacking(Unit* owner, UInt & damage); // trigger when attacking
+    virtual void onAttackHiting(Unit* owner, Unit* target, UInt & damage); // trigger when attack hits something
+    virtual void onAttackHited(Unit* owner, Unit* origin, UInt & damage); // trigger when being hit by an attack
     virtual void onSpelling(Unit* owner, Triggerable* spell); // trigger when casting a spell
     virtual void onSpellHiting(Unit* owner, Unit* target, Triggerable* spell); // trigger when spell hit something
     virtual void onSpellHited(Unit* owner, Unit* origin, Triggerable* spell); // trigger when being hit by a spell
@@ -49,18 +49,18 @@ public:
     SpellInstance();
     SpellInstance(Spell* spellModel);
     
-    bool isCooldownOver();
-    bool isCastTimeOver();
+    bool isCooldownOver() const;
+    bool isCastTimeOver() const;
     void startCooldown();
     void startCastTime();
-    float getRemainingCooldown();
-    float getPercentRemainingCooldown();
-    float getRemainingCastTime();
-    float getPercentRemainingCastTime();
+    float getRemainingCooldown() const;
+    float getPercentRemainingCooldown() const;
+    float getRemainingCastTime() const;
+    float getPercentRemainingCastTime() const;
 
-    void onAttacking(Unit* owner, int &damage); // trigger when attacking
-    void onAttackHiting(Unit* owner, Unit* target, int &damage); // trigger when attack hits something
-    void onAttackHited(Unit* owner, Unit* origin, int &damage); // trigger when being hit by an attack
+    void onAttacking(Unit* owner, UInt & damage); // trigger when attacking
+    void onAttackHiting(Unit* owner, Unit* target, UInt & damage); // trigger when attack hits something
+    void onAttackHited(Unit* owner, Unit* origin, UInt & damage); // trigger when being hit by an attack
     void onSpelling(Unit* owner, Triggerable* spell); // trigger when casting a spell
     void onSpellHiting(Unit* owner, Unit* target, Triggerable* spell); // trigger when spell hit something
     void onSpellHited(Unit* owner, Unit* origin, Triggerable* spell); // trigger when being hit by a spell

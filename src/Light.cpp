@@ -18,13 +18,13 @@ glm::vec3 Light::getPosition() const {
     return glm::vec3(*(m_data), *(m_data + 1), *(m_data + 2));
 }
 
-void Light::setPosition(float x, float y, float z) {
+void Light::setPosition(const float & x, const float & y, const float & z) {
     *(m_data) = x;
     *(m_data + 1) = y;
     *(m_data + 2) = z;
 }
 
-void Light::setPosition(glm::vec3 position) {
+void Light::setPosition(const glm::vec3 & position) {
     *(m_data) = position.x;
     *(m_data + 1) = position.y;
     *(m_data + 2) = position.z;
@@ -34,14 +34,14 @@ glm::vec3 Light::getColor() const {
     return m_color;
 }
 
-void Light::setColor(float r, float g, float b) {
+void Light::setColor(const float & r, const float & g, const float & b) {
     m_color.x = r;
     m_color.y = g;
     m_color.z = b;
     UpdateColor();
 }
 
-void Light::setColor(glm::vec3 color) {
+void Light::setColor(const glm::vec3 & color) {
     m_color = color;
     UpdateColor();
 }
@@ -50,7 +50,7 @@ float Light::getEnergy() const {
     return m_energy;
 }
 
-void Light::setEnergy(float energy) {
+void Light::setEnergy(const float & energy) {
     m_energy = energy;
     UpdateColor();
 }

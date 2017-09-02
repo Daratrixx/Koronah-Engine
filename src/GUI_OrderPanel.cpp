@@ -11,12 +11,12 @@ GUI_OrderPanel::GUI_OrderPanel() : GUI() {
     m_orderMove->setSize(32, 32);
     m_orderMove->setTextureID(loadTexture("data/icon/orderMove.png"));
     m_orderMove->setColor(1.5f, 1.5f, 1.5f, 1, GUI_HOVER);
-    m_orderMove->setPositionType(GUI_RELATIVE);
+    m_orderMove->setPositionType(GUI_POSITION_RELATIVE);
     border = new GUI();
     border->setPosition(0, 5);
     border->setSize(40, 40);
     border->setTextureID(loadTexture("data/gui/iconBorder.png"));
-    border->setPositionType(GUI_RELATIVE);
+    border->setPositionType(GUI_POSITION_RELATIVE);
     border->addChild(m_orderMove);
     addChild(border);
 
@@ -25,12 +25,12 @@ GUI_OrderPanel::GUI_OrderPanel() : GUI() {
     m_orderAttack->setSize(32, 32);
     m_orderAttack->setTextureID(loadTexture("data/icon/orderAttack.png"));
     m_orderAttack->setColor(1.5f, 1.5f, 1.5f, 1, GUI_HOVER);
-    m_orderAttack->setPositionType(GUI_RELATIVE);
+    m_orderAttack->setPositionType(GUI_POSITION_RELATIVE);
     border = new GUI();
     border->setPosition(50, 5);
     border->setSize(40, 40);
     border->setTextureID(loadTexture("data/gui/iconBorder.png"));
-    border->setPositionType(GUI_RELATIVE);
+    border->setPositionType(GUI_POSITION_RELATIVE);
     border->addChild(m_orderAttack);
     addChild(border);
 
@@ -39,12 +39,12 @@ GUI_OrderPanel::GUI_OrderPanel() : GUI() {
     m_orderStop->setSize(32, 32);
     m_orderStop->setTextureID(loadTexture("data/icon/orderStop.png"));
     m_orderStop->setColor(1.5f, 1.5f, 1.5f, 1, GUI_HOVER);
-    m_orderStop->setPositionType(GUI_RELATIVE);
+    m_orderStop->setPositionType(GUI_POSITION_RELATIVE);
     border = new GUI();
     border->setPosition(100, 5);
     border->setSize(40, 40);
     border->setTextureID(loadTexture("data/gui/iconBorder.png"));
-    border->setPositionType(GUI_RELATIVE);
+    border->setPositionType(GUI_POSITION_RELATIVE);
     border->addChild(m_orderStop);
     addChild(border);
 
@@ -53,12 +53,12 @@ GUI_OrderPanel::GUI_OrderPanel() : GUI() {
     m_orderHold->setSize(32, 32);
     m_orderHold->setTextureID(loadTexture("data/icon/orderHold.png"));
     m_orderHold->setColor(1.5f, 1.5f, 1.5f, 1, GUI_HOVER);
-    m_orderHold->setPositionType(GUI_RELATIVE);
+    m_orderHold->setPositionType(GUI_POSITION_RELATIVE);
     border = new GUI();
     border->setPosition(150, 5);
     border->setSize(40, 40);
     border->setTextureID(loadTexture("data/gui/iconBorder.png"));
-    border->setPositionType(GUI_RELATIVE);
+    border->setPositionType(GUI_POSITION_RELATIVE);
     border->addChild(m_orderHold);
     addChild(border);
 
@@ -67,16 +67,16 @@ GUI_OrderPanel::GUI_OrderPanel() : GUI() {
     m_orderPatrol->setSize(32, 32);
     m_orderPatrol->setTextureID(loadTexture("data/icon/orderPatrol.png"));
     m_orderPatrol->setColor(1.5f, 1.5f, 1.5f, 1, GUI_HOVER);
-    m_orderPatrol->setPositionType(GUI_RELATIVE);
+    m_orderPatrol->setPositionType(GUI_POSITION_RELATIVE);
     border = new GUI();
     border->setPosition(200, 5);
     border->setSize(40, 40);
     border->setTextureID(loadTexture("data/gui/iconBorder.png"));
-    border->setPositionType(GUI_RELATIVE);
+    border->setPositionType(GUI_POSITION_RELATIVE);
     border->addChild(m_orderPatrol);
     addChild(border);
 }
 
 GUI_OrderPanel::~GUI_OrderPanel() {
-
+    
 }

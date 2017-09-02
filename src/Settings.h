@@ -29,26 +29,26 @@ public:
     virtual void reset();
     virtual bool save();
 
-    unsigned screenWidth, screenHeight;
-    unsigned scanDivisor;
+    UInt screenWidth, screenHeight;
+    UInt scanDivisor;
     bool fullScreen;
 
 };
 
-class InputSetting : public Setting {
-public:
-    InputSetting();
-    virtual ~InputSetting();
-    virtual bool load();
-    virtual void reset();
-    virtual bool save();
-
-    float mouseSensibility;
-    float keyboardSensibility;
-};
+//class InputSetting : public Setting {
+//public:
+//    InputSetting();
+//    virtual ~InputSetting();
+//    virtual bool load();
+//    virtual void reset();
+//    virtual bool save();
+//
+//    float mouseSensibility;
+//    float keyboardSensibility;
+//};
 
 GraphicSetting* getGraphicSetting();
-InputSetting* getInputSetting();
+//InputSetting* getInputSetting();
 void loadSettings();
 void saveSettings();
 

@@ -8,7 +8,7 @@
 #pragma once
 
 #ifndef GAMESTATESTR_H
-#define	GAMESTATESTR_H
+#define GAMESTATESTR_H
 
 
 #ifndef TYPES_H
@@ -50,23 +50,36 @@ public:
     virtual void load();
     virtual void onEnter();
     virtual void onLeave();
-    virtual int mainFunction(float time);
+    virtual UShort mainFunction(float time);
     virtual void update();
-    virtual int inputManagement();
+    virtual UShort inputManagement();
+    virtual UShort mouseInput(SDL_Event & EVENT_QUEUE);
+    virtual UShort keyboardInput(SDL_Event & EVENT_QUEUE);
+    void inputMoveOrder();
+    void inputAttackOrder();
+    void inputStopOrder();
+    void inputHoldPositionOrder();
+    void inputPatrolOrder();
+    void inputCancel();
     void clearSelection();
     void doSquareSelection();
     virtual void render();
     void renderSelectionSquare();
-    int getUnitId(unsigned int x, unsigned int y);
-    glm::vec3 getClickWorldPosition(unsigned int x, unsigned int y);
-    
+    Int getUnitId(UInt x, UInt y);
+    glm::vec3 getClickWorldPosition(UInt x, UInt y);
+
 private:
+    GUI* m_guiAttackOrderButton;
+    GUI* m_guiMoveOrderButton;
+    GUI* m_guiStopOrderButton;
+    GUI* m_guiHoldOrderButton;
+    GUI* m_guiPatrolOrderButton;
     GameObject* m_cameraHolder;
     HeightMapData* m_heightMapData;
     GameEngine m_gameEngine;
-    
+
     GUI_DynamicLabel* m_guiUnitId;
-    int m_selectedUnitId;
+    Int m_selectedUnitId;
     std::vector<Unit*> m_selectedUnits;
     unsigned int m_currentState;
     glm::vec2 m_clicPositionStart;
@@ -74,5 +87,5 @@ private:
     bool m_scanGenerated;
 };
 
-#endif	/* GAMESTATESTR_H */
+#endif /* GAMESTATESTR_H */
 

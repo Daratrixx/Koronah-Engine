@@ -11,17 +11,17 @@ bool GameEngine::missileUpdate(Missile* m) {
 }
 
 bool GameEngine::missileHit(Missile* m, Unit* target) {
-    if(m->m_radius + target->m_radius >= glm::length(target->m_position - m->m_position)) {
+    if(m->m_collisionRadius + target->m_collisionRadius >= glm::length(target->m_position - m->m_position)) {
         unitDamageUnit((Unit*)m->m_missileOwner, target);
         return true;
     }
     return false;
 }
 
-bool GameEngine::missileMoveTo(Missile* m, glm::vec2 destination) {
+bool GameEngine::missileMoveTo(Missile* m, const glm::vec2 & destination) {
     float radius, distance, speed;
     speed = m->m_movingSpeed * m_tickDuration;
-    radius = m->m_radius;
+    radius = m->m_collisionRadius;
     glm::vec2 direction = destination - m->m_position;
     distance = glm::length(direction);
     if (distance - radius > speed) {

@@ -12,16 +12,16 @@
 
 typedef struct {
     std::string m_name;
-    unsigned int m_playerId;
+    UShort m_playerId;
     glm::vec3 m_teamColor;
     glm::vec2 m_startingPosition;
-    unsigned int m_race;
+    UShort m_race;
     
-    unsigned int m_energy;
-    unsigned int m_materials;
+    UInt m_energy;
+    UInt m_materials;
     
-    unsigned int m_unitLimit;
-    unsigned int m_unitCount;
+    UInt m_unitLimit;
+    UInt m_unitCount;
 } Player;
 
 #endif	/* PLAYER_H */

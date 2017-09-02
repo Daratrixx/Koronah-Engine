@@ -13,14 +13,14 @@ SpellInstance::SpellInstance(Spell* spellModel) {
     m_remainingCooldown = 0;
 }
 
-bool SpellInstance::isCooldownOver() {
+bool SpellInstance::isCooldownOver() const {
     if (m_spellModel != null) {
         return m_remainingCooldown < 0;
     }
     return false;
 }
 
-bool SpellInstance::isCastTimeOver() {
+bool SpellInstance::isCastTimeOver() const {
     if (m_spellModel != null) {
         if(m_spellModel->m_hasCastTime)
             return m_remainingCastTime < 0;
@@ -40,40 +40,40 @@ void SpellInstance::startCastTime() {
         m_remainingCooldown = m_spellModel->m_cooldownDuration;
     }
 }
-float SpellInstance::getRemainingCooldown() {
+float SpellInstance::getRemainingCooldown() const {
     return m_remainingCooldown;
 }
 
-float SpellInstance::getPercentRemainingCooldown() {
+float SpellInstance::getPercentRemainingCooldown() const{
     if (m_spellModel != null) {
-        m_remainingCooldown = m_spellModel->m_cooldownDuration;
+        return m_remainingCooldown / m_spellModel->m_cooldownDuration;
     }
     return 0;
 }
-float SpellInstance::getRemainingCastTime() {
+float SpellInstance::getRemainingCastTime() const {
     return m_remainingCastTime;
 }
 
-float SpellInstance::getPercentRemainingCastTime() {
+float SpellInstance::getPercentRemainingCastTime() const {
     if (m_spellModel != null) {
-        m_remainingCooldown = m_spellModel->m_cooldownDuration;
+        return m_remainingCastTime / m_spellModel->m_cooldownDuration;
     }
     return 0;
 }
 
-void SpellInstance::onAttacking(Unit* owner, int &damage) { // trigger when attacking
+void SpellInstance::onAttacking(Unit* owner, UInt & damage) { // trigger when attacking
     if (m_spellModel != null) {
         m_spellModel->onAttacking(owner, damage);
     }
 }
 
-void SpellInstance::onAttackHiting(Unit* owner, Unit* target, int &damage) { // trigger when attack hits something
+void SpellInstance::onAttackHiting(Unit* owner, Unit* target, UInt & damage) { // trigger when attack hits something
     if (m_spellModel != null) {
         m_spellModel->onAttackHiting(owner, target, damage);
     }
 }
 
-void SpellInstance::onAttackHited(Unit* owner, Unit* origin, int &damage) { // trigger when being hit by an attack
+void SpellInstance::onAttackHited(Unit* owner, Unit* origin, UInt & damage) { // trigger when being hit by an attack
     if (m_spellModel != null) {
         m_spellModel->onAttackHited(owner, origin, damage);
     }

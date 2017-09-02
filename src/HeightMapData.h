@@ -11,24 +11,24 @@
 #include "GameObject.h"
 #endif
 
-Uint32 getPixelColor(SDL_Surface * surface, int x, int y);
+Uint32 getPixelColor(SDL_Surface * surface, UInt x, UInt y);
 
 class HeightMapData : public GameObject {
 public:
     HeightMapData(std::string imagePath);
     ~HeightMapData();
     void loadHeightMapData(SDL_Surface *map);
-    float getPixel(int X, int Y);
-    void setPixel(int X, int Y, float value);
+    float getPixel(UInt X, UInt Y);
+    void setPixel(UInt X, UInt Y, float value);
     float* getVertice();
-    int getVerticeCount();
-    int getX();
-    int getY();
+    UInt getVerticeCount();
+    UInt getX();
+    UInt getY();
     float collision(glm::vec3 p);
     
 private:
-    int m_verticeCount;
-    int m_x, m_y;
+    UInt m_verticeCount;
+    UInt m_x, m_y;
     float *m_pixel;
     float *m_vertice;
 };

@@ -24,7 +24,7 @@ bool GameEngine::buildingUpdate(Unit* b) {
                 case UNIT_BEHAVIOR_TRAINING:
                     if (b->m_rallyTarget != null && !b->m_rallyTarget->isAlive()) {
                         b->m_rallyTarget = null;
-                        b->m_rallyDestination = b->m_position + glm::vec2(0, b->m_radius);
+                        b->m_rallyDestination = b->m_position + glm::vec2(0, b->m_collisionRadius);
                     }
                     if (buildingDoTraining(b)) {
                         buildingDoEndTraining(b);
@@ -51,7 +51,7 @@ bool GameEngine::buildingDoBuilding(Unit* b) {
 
 void GameEngine::buildingDoEndBuilding(Unit* b) {
     //b->orderStop();
-    b->m_rallyDestination = b->m_position + glm::vec2(0, b->m_radius);
+    b->m_rallyDestination = b->m_position + glm::vec2(0, b->m_collisionRadius);
 }
 
 bool GameEngine::buildingDoTraining(Unit* b) {
@@ -65,11 +65,11 @@ void GameEngine::buildingDoEndTraining(Unit* b) {
     u->m_teamColor = b->m_teamColor;
     u->m_ownerId = b->m_ownerId;
     if (b->m_rallyTarget != null) {
-        u->m_position = positionAlongLine(b->m_position, b->m_rallyTarget->m_position, b->m_radius + u->m_radius);
+        u->m_position = positionAlongLine(b->m_position, b->m_rallyTarget->m_position, b->m_collisionRadius + u->m_collisionRadius);
         unitDoRightClick(u, b->m_rallyTarget);
         std::cout << "rally on unit" << std::endl;
     } else {
-        u->m_position = positionAlongLine(b->m_position, b->m_rallyDestination, b->m_radius + u->m_radius);
+        u->m_position = positionAlongLine(b->m_position, b->m_rallyDestination, b->m_collisionRadius + u->m_collisionRadius);
         u->orderAttackMove(b->m_rallyDestination);
         std::cout << "rally on " << b->m_rallyDestination.x << "," << b->m_rallyDestination.y <<std::endl;
     }
@@ -86,7 +86,7 @@ void GameEngine::buildingDoCollision(Unit* b) {
     }
 }
 
-void GameEngine::buildingDoRightClick(Unit* b, glm::vec2 position) {
+void GameEngine::buildingDoRightClick(Unit* b, const glm::vec2 & position) {
     b->orderRally(position);
 }
 

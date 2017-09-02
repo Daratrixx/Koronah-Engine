@@ -17,9 +17,10 @@ public:
     Script();
     ~Script();
 
-    bool hasTrigger(std::string trigger);
-    bool isEnabled();
+    bool hasTrigger(const std::string & trigger) const ;
+    bool isEnabled() const;
 
+    std::string m_name;
     float m_lastTimeTriggered;
     bool m_autoTrigger;
     bool m_enabledTrigger;

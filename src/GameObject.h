@@ -13,64 +13,68 @@
 #include "Types.h"
 #endif
 
-class GameObject {
+#include "Serializable.h"
+
+class GameObject : public Serializable {
     
 public:
     GameObject();
     GameObject(GameObject* o);
     virtual ~GameObject();
+    virtual bool writeInFile(std::ofstream & fout);
+    virtual bool readFromFile(std::ifstream & fin);
     
-    void setID(int id);
-    int getID() const;
+    void setID(const UInt & id);
+    UInt getID() const;
     
     void setParentObject(GameObject* parent);
     GameObject* getParentObject() const;
     
     /* 3D function */
-    int getModelId() const;
-    void setModelId(int modelId);
-    int getTextureId() const;
-    void setTextureId(int tectureId);
-    int getHaloMapId() const;
-    void setHaloMapId(int tectureId);
+    UInt getModelId() const;
+    void setModelId(const UInt & modelId);
+    UInt getTextureId() const;
+    void setTextureId(const UInt & tectureId);
+    UInt getHaloMapId() const;
+    void setHaloMapId(const UInt & tectureId);
     
     
-    void setPositionXYZ(float x, float y, float z);
-    void setPositionXYZ(glm::vec3 pos);
-    void setPositionXY(float x, float y);
-    void setPositionXY(glm::vec2 pos);
-    void setPositionX(float x);
-    void setPositionY(float y);
-    void setPositionZ(float z);
+    void setPositionXYZ(const float & x, const float & y, const float & z);
+    void setPositionXYZ(const glm::vec3 & pos);
+    void setPositionXY(const float & x, const float & y);
+    void setPositionXY(const glm::vec2 & pos);
+    void setPositionX(const float & x);
+    void setPositionY(const float & y);
+    void setPositionZ(const float & z);
     glm::vec3 getPositionXYZ() const;
     glm::vec2 getPositionXY() const;
     float getPositionX() const;
     float getPositionY() const;
     float getPositionZ() const;
-    void addPositionXYZ(float x, float y, float z);
-    void addPositionXYZ(glm::vec3 pos);
-    void addPositionXY(float x, float y);
-    void addPositionXY(glm::vec2 pos);
+    void addPositionXYZ(const float & x, const float & y, const float & z);
+    void addPositionXYZ(const glm::vec3 & pos);
+    void addPositionXY(const float & x, const float & y);
+    void addPositionXY(const glm::vec2 & pos);
     
-    void setAngle(float x, float y, float z);
-    void setAngle(glm::vec3 angle);
+    void setAngle(const float & x, const float & y, const float & z);
+    void setAngle(const glm::vec3 & angle);
     glm::vec3 getAngle() const;
-    void addAngle(float x, float y, float z);
-    void addAngle(glm::vec3 angle);
+    void addAngle(const float & x, const float & y, const float & z);
+    void addAngle(const glm::vec3 & angle);
     void correctAngle();
     
-    void setScale(float x, float y, float z);
-    void setScale(glm::vec3 pos);
+    void setScale(const float & x, const float & y, const float & z);
+    void setScale(const glm::vec3 & pos);
     glm::vec3 getScale() const;
-    void addScale(float x, float y, float z);
-    void addScale(glm::vec3 pos);
+    void addScale(const float & x, const float & y, const float & z);
+    void addScale(const glm::vec3 & pos);
     
-    void setColor(float x, float y, float z);
-    void setColor(glm::vec3 color);
+    void setColor(const float & x, const float & y, const float & z);
+    void setColor(const glm::vec3 & color);
     glm::vec3 getColor() const;
     
-    void setTeamColor(float x, float y, float z);
-    void setTeamColor(glm::vec3 color);
+    void setTeamColor(const float & x, const float & y, const float & z);
+    void setTeamColor(const glm::vec3 & color);
     glm::vec3 getTeamColor() const;
     
     glm::mat4 getVertexMatrice();
@@ -78,10 +82,10 @@ public:
     glm::mat4 getNormalMatrice();
     
     
-    int m_objectId;
-    int m_modelId;
-    int m_textureId;
-    int m_haloMapId;
+    UInt m_objectId;
+    UInt m_modelId;
+    UInt m_textureId;
+    UInt m_haloMapId;
     std::string m_objectName;
     glm::vec2 m_position; // Z hauteur
     float m_depth;
@@ -94,8 +98,8 @@ public:
     glm::vec3 m_selectionCircleColor;
     float m_selectionCircleRadius;
     
-    static int OBJECT_COUNT;
-    static int GET_NEXT_ID();
+    static UInt OBJECT_COUNT;
+    static UInt GET_NEXT_ID();
 };
 
 #endif	/* GAMEOBJECT_H */

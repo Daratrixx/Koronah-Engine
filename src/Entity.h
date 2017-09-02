@@ -16,18 +16,20 @@ public:
     Entity();
     Entity(Entity* e);
     virtual ~Entity();
+    virtual bool writeInFile(std::ofstream & fout);
+    virtual bool readFromFile(std::ifstream & fin);
     
-    void setRadius(float radius);
+    void setRadius(const float & radius);
     float getRadius() const;
     
-    virtual void push(float x, float y);
+    virtual void push(const float & x, const float & y);
     
     Entity* getTarget() const;
     bool isTarget(Entity* e) const;
     void setTarget(Entity* target);
     
     float getMovingSpeed();
-    void setMovingSpeed(float movingSpeed);
+    void setMovingSpeed(const float & movingSpeed);
     
     virtual bool isAlive() const;
     virtual bool isUnit() const;
@@ -36,7 +38,7 @@ public:
     bool m_doCollision;
     float m_lastCollisionHit;
     float m_movingSpeed;
-    float m_radius;
+    float m_collisionRadius;
     Entity* m_target;
 };
 

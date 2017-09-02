@@ -2,7 +2,7 @@
 #include "GUI.h"
 
 GUI_Bar::GUI_Bar() : GUI() {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_barMargin[GUI_MODE_COUNT] = glm::vec2(0, 0);
         m_barColor[GUI_MODE_COUNT] = glm::vec3(1, 1, 1);
     }
@@ -38,7 +38,7 @@ void GUI_Bar::renderBar(GraphicEngine* Graphic) {
 }
 
 void GUI_Bar::loadBar() {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         if (glIsBuffer(m_vboBar[i]) == GL_TRUE)
             glDeleteBuffers(1, &m_vboBar[i]);
         if (glIsVertexArray(m_vaoBar[i]) == GL_TRUE)
@@ -78,51 +78,51 @@ void GUI_Bar::loadBar() {
     m_needLoadBar = false;
 }
 
-void GUI_Bar::setBarPercent(float percent) {
+void GUI_Bar::setBarPercent(const float & percent) {
     m_barPercent = percent;
     m_needLoadBar = true;
 }
 
-void GUI_Bar::setBarColor(glm::vec3 color) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++)
+void GUI_Bar::setBarColor(const glm::vec3 & color) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++)
         m_barColor[i] = color;
     m_needLoadBar = true;
 }
 
-void GUI_Bar::setBarColor(float r, float g, float b) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++)
-        m_barColor[i] = glm::vec3(r, g, b);
-    m_needLoadBar = true;
-}
-
-void GUI_Bar::setBarColor(glm::vec3 color, unsigned int mode) {
+void GUI_Bar::setBarColor(const glm::vec3 & color, const UShort & mode) {
     m_barColor[mode] = color;
     m_needLoadBar = true;
 }
 
-void GUI_Bar::setBarColor(float r, float g, float b, unsigned int mode) {
+void GUI_Bar::setBarColor(const float & r, const float & g, const float & b) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++)
+        m_barColor[i] = glm::vec3(r, g, b);
+    m_needLoadBar = true;
+}
+
+void GUI_Bar::setBarColor(const float & r, const float & g, const float & b, const UShort & mode) {
     m_barColor[mode] = glm::vec3(r, g, b);
     m_needLoadBar = true;
 }
 
-void GUI_Bar::setBarMargin(glm::vec2 margin) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++)
+void GUI_Bar::setBarMargin(const glm::vec2 & margin) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++)
         m_barMargin[i] = margin;
     m_needLoadBar = true;
 }
 
-void GUI_Bar::setBarMargin(glm::vec2 margin, unsigned int mode) {
+void GUI_Bar::setBarMargin(const glm::vec2 & margin, const UShort & mode) {
     m_barMargin[mode] = margin;
     m_needLoadBar = true;
 }
 
-void GUI_Bar::setBarMargin(float w, float h) {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++)
+void GUI_Bar::setBarMargin(const float & w, const float & h) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++)
         m_barMargin[i] = glm::vec2(w, h);
     m_needLoadBar = true;
 }
 
-void GUI_Bar::setBarMargin(float w, float h, unsigned int mode) {
+void GUI_Bar::setBarMargin(const float & w, const float & h, const UShort & mode) {
     m_barMargin[mode] = glm::vec2(w, h);
     m_needLoadBar = true;
 }
@@ -135,7 +135,7 @@ glm::vec3 GUI_Bar::getBarColor() {
     return m_barColor[m_mode];
 }
 
-glm::vec3 GUI_Bar::getBarColor(unsigned int mode) {
+glm::vec3 GUI_Bar::getBarColor(const UShort & mode) {
     return m_barColor[mode];
 }
 
@@ -143,7 +143,7 @@ glm::vec2 GUI_Bar::getBarMargin() {
     return m_barMargin[m_mode];
 }
 
-glm::vec2 GUI_Bar::getBarMargin(unsigned int mode) {
+glm::vec2 GUI_Bar::getBarMargin(const UShort & mode) {
     return m_barMargin[mode];
 }
 

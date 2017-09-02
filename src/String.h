@@ -13,15 +13,17 @@
 #include "Types.h"
 #endif
 
-float toFloat(std::string str);
-int toInt(std::string str);
-int toInt(char c);
-std::string toString(int value);
-std::string toString(float value, int length);
-float expressionValue(std::string expr);
-bool replace(std::string &str, std::string from, std::string to);
-std::string inter(std::string str, std::string left,std:: string right);
-std::string readUntil(std::string &str, std::string end);
+float toFloat(const std::string &  str);
+Int toInt(const std::string &  str);
+Int toInt(const char & c);
+std::string toString(const Short & value);
+std::string toString(const Int & value);
+std::string toString(const Long & value);
+std::string toString(const float & value, const UShort & length);
+float expressionValue(const std::string & expr);
+bool replace(std::string & str, const std::string & from, const std::string & to);
+std::string inter(const std::string & str, const std::string & left, const std:: string & right);
+std::string readUntil(std::string & str, const std::string & end);
 std::string inParathesis(const std::string & in);
 /*
     - - String parser - -

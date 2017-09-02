@@ -3,7 +3,7 @@
 
 GUI::GUI() {
     m_needLoadGUI = true;
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_position[i] = glm::vec2(0, 0);
         m_size[i] = glm::vec2(0, 0);
         m_color[i] = glm::vec4(1, 1, 1, 1);
@@ -19,11 +19,12 @@ GUI::GUI() {
     m_visible = true;
     m_displayColor = true;
     m_mode = GUI_NORMAL;
-    m_positionType = GUI_FIXED;
+    m_positionType = GUI_POSITION_FIXED;
+    m_sizeType = GUI_SIZE_FIXED;
 }
 
 GUI::~GUI() {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         if (glIsBuffer(m_vboGUI[i]) == GL_TRUE)
             glDeleteBuffers(1, &m_vboGUI[i]);
         if (glIsVertexArray(m_vaoGUI[i]) == GL_TRUE)
@@ -61,7 +62,7 @@ void GUI::renderGUI(GraphicEngine* Graphic) {
 }
 
 void GUI::renderChildren(GraphicEngine* Graphic) const {
-    for (unsigned int i = 0; i < m_childrenCount; i++) {
+    for (UShort i = 0; i < m_childrenCount; i++) {
         GUI* c = getChildAt(i);
         if (c != null)
             c->render(Graphic);
@@ -69,7 +70,7 @@ void GUI::renderChildren(GraphicEngine* Graphic) const {
 }
 
 void GUI::loadGUI() {
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         if (glIsBuffer(m_vboGUI[i]) == GL_TRUE)
             glDeleteBuffers(1, &m_vboGUI[i]);
         if (glIsVertexArray(m_vaoGUI[i]) == GL_TRUE)
@@ -114,7 +115,7 @@ void GUI::addChild(GUI* child) {
     if (child != null) {
         GUI** temp = m_children;
         m_children = new GUI*[m_childrenCount + 1];
-        for (unsigned int i = 0; i < m_childrenCount; i++)
+        for (UShort i = 0; i < m_childrenCount; i++)
             m_children[i] = temp[i];
         m_children[m_childrenCount] = child;
         delete[] temp;
@@ -125,7 +126,7 @@ void GUI::addChild(GUI* child) {
 
 void GUI::removeChild(GUI* child) {
     if (m_childrenCount > 0 && child != null) {
-        for (unsigned int i = 0; i < m_childrenCount; i++) {
+        for (UShort i = 0; i < m_childrenCount; i++) {
             if (m_children[i] == child) {
                 removeChildAt(i);
                 break;
@@ -134,12 +135,12 @@ void GUI::removeChild(GUI* child) {
     }
 }
 
-void GUI::removeChildAt(unsigned int index) {
+void GUI::removeChildAt(const UShort & index) {
     if (index < m_childrenCount) {
         GUI** temp = m_children;
         m_children = new GUI*[m_childrenCount - 1];
-        int offset = 0;
-        for (unsigned int i = 0; i < m_childrenCount - 1; i++) {
+        UShort offset = 0;
+        for (UShort i = 0; i < m_childrenCount - 1; i++) {
             if (i == index) {
                 temp[i]->setParent(null);
                 offset = 1;
@@ -152,7 +153,7 @@ void GUI::removeChildAt(unsigned int index) {
 }
 
 void GUI::clearChildren() {
-    for (unsigned int i = 0; i < m_childrenCount; i++)
+    for (UShort i = 0; i < m_childrenCount; i++)
         delete m_children[i];
     delete[] m_children;
     m_children = null;
@@ -167,45 +168,45 @@ GUI** GUI::getChildren() const {
     return m_children;
 }
 
-GUI* GUI::getChildAt(unsigned int index) const {
+GUI* GUI::getChildAt(const UShort & index) const {
     if (index < m_childrenCount) {
         return m_children[index];
     }
     return null;
 }
 
-int GUI::getChildrenCount() const {
+UShort GUI::getChildrenCount() const {
     return m_childrenCount;
 }
 
 glm::vec2 GUI::getPosition() const {
     if (m_parent != null) {
-        if (m_positionType == GUI_RELATIVE)
+        if (m_positionType == GUI_POSITION_RELATIVE)
             return m_position[m_mode] + m_parent->getPosition();
     }
     return m_position[m_mode];
 }
 
-glm::vec2 GUI::getPosition(unsigned int mode) const {
+glm::vec2 GUI::getPosition(const UShort & mode) const {
     if (m_parent != null) {
-        if (m_positionType == GUI_RELATIVE)
-            return m_position[mode] + m_parent->getPosition(mode);
+        if (m_positionType == GUI_POSITION_RELATIVE)
+            return m_position[mode] + m_parent->getPosition();
     }
     return m_position[mode];
 }
 
 glm::vec2 GUI::getSize() const {
     if (m_parent != null) {
-        if (m_sizeType == GUI_RELATIVE)
+        if (m_sizeType == GUI_SIZE_RELATIVE)
             return m_size[m_mode] * m_parent->getSize();
     }
     return m_size[m_mode];
 }
 
-glm::vec2 GUI::getSize(unsigned int mode) const {
+glm::vec2 GUI::getSize(const UShort & mode) const {
     if (m_parent != null) {
-        if (m_sizeType == GUI_RELATIVE)
-            return m_size[mode] * m_parent->getSize(mode);
+        if (m_sizeType == GUI_SIZE_RELATIVE)
+            return m_size[mode] * m_parent->getSize();
     }
     return m_size[mode];
 }
@@ -214,12 +215,16 @@ glm::vec4 GUI::getColor() const {
     return m_color[m_mode];
 }
 
-glm::vec4 GUI::getColor(unsigned int mode) const {
+glm::vec4 GUI::getColor(const UShort & mode) const {
     return m_color[mode];
 }
 
 GLuint GUI::getTextureID() const {
     return m_textureID;
+}
+
+UShort GUI::getMode() const {
+    return m_mode;
 }
 
 bool GUI::getVisible() const {
@@ -232,7 +237,7 @@ bool GUI::getDisplayColor() const {
 
 void GUI::setParent(GUI* parent) {
     m_parent = parent;
-    if (m_positionType != GUI_FIXED || m_sizeType != GUI_FIXED)
+    if (m_positionType != GUI_POSITION_FIXED || m_sizeType != GUI_POSITION_FIXED)
         m_needLoadGUI = true;
 }
 
@@ -240,73 +245,73 @@ void GUI::setChildren(GUI** children) {
     m_children = children;
 }
 
-void GUI::setPosition(glm::vec2 pos) {
+void GUI::setPosition(const glm::vec2 & pos) {
     m_needLoadGUI = true;
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_position[i] = pos;
     }
 }
 
-void GUI::setPosition(glm::vec2 pos, unsigned int mode) {
+void GUI::setPosition(const glm::vec2 & pos, const UShort & mode) {
     m_needLoadGUI = true;
     m_position[mode] = pos;
 }
 
-void GUI::setPosition(float x, float y) {
+void GUI::setPosition(const float & x, const float & y) {
     m_needLoadGUI = true;
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_position[i].x = x;
         m_position[i].y = y;
     }
 }
 
-void GUI::setPosition(float x, float y, unsigned int mode) {
+void GUI::setPosition(const float & x, const float & y, const UShort & mode) {
     m_needLoadGUI = true;
     m_position[mode].x = x;
     m_position[mode].y = y;
 }
 
-void GUI::setSize(glm::vec2 size) {
+void GUI::setSize(const glm::vec2 & size) {
     m_needLoadGUI = true;
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_size[i] = size;
     }
 }
 
-void GUI::setSize(glm::vec2 size, unsigned int mode) {
+void GUI::setSize(const glm::vec2 & size, const UShort & mode) {
     m_needLoadGUI = true;
     m_size[mode] = size;
 }
 
-void GUI::setSize(float w, float h) {
+void GUI::setSize(const float & w, const float & h) {
     m_needLoadGUI = true;
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_size[i].x = w;
         m_size[i].y = h;
     }
 }
 
-void GUI::setSize(float w, float h, unsigned int mode) {
+void GUI::setSize(const float & w, const float & h, const UShort & mode) {
     m_needLoadGUI = true;
     m_size[mode].x = w;
     m_size[mode].y = h;
 }
 
-void GUI::setColor(glm::vec4 color) {
+void GUI::setColor(const glm::vec4 & color) {
     m_needLoadGUI = true;
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_color[i] = color;
     }
 }
 
-void GUI::setColor(glm::vec4 color, unsigned int mode) {
+void GUI::setColor(const glm::vec4 & color, const UShort & mode) {
     m_needLoadGUI = true;
     m_color[mode] = color;
 }
 
-void GUI::setColor(float r, float g, float b, float a) {
+void GUI::setColor(const float & r, const float & g, const float & b, const float & a) {
     m_needLoadGUI = true;
-    for (unsigned int i = 0; i < GUI_MODE_COUNT; i++) {
+    for (UShort i = 0; i < GUI_MODE_COUNT; i++) {
         m_color[i].x = r;
         m_color[i].y = g;
         m_color[i].z = b;
@@ -314,7 +319,7 @@ void GUI::setColor(float r, float g, float b, float a) {
     }
 }
 
-void GUI::setColor(float r, float g, float b, float a, unsigned int mode) {
+void GUI::setColor(const float & r, const float & g, const float & b, const float & a, const UShort & mode) {
     m_needLoadGUI = true;
     m_color[mode].x = r;
     m_color[mode].y = g;
@@ -322,34 +327,38 @@ void GUI::setColor(float r, float g, float b, float a, unsigned int mode) {
     m_color[mode].w = a;
 }
 
-void GUI::setTextureID(GLuint textureID) {
+void GUI::setTextureID(const GLuint & textureID) {
     m_textureID = textureID;
 }
 
-void GUI::setVisible(bool visible) {
+void GUI::setMode(const UShort & mode) {
+    m_mode = mode;
+}
+
+void GUI::setVisible(const bool & visible) {
     m_visible = visible;
 }
 
-void GUI::setDisplayColor(bool display) {
+void GUI::setDisplayColor(const bool & display) {
     m_displayColor = display;
 }
 
-void GUI::setPositionType(unsigned int type) {
+void GUI::setPositionType(const UShort & type) {
     m_positionType = type;
 }
 
-void GUI::setSizeType(unsigned int type) {
+void GUI::setSizeType(const UShort & type) {
     m_sizeType = type;
 }
 
-void GUI::update(float time) {
+void GUI::update(const float & time) {
     m_time += time;
-    for (unsigned int i = 0; i < m_childrenCount; i++) {
+    for (UShort i = 0; i < m_childrenCount; i++) {
         m_children[i]->update(time);
     }
 }
 
-GUI* GUI::tryActive(float x, float y) {
+GUI* GUI::tryActive(const float & x, const float & y) {
     if (cursorPositionIn(x, y)) {
         GUI* child = tryActiveChildren(x, y);
         if (child == null) {
@@ -361,24 +370,24 @@ GUI* GUI::tryActive(float x, float y) {
         return null;
 }
 
-GUI* GUI::tryActive(glm::vec2 pos) {
+GUI* GUI::tryActive(const glm::vec2 & pos) {
     return tryClick(pos.x, pos.y);
 }
 
-GUI* GUI::tryActiveChildren(float x, float y) {
-    for (unsigned int i = 0; i < m_childrenCount; i++) {
-        GUI* child = getChildAt(i)->tryActive(x, y);
+GUI* GUI::tryActiveChildren(const float & x, const float & y) {
+    for (UShort i = 0; i < m_childrenCount; i++) {
+        GUI* child = getChildAt(m_childrenCount - (i + 1))->tryActive(x, y);
         if (child != null)
             return child;
     }
     return null;
 }
 
-GUI* GUI::tryActiveChildren(glm::vec2 pos) {
+GUI* GUI::tryActiveChildren(const glm::vec2 & pos) {
     return tryActiveChildren(pos.x, pos.y);
 }
 
-GUI* GUI::tryClick(float x, float y) {
+GUI* GUI::tryClick(const float & x, const float & y) {
     GUI* child = tryClickChildren(x, y);
     if (child == null && m_mode == GUI_ACTIVE) {
         m_mode = GUI_NORMAL;
@@ -394,24 +403,24 @@ GUI* GUI::tryClick(float x, float y) {
     return child;
 }
 
-GUI* GUI::tryClick(glm::vec2 pos) {
+GUI* GUI::tryClick(const glm::vec2 & pos) {
     return tryClick(pos.x, pos.y);
 }
 
-GUI* GUI::tryClickChildren(float x, float y) {
-    for (unsigned int i = 0; i < m_childrenCount; i++) {
-        GUI* child = getChildAt(i)->tryClick(x, y);
+GUI* GUI::tryClickChildren(const float & x, const float & y) {
+    for (UShort i = 0; i < m_childrenCount; i++) {
+        GUI* child = getChildAt(m_childrenCount - (i + 1))->tryClick(x, y);
         if (child != null)
             return child;
     }
     return null;
 }
 
-GUI* GUI::tryClickChildren(glm::vec2 pos) {
+GUI* GUI::tryClickChildren(const glm::vec2 & pos) {
     return tryClickChildren(pos.x, pos.y);
 }
 
-void GUI::tryHover(float x, float y) {
+void GUI::tryHover(const float & x, const float & y) {
     if (cursorPositionIn(x, y)) {
         if (m_mode == GUI_NORMAL) {
             onCursorEnter();
@@ -426,28 +435,30 @@ void GUI::tryHover(float x, float y) {
     tryHoverChildren(x, y);
 }
 
-void GUI::tryHover(glm::vec2 pos) {
+void GUI::tryHover(const glm::vec2 & pos) {
     tryHover(pos.x, pos.y);
 }
 
-void GUI::tryHoverChildren(float x, float y) {
-    for (unsigned int i = 0; i < m_childrenCount; i++) {
-        getChildAt(i)->tryHover(x, y);
+void GUI::tryHoverChildren(const float & x, const float & y) {
+    for (UShort i = 0; i < m_childrenCount; i++) {
+        getChildAt(m_childrenCount - (i + 1))->tryHover(x, y);
     }
 }
 
-void GUI::tryHoverChildren(glm::vec2 pos) {
+void GUI::tryHoverChildren(const glm::vec2 & pos) {
     tryHoverChildren(pos.x, pos.y);
 }
 
-bool GUI::cursorPositionIn(float x, float y) {
-    glm::vec2 position = getPosition();
+bool GUI::cursorPositionIn(const float & x, const float & y) {
+    if (!m_visible)
+        return false;
+    glm::vec2 pos = getPosition();
     glm::vec2 size = getSize();
-    glm::vec2 start(position.x, position.y), end(position.x + size.x, position.y + size.y);
+    glm::vec2 start(pos.x, pos.y), end(pos.x + size.x, pos.y + size.y);
     return !(x < start.x || x > end.x || y < start.y || y > end.y);
 }
 
-bool GUI::cursorPositionIn(glm::vec2 pos) {
+bool GUI::cursorPositionIn(const glm::vec2 & pos) {
     return cursorPositionIn(pos.x, pos.y);
 }
 

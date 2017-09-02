@@ -8,17 +8,10 @@
 #ifndef TEXTENGINE_H
 #define	TEXTENGINE_H
 
-#ifndef TYPES_H
 #include "Types.h"
-#endif
-
-#ifndef SETTINGS_H
 #include "Settings.h"
-#endif
-
-#ifndef SHADER_H
 #include "Shader.h"
-#endif
+#include "Settings.h"
 
 
 typedef struct {
@@ -28,14 +21,13 @@ typedef struct {
     GLuint     Advance;    // Offset to advance to next glyph
 } Character;
 
-
 class TextEngine {
 public:
     TextEngine();
     ~TextEngine();
-    void writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
-    float getLineWidth(std::string line, GLfloat scale);
-    glm::vec2 getLineSize(std::string line, GLfloat scale);
+    void writeLine(const std::string & line, const GLfloat & x, const GLfloat & y, const GLfloat & scale, const glm::vec3 & color);
+    float getLineWidth(const std::string & line, const GLfloat & scale);
+    glm::vec2 getLineSize(const std::string & line, const GLfloat & scale);
     
 private:
     FT_Library ft;
@@ -44,6 +36,12 @@ private:
     std::map<GLchar, Character> characters;
     Shader s;
 };
+
+
+TextEngine* getTextEngine();
+void writeLine(const std::string & line, const GLfloat & x, const GLfloat & y, const GLfloat & scale, const glm::vec3 & color);
+float getLineWidth(const std::string & line, const GLfloat & scale);
+glm::vec2 getLineSize(const std::string & line, const GLfloat & scale);
 
 #endif	/* TEXTENGINE_H */
 

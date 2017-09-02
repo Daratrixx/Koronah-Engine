@@ -3,11 +3,11 @@
 
 LightEngine::LightEngine() {
     m_lightData = new float[LIGHT_COUNT * 6];
-    for (unsigned int i = 0; i < LIGHT_COUNT * 6; i++) {
+    for (ULong i = 0; i < LIGHT_COUNT * 6; i++) {
         *(m_lightData + i) = 0;
     }
     m_lightArray = new Light*[LIGHT_COUNT];
-    for (unsigned int i = 0; i < LIGHT_COUNT; i++) {
+    for (ULong i = 0; i < LIGHT_COUNT; i++) {
         Light* temp = new Light();
         temp->setData(m_lightData + i * 6);
         temp->setColor(1, 1, 1);
@@ -29,7 +29,7 @@ LightEngine::LightEngine() {
 LightEngine::~LightEngine() {
     if (m_lightData != null)
         delete m_lightData;
-    for (unsigned int i = 0; i < LIGHT_COUNT; i++) {
+    for (ULong i = 0; i < LIGHT_COUNT; i++) {
         delete m_lightArray[i];
     }
     delete[] m_lightArray;

@@ -26,15 +26,15 @@ public:
         m_facesTexture.clear();
     }
 
-    void addFaceV(int a, int b, int c) {
+    void addFaceV(const UInt & a, const UInt & b, const UInt & c) {
         m_facesVertice.push_back(Face(a, b, c));
     }
 
-    void addFaceN(int a, int b, int c) {
+    void addFaceN(const UInt & a, const UInt & b, const UInt & c) {
         m_facesNormal.push_back(Face(a, b, c));
     }
 
-    void addFaceT(int a, int b, int c) {
+    void addFaceT(const UInt & a, const UInt & b, const UInt & c) {
         m_facesTexture.push_back(Face(a, b, c));
     }
 
@@ -44,7 +44,7 @@ public:
 
         m_vertice = new float[9 * m_facesVertice.size()];
         if (m_vertice && vertice) {
-            for (unsigned int i = 0; i < m_facesVertice.size(); i++) {
+            for (UInt i = 0; i < m_facesVertice.size(); i++) {
                 Face temp = m_facesVertice[i];
                 *(m_vertice + i * 9 + 0) = *(vertice + temp.getVertex(0)*3 + 0);
                 *(m_vertice + i * 9 + 1) = *(vertice + temp.getVertex(0)*3 + 1);
@@ -68,7 +68,7 @@ public:
 
         m_normal = new float[9 * m_facesNormal.size()];
         if (m_normal && normal) {
-            for (unsigned int i = 0; i < m_facesNormal.size(); i++) {
+            for (UInt i = 0; i < m_facesNormal.size(); i++) {
                 Face temp = m_facesNormal[i];
                 *(m_normal + i * 9 + 0) = *(normal + temp.getVertex(0)*3 + 0);
                 *(m_normal + i * 9 + 1) = *(normal + temp.getVertex(0)*3 + 1);
@@ -92,7 +92,7 @@ public:
 
         m_texture = new float[6 * m_facesVertice.size()];
         if (!texture) {
-            for (unsigned int i = 0; i < m_facesVertice.size(); i++) {
+            for (UInt i = 0; i < m_facesVertice.size(); i++) {
                 *(m_texture + i * 6 + 0) = 0;
                 *(m_texture + i * 6 + 1) = 0;
                 *(m_texture + i * 6 + 2) = 0.5;
@@ -102,7 +102,7 @@ public:
             }
             //std::cout << "ModelObj with no texture data" << std::endl;
         } else {
-            for (unsigned int i = 0; i < m_facesVertice.size(); i++) {
+            for (UInt i = 0; i < m_facesVertice.size(); i++) {
                 Face temp = m_facesTexture[i];
                 *(m_texture + i * 6 + 0) = *(texture + temp.getVertex(0)*2 + 0);
                 *(m_texture + i * 6 + 1) = *(texture + temp.getVertex(0)*2 + 1);
@@ -115,19 +115,19 @@ public:
         }
     }
 
-    float* getVertice() {
+    float* getVertice() const {
         return m_vertice;
     }
 
-    float* getTexture() {
+    float* getTexture() const {
         return m_texture;
     }
 
-    float* getNormal() {
+    float* getNormal() const {
         return m_normal;
     }
 
-    int getVerticeCount() {
+    UInt getVerticeCount() const {
         return m_facesVertice.size()*3;
     }
 private:

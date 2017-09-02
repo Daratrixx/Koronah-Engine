@@ -14,13 +14,13 @@ Triggerable::Triggerable() {
 Triggerable::~Triggerable() {
 }
 
-void Triggerable::onAttacking(Unit* owner, int &damage) { // triggers when attacking
+void Triggerable::onAttacking(Unit* owner, UInt & damage) { // triggers when attacking
 }
 
-void Triggerable::onAttackHiting(Unit* owner, Unit* target, int &damage) { // triggers when attack hits something
+void Triggerable::onAttackHiting(Unit* owner, Unit* target, UInt & damage) { // triggers when attack hits something
 }
 
-void Triggerable::onAttackHited(Unit* owner, Unit* origin, int &damage) { // triggers when being hit by an attack
+void Triggerable::onAttackHited(Unit* owner, Unit* origin, UInt & damage) { // triggers when being hit by an attack
 }
 
 void Triggerable::onSpelling(Unit* owner, Triggerable* spell) { // triggers when casting a spell
@@ -35,18 +35,18 @@ void Triggerable::onSpellHited(Unit* owner, Unit* origin, Triggerable* spell) { 
 void Triggerable::onTimer(Unit* owner) { // triggers every x secondes
 }
 
-void Triggerable::setId(unsigned int id) {
+void Triggerable::setId(const UInt & id) {
     m_id = id;
 }
 
-unsigned int Triggerable::getId() {
+UInt Triggerable::getId() const{
     return m_id;
 }
 
-void Triggerable::setTriggeringDelay(float delay) {
+void Triggerable::setTriggeringDelay(const float & delay) {
     m_triggeringDelay = delay;
 }
 
-float Triggerable::getTriggeringDelay() {
+float Triggerable::getTriggeringDelay() const {
     return m_triggeringDelay;
 }

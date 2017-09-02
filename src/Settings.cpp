@@ -77,48 +77,48 @@ bool GraphicSetting::save() {
 
 // InputSetting
 
-InputSetting::InputSetting() : Setting() {
-}
-
-InputSetting::~InputSetting() {
-}
-
-bool InputSetting::load() {
-    std::ifstream file("input.set", std::ofstream::in);
-    if (file.bad()) // error, probably file not found
-        return false;
-    std::string valueIdentifier;
-    while (!file.eof()) {
-        file >> valueIdentifier;
-        if (!file.bad()) {
-            if (valueIdentifier == "mouseSensibility")
-                file >> mouseSensibility;
-            if (valueIdentifier == "keyboardSensibility")
-                file >> keyboardSensibility;
-        }
-    }
-    file.close();
-    return true;
-}
-
-void InputSetting::reset() {
-    mouseSensibility = 1;
-    keyboardSensibility = 1;
-}
-
-bool InputSetting::save() {
-    std::ofstream file("input.set", std::ofstream::out | std::ofstream::trunc);
-    if (file.bad()) {
-        std::cout << "error saving input.set" << std::endl;
-        return false;
-    }
-    file << "mouseSensibility" << " " << mouseSensibility << std::endl;
-    file << "keyboardSensibility" << " " << keyboardSensibility << std::endl;
-    file.close();
-    std::cout << "saving input.set successful" << std::endl;
-    return true;
-}
-
+//InputSetting::InputSetting() : Setting() {
+//}
+//
+//InputSetting::~InputSetting() {
+//}
+//
+//bool InputSetting::load() {
+//    std::ifstream file("input.set", std::ofstream::in);
+//    if (file.bad()) // error, probably file not found
+//        return false;
+//    std::string valueIdentifier;
+//    while (!file.eof()) {
+//        file >> valueIdentifier;
+//        if (!file.bad()) {
+//            if (valueIdentifier == "mouseSensibility")
+//                file >> mouseSensibility;
+//            if (valueIdentifier == "keyboardSensibility")
+//                file >> keyboardSensibility;
+//        }
+//    }
+//    file.close();
+//    return true;
+//}
+//
+//void InputSetting::reset() {
+//    mouseSensibility = 1;
+//    keyboardSensibility = 1;
+//}
+//
+//bool InputSetting::save() {
+//    std::ofstream file("input.set", std::ofstream::out | std::ofstream::trunc);
+//    if (file.bad()) {
+//        std::cout << "error saving input.set" << std::endl;
+//        return false;
+//    }
+//    file << "mouseSensibility" << " " << mouseSensibility << std::endl;
+//    file << "keyboardSensibility" << " " << keyboardSensibility << std::endl;
+//    file.close();
+//    std::cout << "saving input.set successful" << std::endl;
+//    return true;
+//}
+//
 // other
 
 GraphicSetting* getGraphicSetting() {
@@ -126,20 +126,19 @@ GraphicSetting* getGraphicSetting() {
     return &setting;
 }
 
-InputSetting* getInputSetting() {
-    static InputSetting setting;
-    return &setting;
-}
+//InputSetting* getInputSetting() {
+//    static InputSetting setting;
+//    return &setting;
+//}
 
 void loadSettings() {
     if (!getGraphicSetting()->load())
         getGraphicSetting()->reset();
-    if (!getInputSetting()->load())
-        getInputSetting()->reset();
+//    if (!getInputSetting()->load())
+//        getInputSetting()->reset();
 }
 
 void saveSettings() {
     getGraphicSetting()->save();
-    getInputSetting()->save();
-
+//    getInputSetting()->save();
 }

@@ -9,68 +9,34 @@
 #ifndef GRAPHICENGINE_H
 #define GRAPHICENGINE_H
 
-#ifndef TYPES_H
 #include "Types.h"
-#endif
-
-#ifndef SETTINGS_H
 #include "Settings.h"
-#endif
-
-#ifndef CAMERA_H
 #include "Camera.h"
-#endif
-
-#ifndef SHADER_H
 #include "Shader.h"
-#endif
-
-#ifndef TEXTURE_H
 #include "Texture.h"
-#endif
-
-#ifndef MODEL_H
 #include "Model.h"
-#endif
-
-#ifndef HEIGHTMAPDATA_H
 #include "HeightMapData.h"
-#endif
-
-#ifndef GAMEOBJECT_H
 #include "GameObject.h"
-#endif
-
-#ifndef SORTEDKEYCHAIN_HPP
 #include "SortedKeyChain.hpp"
-#endif
-
-#ifndef TEXTENGINE_H
 #include "TextEngine.h"
-#endif
-
-#ifndef FRAMEBUFFER_H
 #include "FrameBuffer.h"
-#endif
-
-#ifndef GEOMETRY_H
 #include "Geometry.h"
-#endif
 
 class GraphicEngine {
 public:
     GraphicEngine();
-    GraphicEngine(std::string title);
+    void init();
+    void init(const std::string & title);
     ~GraphicEngine();
 
-    bool initWindow(int flags);
+    bool initWindow(const int & flags);
     bool initGL();
     void setLightData(float* lightData);
-    void setWindowTitle(std::string title);
-    void setResolution(int width, int height);
+    void setWindowTitle(const std::string & title);
+    void setResolution(const UInt & width, const UInt & height);
 
-    int getWidth() const;
-    int getHeight() const;
+    UInt getWidth() const;
+    UInt getHeight() const;
     float getRatio() const;
 
     void loadGraphicDatas();
@@ -78,8 +44,8 @@ public:
 
     void addToRender(GameObject* object);
     void startRender();
-    void renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID);
-    void renderFrameBufferToScreen(FrameBuffer* frameBuffer, Shader & shader, unsigned int colorID, bool isHorizontal);
+    void renderFrameBufferToScreen(FrameBuffer & frameBuffer, Shader & shader, unsigned int colorID);
+    void renderFrameBufferToScreen(FrameBuffer & frameBuffer, Shader & shader, unsigned int colorID, bool isHorizontal);
     void renderPlayGround();
     void doColorPass();
     void doNormalPass();
@@ -108,9 +74,9 @@ public:
     void sendTextureData(Model* model);
     void endRender();
 
-    void writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
-    float getLineWidth(std::string line, GLfloat scale);
-    glm::vec2 getLineSize(std::string line, GLfloat scale);
+    void writeLine(const std::string & line, const GLfloat & x, const GLfloat & y, const GLfloat & scale, const glm::vec3 & color);
+    float getLineWidth(const std::string & line, const GLfloat & scale);
+    glm::vec2 getLineSize(const std::string & line, const GLfloat & scale);
 
     void moveCamera(GameObject* object);
     float getCameraDistance(glm::vec3 position);
@@ -129,8 +95,8 @@ public:
 
 private:
     std::string m_title;
-    int m_width;
-    int m_height;
+    UInt m_width;
+    UInt m_height;
     float m_ratio;
     SDL_Window* m_window;
     SDL_GLContext m_contexteOpenGL;
@@ -140,18 +106,34 @@ private:
     glm::mat4 m_projectionScene, m_projectionFrameBuffer;
 
     // rendering buffer
-    SortedKeyChain* m_playGroundObjectToRender;
+    SortedKeyChain m_playGroundObjectToRender;
     float* m_lightData;
 
     TextEngine* m_textEngine;
-    FrameBuffer* m_frameBufferColor;
-    FrameBuffer* m_frameBufferNormal;
-    FrameBuffer* m_frameBufferHalo;
-    FrameBuffer_Scan* m_frameBufferScan;
+    FrameBuffer m_frameBufferColor;
+    FrameBuffer m_frameBufferNormal;
+    FrameBuffer m_frameBufferHalo;
+    FrameBuffer_Scan m_frameBufferScan;
 
     GLuint m_squareVAO;
     GLuint m_squareVBO;
 };
+
+
+GraphicEngine* getGraphicEngine();
+
+void setWindowTitle(const std::string & title);
+void setResolution(const UInt & width, const UInt & height);
+    
+UInt getWidth();
+UInt getHeight();
+float getRatio();
+
+void moveCamera(GameObject* object);
+float getCameraDistance(glm::vec3 position);
+
+void addToRender(GameObject* object);
+void startRender();
 
 #endif /* GRAPHICENGINE_H */
 

@@ -9,31 +9,17 @@
 #ifndef GUI_H
 #define	GUI_H
 
-#ifndef TYPE_H
 #include "Types.h"
-#endif
-
-#ifndef SETTINGS_H
 #include "Settings.h"
-#endif
-
-#ifndef SHADER_H
 #include "Shader.h"
-#endif
-
-#ifndef GRAPHICENGINE_H
 #include "GraphicEngine.h"
-#endif
-
-#ifndef TEXTURE_H
+#include "TextEngine.h"
 #include "Texture.h"
-#endif
-
-#ifndef UNIT_H
 #include "Unit.h"
-#endif
-
 #include "Texture.h"
+#include "Player.h"
+#include "Input.h"
+
 
 class GUI {
 public:
@@ -47,58 +33,60 @@ public:
 
     void addChild(GUI* child);
     void removeChild(GUI* child);
-    void removeChildAt(unsigned int index);
+    void removeChildAt(const UShort & index);
     void clearChildren();
 
     GUI* getParent() const;
     GUI** getChildren() const;
-    GUI* getChildAt(unsigned int index) const;
-    int getChildrenCount() const;
+    GUI* getChildAt(const UShort & index) const;
+    UShort getChildrenCount() const;
     glm::vec2 getPosition() const;
-    glm::vec2 getPosition(unsigned int mode) const;
+    glm::vec2 getPosition(const UShort & mode) const;
     glm::vec2 getSize() const;
-    glm::vec2 getSize(unsigned int mode) const;
+    glm::vec2 getSize(const UShort & mode) const;
     glm::vec4 getColor() const;
-    glm::vec4 getColor(unsigned int mode) const;
+    glm::vec4 getColor(const UShort & mode) const;
     GLuint getTextureID() const;
+    UShort getMode() const;
     bool getVisible() const;
     bool getDisplayColor() const;
     void setParent(GUI* parent);
     void setChildren(GUI** children);
-    void setPosition(glm::vec2 pos);
-    void setPosition(glm::vec2 pos, unsigned int mode);
-    void setPosition(float x, float y);
-    void setPosition(float x, float y, unsigned int mode);
-    void setSize(glm::vec2 size);
-    void setSize(glm::vec2 size, unsigned int mode);
-    void setSize(float w, float h);
-    void setSize(float w, float h, unsigned int mode);
-    void setColor(glm::vec4 color);
-    void setColor(glm::vec4 color, unsigned int mode);
-    void setColor(float r, float g, float b, float a);
-    void setColor(float r, float g, float b, float a, unsigned int mode);
-    void setTextureID(GLuint textureID);
-    void setVisible(bool visible);
-    void setDisplayColor(bool display);
-    void setPositionType(unsigned int type);
-    void setSizeType(unsigned int type);
+    void setPosition(const glm::vec2 & pos);
+    void setPosition(const glm::vec2 & pos, const UShort & mode);
+    void setPosition(const float & x, const float & y);
+    void setPosition(const float & x, const float & y, const UShort & mode);
+    void setSize(const glm::vec2 & size);
+    void setSize(const glm::vec2 & size, const UShort & mode);
+    void setSize(const float & w, const float & h);
+    void setSize(const float & w, const float & h, const UShort & mode);
+    void setColor(const glm::vec4 & color);
+    void setColor(const glm::vec4 & color, const UShort &);
+    void setColor(const float & r, const float & g, const float & b, const float & a);
+    void setColor(const float & r, const float & g, const float & b, const float & a, const UShort & mode);
+    void setTextureID(const GLuint & textureID);
+    void setMode(const UShort & mode);
+    void setVisible(const bool & visible);
+    void setDisplayColor(const bool & display);
+    void setPositionType(const UShort & type);
+    void setSizeType(const UShort & type);
 
 
-    virtual void update(float time);
-    virtual GUI* tryActive(float x, float y);
-    virtual GUI* tryActive(glm::vec2 pos);
-    virtual GUI* tryActiveChildren(float x, float y);
-    virtual GUI* tryActiveChildren(glm::vec2 pos);
-    virtual GUI* tryClick(float x, float y);
-    virtual GUI* tryClick(glm::vec2 pos);
-    virtual GUI* tryClickChildren(float x, float y);
-    virtual GUI* tryClickChildren(glm::vec2 pos);
-    virtual void tryHover(float x, float y);
-    virtual void tryHover(glm::vec2 pos);
-    virtual void tryHoverChildren(float x, float y);
-    virtual void tryHoverChildren(glm::vec2 pos);
-    virtual bool cursorPositionIn(float x, float y);
-    virtual bool cursorPositionIn(glm::vec2 pos);
+    virtual void update(const float & time);
+    virtual GUI* tryActive(const float & x, const float & y);
+    virtual GUI* tryActive(const glm::vec2 & pos);
+    virtual GUI* tryActiveChildren(const float & x, const float & y);
+    virtual GUI* tryActiveChildren(const glm::vec2 & pos);
+    virtual GUI* tryClick(const float & x, const float & y);
+    virtual GUI* tryClick(const glm::vec2 & pos);
+    virtual GUI* tryClickChildren(const float & x, const float & y);
+    virtual GUI* tryClickChildren(const glm::vec2 & pos);
+    virtual void tryHover(const float & x, const float & y);
+    virtual void tryHover(const glm::vec2 & pos);
+    virtual void tryHoverChildren(const float & x, const float & y);
+    virtual void tryHoverChildren(const glm::vec2 & pos);
+    virtual bool cursorPositionIn(const float & x, const float & y);
+    virtual bool cursorPositionIn(const glm::vec2 & pos);
     virtual void onClick();
     virtual void onCursorEnter();
     virtual void onCursorLeave();
@@ -113,10 +101,10 @@ protected:
     GUI* m_parent;
     GUI** m_children;
     GLuint m_textureID;
-    unsigned int m_childrenCount;
-    unsigned int m_mode;
-    unsigned int m_positionType;
-    unsigned int m_sizeType;
+    UShort m_childrenCount;
+    UShort m_mode;
+    UShort m_positionType;
+    UShort m_sizeType;
     float m_time;
 
     GLuint m_vboGUI[GUI_MODE_COUNT];
@@ -132,38 +120,38 @@ public:
     virtual void renderLabel(GraphicEngine* Graphic) const;
 
     virtual std::string getText() const;
-    virtual std::string getText(unsigned int mode) const;
+    virtual std::string getText(const UShort & mode) const;
     virtual glm::vec3 getTextColor() const;
-    virtual glm::vec3 getTextColor(unsigned int mode) const;
-    virtual unsigned int getTextAlignement() const;
-    virtual unsigned int getTextAlignement(unsigned int mode) const;
+    virtual glm::vec3 getTextColor(const UShort & mode) const;
+    virtual UShort getTextAlignement() const;
+    virtual UShort getTextAlignement(const UShort & mode) const;
     float getFontSize() const;
-    float getFontSize(unsigned int mode) const;
+    float getFontSize(const UShort & mode) const;
     float getBlinkSpeed() const;
-    float getBlinkSpeed(unsigned int mode) const;
+    float getBlinkSpeed(const UShort & mode) const;
     bool getBlinkText() const;
-    bool getBlinkText(unsigned int mode) const;
+    bool getBlinkText(const UShort & mode) const;
     bool getDisplayText() const;
-    void setText(std::string text);
-    void setText(std::string text, unsigned int mode);
-    void setTextAlignement(unsigned int alignement);
-    void setTextAlignement(unsigned int alignement, unsigned int mode);
-    void setTextColor(glm::vec3 color);
-    void setTextColor(float r, float g, float b);
-    void setTextColor(glm::vec3 color, unsigned int mode);
-    void setTextColor(float r, float g, float b, unsigned int mode);
-    void setFontSize(float size);
-    void setFontSize(float size, unsigned int mode);
-    void setBlinkSpeed(float speed);
-    void setBlinkSpeed(float speed, unsigned int mode);
-    void setBlinkText(bool blink);
-    void setBlinkText(bool blink, unsigned int mode);
-    void setDisplayText(bool display);
+    void setText(const std::string & text);
+    void setText(const std::string & text, const UShort & mode);
+    void setTextAlignement(const UShort & alignement);
+    void setTextAlignement(const UShort & alignement, const UShort & mode);
+    void setTextColor(const glm::vec3 & color);
+    void setTextColor(const float & r, const float & g, const float & b);
+    void setTextColor(const glm::vec3 & color, const UShort & mode);
+    void setTextColor(const float & r, const float & g, const float & b, const UShort & mode);
+    void setFontSize(const float & size);
+    void setFontSize(const float & size, const UShort & mode);
+    void setBlinkSpeed(const float & speed);
+    void setBlinkSpeed(const float & speed, const UShort & mode);
+    void setBlinkText(const bool & blink);
+    void setBlinkText(const bool & blink, const UShort & mode);
+    void setDisplayText(const bool & display);
 
 protected:
     std::string m_text[GUI_MODE_COUNT];
     glm::vec3 m_textColor[GUI_MODE_COUNT];
-    unsigned int m_textAlignement[GUI_MODE_COUNT];
+    UShort m_textAlignement[GUI_MODE_COUNT];
     float m_fontSize[GUI_MODE_COUNT];
     float m_blinkSpeed[GUI_MODE_COUNT];
     bool m_blinkText[GUI_MODE_COUNT];
@@ -175,17 +163,17 @@ public:
     GUI_DynamicLabel();
     virtual ~GUI_DynamicLabel();
 
-    void setGetText(std::string(*getText)(void*, float));
-    void setGetTextColor(glm::vec3(*getTextColor)(void*, float));
+    void setGetText(std::string(*getText)(void*, const float &));
+    void setGetTextColor(glm::vec3(*getTextColor)(void*, const float &));
     void setSource(void* source);
     virtual std::string getText() const;
-    virtual std::string getText(unsigned int mode) const;
+    virtual std::string getText(const UShort & mode) const;
     virtual glm::vec3 getTextColor() const;
-    virtual glm::vec3 getTextColor(unsigned int mode) const;
+    virtual glm::vec3 getTextColor(const UShort & mode) const;
 
 protected:
-    std::string(*m_getText)(void* source, float time);
-    glm::vec3(*m_getTextColor)(void* source, float time);
+    std::string(*m_getText)(void* source, const float & time);
+    glm::vec3(*m_getTextColor)(void* source, const float & time);
     void* m_source;
 };
 
@@ -211,20 +199,20 @@ public:
     void renderBar(GraphicEngine* Graphic);
     virtual void loadBar();
 
-    void setBarPercent(float percent);
-    void setBarColor(glm::vec3 color);
-    void setBarColor(float r, float g, float b);
-    void setBarColor(glm::vec3 color, unsigned int mode);
-    void setBarColor(float r, float g, float b, unsigned int mode);
-    void setBarMargin(glm::vec2 margin);
-    void setBarMargin(glm::vec2 margin, unsigned int mode);
-    void setBarMargin(float w, float h);
-    void setBarMargin(float w, float h, unsigned int mode);
+    void setBarPercent(const float & percent);
+    void setBarColor(const glm::vec3 & color);
+    void setBarColor(const glm::vec3 & color, const UShort & mode);
+    void setBarColor(const float & r, const float & g, const float & b);
+    void setBarColor(const float & r, const float & g, const float & b, const UShort & mode);
+    void setBarMargin(const glm::vec2 & margin);
+    void setBarMargin(const glm::vec2 & margin, const UShort & mode);
+    void setBarMargin(const float & w, const float & h);
+    void setBarMargin(const float & w, const float & h, const UShort & mode);
     virtual float getBarPercent();
     virtual glm::vec3 getBarColor();
-    virtual glm::vec3 getBarColor(unsigned int mode);
+    virtual glm::vec3 getBarColor(const UShort & mode);
     virtual glm::vec2 getBarMargin();
-    virtual glm::vec2 getBarMargin(unsigned int mode);
+    virtual glm::vec2 getBarMargin(const UShort & mode);
 
 protected:
     bool m_needLoadBar;
@@ -241,16 +229,16 @@ public:
     GUI_DynamicBar();
     virtual ~GUI_DynamicBar();
     virtual void render(GraphicEngine* Graphic);
-    void setGetBarPercent(float(*getBarPercent)(void*, float));
-    void setGetBarColor(glm::vec3(*getColorColor)(void*, float));
+    void setGetBarPercent(float(*getBarPercent)(void*, const float &));
+    void setGetBarColor(glm::vec3(*getColorColor)(void*, const float &));
     void setSource(void* source);
     virtual float getBarPercent();
     virtual glm::vec3 getBarColor();
-    virtual glm::vec3 getBarColor(unsigned int mode);
+    virtual glm::vec3 getBarColor(const UShort & mode);
 
 protected:
-    float(*m_getBarPercent)(void* source, float time);
-    glm::vec3(*m_getBarColor)(void* source, float time);
+    float(*m_getBarPercent)(void* source, const float & time);
+    glm::vec3(*m_getBarColor)(void* source, const float & time);
     void* m_source;
 };
 
@@ -266,19 +254,53 @@ public:
     GUI_Button* m_orderPatrol;
 };
 
+class GUI_PlayerInfoPanel : public GUI {
+public:
+    GUI_PlayerInfoPanel();
+    virtual ~GUI_PlayerInfoPanel();
+
+    void setPlayerInfoSource(Player* p);
+    
+    GUI_DynamicLabel* m_labelPlayerName;
+    GUI_DynamicLabel* m_labelEnergy;
+    GUI_DynamicLabel* m_labelMaterials;
+    GUI_DynamicLabel* m_labelSupply;
+};
+
+class GUI_InputSettingsPannel : public GUI {
+public:
+    GUI_InputSettingsPannel();
+    virtual ~GUI_InputSettingsPannel();
+    void initOtherCommand(const UInt & i, float & x, float & y);
+    void initGridCommand(const UInt & i, float & x, float & y);
+    void setInputSettingsSource(InputMapping* p);
+    virtual GUI* tryActive(const float & x, const float & y);
+    virtual GUI* tryClick(const float & x, const float & y);
+    Command getCommand(const float & x, const float & y);
+    Command getCommand(const glm::vec2 & pos);
+    InputMapping* m_settingsSource;
+    GUI_Label* m_commandLabel[COMMAND_KEY_COUNT];
+    GUI_Button* m_keyButton[COMMAND_KEY_COUNT];
+    GUI_Button* m_buttonReset;
+};
+
 
 // dynamic label getText function
-std::string GDL_getHPMax(void* source, float time);
-std::string GDL_getHPCurrent(void* source, float time);
-std::string GDL_getHPPercent(void* source, float time);
-std::string GDL_getFPS(void* source, float time);
+std::string GDL_getPlayerName(void* source, const float & time);
+std::string GDL_getPlayerEnergy(void* source, const float & time);
+std::string GDL_getPlayerMaterials(void* source, const float & time);
+std::string GDL_getPlayerSupply(void* source, const float & time);
+std::string GDL_getHPMax(void* source, const float & time);
+std::string GDL_getHPCurrent(void* source, const float & time);
+std::string GDL_getHPPercent(void* source, const float & time);
+std::string GDL_getFPS(void* source, const float & time);
 
-std::string GDL_getName(void* source, float time);
-std::string GDL_getLevel(void* source, float time);
+std::string GDL_getName(void* source, const float & time);
+std::string GDL_getLevel(void* source, const float & time);
 
 // dynamic bar getBarPercent function
-float GDB_getHealthPercent(void* source, float time);
-float GDB_getExperiencePercent(void* source, float time);
+float GDB_getHealthPercent(void* source, const float & time);
+float GDB_getExperiencePercent(void* source, const float & time);
 
 #endif	/* GUI_H */
 

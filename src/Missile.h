@@ -6,23 +6,26 @@
  */
 
 #ifndef MISSILE_H
-#define	MISSILE_H
+#define MISSILE_H
 
 #include "Types.h"
 #include "Entity.h"
+#include "Unit.h"
 
 class Missile : public Entity {
 public:
     Missile();
     Missile(Missile* m);
     virtual ~Missile();
+    virtual bool writeInFile(std::ofstream & fout);
+    virtual bool readFromFile(std::ifstream & fin);
 
     virtual bool isMissile() const;
-
+    float getDamage();
+    
     float m_damage;
-    Entity* m_missileOwner;
-
+    Unit* m_missileOwner;
 };
 
-#endif	/* MISSILE_H */
+#endif /* MISSILE_H */
 

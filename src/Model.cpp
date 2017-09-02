@@ -1,6 +1,7 @@
 #include "Model.h"
 
 Model::Model() {
+    m_path = "";
     m_verticeCount = 0;
     m_verticeData = null;
     m_normalData = null;
@@ -85,6 +86,10 @@ void Model::initSize() {
         m_animationModifierSize = 0;
 }
 
+std::string Model::getPath() {
+    return m_path;
+}
+
 float* Model::getVerticeData() const {
     return m_verticeData;
 }
@@ -101,39 +106,39 @@ glm::mat4* Model::getAnimationModifierData() const {
     return m_animationModifierData;
 }
 
-int Model::getVerticeCount() const {
+UInt Model::getVerticeCount() const {
     return m_verticeCount;
 }
 
-int Model::getVerticeSize() const {
+UInt Model::getVerticeSize() const {
     return m_verticeSize;
 }
 
-int Model::getNormalSize() const {
+UInt Model::getNormalSize() const {
     return m_normalSize;
 }
 
-int Model::getTextureSize() const {
+UInt Model::getTextureSize() const {
     return m_verticeSize;
 }
 
-int Model::getAnimationModifierSize() const {
+UInt Model::getAnimationModifierSize() const {
     return m_normalSize;
 }
 
-int Model::getVerticeOffset() const {
+UInt Model::getVerticeOffset() const {
     return 0;
 }
 
-int Model::getNormalOffset() const {
+UInt Model::getNormalOffset() const {
     return m_verticeSize;
 }
 
-int Model::getTextureOffset() const {
+UInt Model::getTextureOffset() const {
     return getNormalOffset() + m_normalSize;
 }
 
-int Model::getAnimationModifierOffset() const {
+UInt Model::getAnimationModifierOffset() const {
     return getTextureOffset() + m_textureSize;
 }
 
@@ -173,37 +178,51 @@ void Model::drawUsingVao(Texture* t) {
     unUseVao();
 }
 
-std::vector<Model*>* getModelList() {
-    static std::vector<Model*>* MODEL_LIST = new std::vector<Model*>();
-    return MODEL_LIST;
+ModelListHolder::ModelListHolder() {
+
 }
 
-unsigned int addModel(Model* model) {
-    std::vector<Model*>* MODEL_LIST = getModelList();
-    MODEL_LIST->push_back(model);
-    return MODEL_LIST->size() - 1;
+ModelListHolder::~ModelListHolder() {
+    clearModelList();
 }
 
-Model* modelExists(std::string path) {
-    std::vector<Model*>* MODEL_LIST = getModelList();
-    for (unsigned int i = 0; i < MODEL_LIST->size(); i++)
-        return (*MODEL_LIST)[i];
-    //std::cout << "can load model " << path << std::endl;
-    return null;
+static ModelListHolder modelListHolder;
+
+UInt loadModel(const std::string & path) {
+    Model* model = getModel(path);
+    if(model == null) {
+        model = new ModelObj(path);
+        modelListHolder.modelList[path] = model;
+        modelListHolder.pathList.push_back(path);
+    }
+    return modelListHolder.pathList.size() - 1;
 }
 
-Model* getModel(unsigned int index) {
-    std::vector<Model*>* MODEL_LIST = getModelList();
-    if (index < MODEL_LIST->size())
-        return (*MODEL_LIST)[index];
+UInt addModel(Model* model) {
+    modelListHolder.modelList[model->getPath()] = model;
+    modelListHolder.pathList.push_back(model->getPath());
+    return modelListHolder.pathList.size() - 1;
+}
+
+bool modelExists(const std::string & path) {
+    return modelListHolder.modelList[path] != null;
+}
+
+Model* getModel(std::string path) {
+    return modelListHolder.modelList[path];
+}
+
+Model* getModel(const UInt & index) {
+    if (index < modelListHolder.pathList.size())
+        return modelListHolder.modelList[modelListHolder.pathList[index]];
     //std::cout << "no model at index " << index << " (" << MODEL_LIST->size() << ")" << std::endl;
     return null;
 }
 
 void clearModelList() {
-    std::vector<Model*>* MODEL_LIST = getModelList();
-    for (unsigned int i = 0; i < MODEL_LIST->size(); i++)
-        delete (*MODEL_LIST)[i];
-    MODEL_LIST->clear();
+    for (UInt i = 0; i < modelListHolder.pathList.size(); i++)
+        delete modelListHolder.modelList[modelListHolder.pathList[i]];
+    modelListHolder.modelList.clear();
+    modelListHolder.pathList.clear();
 }
 

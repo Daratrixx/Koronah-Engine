@@ -3,7 +3,7 @@
 
 void GameEngine::unitToUnitCollision(Unit* u1, Unit* u2) {
     glm::vec2 oPosition = u2->getPositionXY();
-    float radius = u1->m_radius + u2->getRadius();
+    float radius = u1->m_collisionRadius + u2->getRadius();
 
     glm::vec2 direction = oPosition - u1->m_position;
     float distance = glm::length(direction);
@@ -24,7 +24,7 @@ void GameEngine::unitToUnitCollision(Unit* u1, Unit* u2) {
 
 void GameEngine::buildingToUnitCollision(Unit* b, Unit* u) {
     glm::vec2 oPosition = u->getPositionXY();
-    float radius = b->m_radius + u->getRadius();
+    float radius = b->m_collisionRadius + u->getRadius();
 
     glm::vec2 direction = oPosition - b->m_position;
     float distance = glm::length(direction);

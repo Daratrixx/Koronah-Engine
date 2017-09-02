@@ -5,7 +5,8 @@ ModelObj::ModelObj() : Model() {
     m_keyFrame = null;
 }
 
-ModelObj::ModelObj(std::string file) : Model() {
+ModelObj::ModelObj(const std::string & file) : Model() {
+    m_path = file;
     m_shape = new Shape();
     m_keyFrame = new KeyFrame;
     std::ifstream FILE;
@@ -19,9 +20,15 @@ ModelObj::ModelObj(std::string file) : Model() {
         else if (lineType == "v")
             loadVertexLine(line);
         else if (lineType == "vt")
-            loadTextureLine(line);
+            loadVertexTextureLine(line);
         else if (lineType == "vn")
-            loadNormalLine(line);
+            loadVertexNormalLine(line);
+        else if (lineType == "ctp") // color texture path
+            loadColorTexturePathLine(line);
+        else if (lineType == "htp") // halo texture path
+            loadColorTexturePathLine(line);
+        else if (lineType == "btp") // bumpmap texture path
+            loadColorTexturePathLine(line);
         else if (lineType == "f")
             loadFace(line);
         else
@@ -61,7 +68,7 @@ void ModelObj::loadVertexLine(std::string &line) {
     //std::cout << "Load vertex : " << x << " " << y << " " << z << std::endl;
 }
 
-void ModelObj::loadNormalLine(std::string &line) {
+void ModelObj::loadVertexNormalLine(std::string &line) {
     float x = toFloat(readUntil(line, " "));
     float y = toFloat(readUntil(line, " "));
     float z = toFloat(line);
@@ -70,12 +77,24 @@ void ModelObj::loadNormalLine(std::string &line) {
     //std::cout << "Load normal : " << x << " " << y << " " << z << std::endl;
 }
 
-void ModelObj::loadTextureLine(std::string &line) {
+void ModelObj::loadVertexTextureLine(std::string &line) {
     float x = toFloat(readUntil(line, " "));
     float y = toFloat(line);
 
     m_keyFrame->addTextureData(x, y);
     //std::cout << "Load texture : " << x << " " << y << std::endl;
+}
+
+void ModelObj::loadColorTexturePathLine(std::string &line) {
+    m_colorTextureList.push_back(loadTexture(line));
+}
+
+void ModelObj::loadHaloTexturePathLine(std::string &line) {
+    m_haloTextureList.push_back(loadTexture(line));
+}
+
+void ModelObj::loadBumpmapTexturePathLine(std::string &line) {
+    m_bumpmapTextureList.push_back(loadTexture(line));
 }
 
 void ModelObj::loadFace(std::string &line) {
@@ -108,12 +127,4 @@ bool ModelObj::buildModel() {
     m_shape->setNormal(m_keyFrame->getNormal());
     m_shape->setTexture(m_keyFrame->getTexture());
     return true;
-}
-
-unsigned int loadModel(std::string path) {
-    std::vector<Model*>* MODEL_LIST = getModelList();
-    ModelObj* model = new ModelObj(path);
-    MODEL_LIST->push_back(model);
-    //std::cout << "loaded modelObj " << path << std::endl;
-    return MODEL_LIST->size() - 1;
 }

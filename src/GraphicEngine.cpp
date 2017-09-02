@@ -1,37 +1,66 @@
 
 #include "GraphicEngine.h"
 
+static GraphicEngine graphicEngine;
+
+GraphicEngine* getGraphicEngine() {
+    return &graphicEngine;
+}
+
+void setWindowTitle(const std::string & title) {
+    graphicEngine.setWindowTitle(title);
+}
+
+void setResolution(const UInt & width, const UInt & height) {
+    graphicEngine.setResolution(width, height);
+}
+
+UInt getWidth() {
+    return graphicEngine.getWidth();
+}
+
+UInt getHeight() {
+    return graphicEngine.getHeight();
+}
+
+float getRatio() {
+    return graphicEngine.getRatio();
+}
+
+void moveCamera(GameObject* object) {
+    graphicEngine.moveCamera(object);
+}
+
+float getCameraDistance(glm::vec3 position) {
+    return graphicEngine.getCameraDistance(position);
+}
+
+void addToRender(GameObject* object) {
+    graphicEngine.addToRender(object);
+}
+
+void startRender() {
+    graphicEngine.startRender();
+}
+
 GraphicEngine::GraphicEngine() {
     m_window = null;
     m_title = "Default Window";
     m_width = DEFAULT_SCREEN_WIDTH;
     m_height = DEFAULT_SCREEN_HEIGHT;
-    m_playGroundObjectToRender = new SortedKeyChain();
     m_textEngine = null;
-    m_frameBufferColor = new FrameBuffer(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-    m_frameBufferNormal = new FrameBuffer(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-    m_frameBufferHalo = new FrameBuffer(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT);
-    m_frameBufferScan = new FrameBuffer_Scan(DEFAULT_SCREEN_WIDTH / SCAN_SCALE, DEFAULT_SCREEN_HEIGHT / SCAN_SCALE);
 }
 
-GraphicEngine::GraphicEngine(std::string title) {
+void GraphicEngine::init(const std::string & title) {
     m_window = null;
     m_title = title;
     m_width = getGraphicSetting()->screenWidth;
     m_height = getGraphicSetting()->screenHeight;
-    m_playGroundObjectToRender = new SortedKeyChain();
     m_textEngine = null;
-    m_frameBufferColor = new FrameBuffer(m_width, m_height);
-    m_frameBufferNormal = new FrameBuffer(m_width, m_height);
-    m_frameBufferHalo = new FrameBuffer(m_width, m_height);
-    m_frameBufferScan = new FrameBuffer_Scan(m_width / getGraphicSetting()->scanDivisor, m_height / getGraphicSetting()->scanDivisor);
 }
 
 GraphicEngine::~GraphicEngine() {
-    delete m_frameBufferColor;
-    delete m_frameBufferScan;
     delete m_textEngine;
-    delete m_playGroundObjectToRender;
     clearModelList();
     std::cout << "Model list deleted." << std::endl;
     clearTextureList();
@@ -41,7 +70,7 @@ GraphicEngine::~GraphicEngine() {
     SDL_Quit();
 }
 
-bool GraphicEngine::initWindow(int flags) {
+bool GraphicEngine::initWindow(const int & flags) {
     if (m_window != null) { // re-init of window, destroy previous one
         SDL_GL_DeleteContext(m_contexteOpenGL);
         SDL_DestroyWindow(m_window);
@@ -64,9 +93,9 @@ bool GraphicEngine::initWindow(int flags) {
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     unsigned windowFlags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
-    if(getGraphicSetting()->fullScreen)
+    if (getGraphicSetting()->fullScreen)
         windowFlags |= SDL_WINDOW_FULLSCREEN;
-    
+
     // Création de la fenêtre
     m_window = SDL_CreateWindow(m_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, windowFlags);
     if (m_window == 0) {
@@ -120,29 +149,24 @@ bool GraphicEngine::initGL() {
 }
 
 void GraphicEngine::loadGraphicDatas() {
-    m_frameBufferScan->load();
-    m_frameBufferColor->load();
-    m_frameBufferNormal->load();
-    m_frameBufferHalo->load();
-    m_textEngine = new TextEngine();
-    m_shaderSquare.loadSquare("data/shader/square.vert", "", "data/shader/square.frag");
-    m_shaderScreen.loadScreen("data/shader/screen.vert", "", "data/shader/screen.frag");
-    m_shaderHaloMap.loadScreen("data/shader/haloMap.vert", "", "data/shader/haloMap.frag");
-    m_shaderModel.loadTexture("data/shader/texture.vert", "", "data/shader/texture.frag");
-    m_shaderScan.loadScan("data/shader/scan.vert", "", "data/shader/scan.frag");
-    m_shaderGUI.loadTexture("data/shader/GUI.vert", "data/shader/GUI.geom", "data/shader/GUI.frag");
-    m_shaderNormal.loadTexture("data/shader/normal.vert", "", "data/shader/normal.frag");
-    loadTexture("data/texture/noHalo.png"); //0
-    loadTexture("data/texture/Sc2wB.bmp");
-    loadTexture("data/texture/metal.jpg");
-    loadTexture("data/texture/boletus.jpg");
-    loadTexture("data/texture/ShrineTexture.png");
-    loadTexture("data/texture/ShrineHalo.png"); // 5
-    loadTexture("data/texture/ShrineHaloGreen.png");
-    loadTexture("data/texture/halo.png");
-    loadTexture("data/texture/selectionCircle.png"); // 8
+    m_frameBufferColor.init(m_width, m_height);
+    m_frameBufferNormal.init(m_width, m_height);
+    m_frameBufferHalo.init(m_width, m_height);
+    m_frameBufferScan.init(m_width / getGraphicSetting()->scanDivisor, m_height / getGraphicSetting()->scanDivisor);
+    m_frameBufferScan.load();
+    m_frameBufferColor.load();
+    m_frameBufferNormal.load();
+    m_frameBufferHalo.load();
+    //    m_textEngine = new TextEngine();
+    //    m_shaderSquare.loadSquare("data/shader/square.vert", "", "data/shader/square.frag");
+    //    m_shaderScreen.loadScreen("data/shader/screen.vert", "", "data/shader/screen.frag");
+    //    m_shaderHaloMap.loadScreen("data/shader/haloMap.vert", "", "data/shader/haloMap.frag");
+    //    m_shaderModel.loadTexture("data/shader/texture.vert", "", "data/shader/texture.frag");
+    //    m_shaderScan.loadScan("data/shader/scan.vert", "", "data/shader/scan.frag");
+    //    m_shaderGUI.loadTexture("data/shader/GUI.vert", "data/shader/GUI.geom", "data/shader/GUI.frag");
+    //    m_shaderNormal.loadTexture("data/shader/normal.vert", "", "data/shader/normal.frag");
     loadModel("data/model/spike.obj"); // 0
-    loadModel("data/model/Shrine.obj");
+    loadModel("data/model/shrine.obj");
     loadModel("data/model/boletus.obj");
     loadModel("data/model/flatsquare.obj"); // 3
 
@@ -208,20 +232,23 @@ void GraphicEngine::setLightData(float* lightData) {
     m_lightData = lightData;
 }
 
-void GraphicEngine::writeLine(std::string line, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color) {
+void GraphicEngine::writeLine(const std::string & line, const GLfloat & x, const GLfloat & y, const GLfloat & scale, const glm::vec3 & color) {
     if (m_textEngine != null)
-        m_textEngine->writeLine(line, x, y, scale, color);
+        //        m_textEngine->writeLine(line, x, y, scale, color);
+        writeLine(line, x, y, scale, color);
 }
 
-float GraphicEngine::getLineWidth(std::string line, GLfloat scale) {
+float GraphicEngine::getLineWidth(const std::string & line, const GLfloat & scale) {
     if (m_textEngine != null)
-        return m_textEngine->getLineWidth(line, scale);
+        //        return m_textEngine->getLineWidth(line, scale);
+        return getLineWidth(line, scale);
     return 0;
 }
 
-glm::vec2 GraphicEngine::getLineSize(std::string line, GLfloat scale) {
+glm::vec2 GraphicEngine::getLineSize(const std::string & line, const GLfloat & scale) {
     if (m_textEngine != null)
-        return m_textEngine->getLineSize(line, scale);
+        //        return m_textEngine->getLineSize(line, scale);
+        return getLineSize(line, scale);
     return glm::vec2(0, 0);
 }
 
@@ -234,7 +261,7 @@ float GraphicEngine::getCameraDistance(glm::vec3 position) {
     return glm::length(m_camera.getPosition() - position);
 }
 
-void GraphicEngine::setResolution(int w, int h) {
+void GraphicEngine::setResolution(const UInt & w, const UInt & h) {
     m_width = w;
     m_height = h;
     getGraphicSetting()->screenWidth = m_width;
@@ -245,11 +272,11 @@ void GraphicEngine::setResolution(int w, int h) {
     m_projectionScene = m_camera.getProjectionMatrice();
 }
 
-int GraphicEngine::getWidth() const {
+UInt GraphicEngine::getWidth() const {
     return m_width;
 }
 
-int GraphicEngine::getHeight() const {
+UInt GraphicEngine::getHeight() const {
     return m_height;
 }
 
@@ -257,7 +284,7 @@ float GraphicEngine::getRatio() const {
     return m_ratio;
 }
 
-void GraphicEngine::setWindowTitle(std::string title) {
+void GraphicEngine::setWindowTitle(const std::string & title) {
     m_title = title;
     SDL_SetWindowTitle(m_window, m_title.c_str());
 }

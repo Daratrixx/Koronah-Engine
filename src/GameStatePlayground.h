@@ -47,9 +47,9 @@ public:
     virtual void load();
     virtual void onEnter();
     virtual void onLeave();
-    virtual int mainFunction(float time);
+    virtual UShort mainFunction(float time);
     virtual void update();
-    virtual int inputManagement();
+    virtual UShort inputManagement();
     virtual void render();
     virtual void physic(Entity* e);
     

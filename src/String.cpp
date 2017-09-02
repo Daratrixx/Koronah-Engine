@@ -8,7 +8,7 @@ enum {
     PLUS = '+', MINUS = '-', MULT = '*', DIV = '/'
 };
 
-bool replace(string &str, string from, string to) {
+bool replace(string & str, const string & from, const string & to) {
     size_t start_pos = str.find(from);
     if (start_pos == -1u)
         return false;
@@ -16,14 +16,15 @@ bool replace(string &str, string from, string to) {
     return true;
 }
 
-float toFloat(string str) {
+float toFloat(const string & str) {
+    if (str.find_first_not_of("-.0123456789") != str.npos)
+        return 0; // erreur, not a valid string
     bool dot = false;
-    int power = 1;
-    int sign = 1;
+    UShort power = 1;
+    Short sign = 1;
     float out = 0;
-    unsigned int i = 0u;
-    for (; i < str.length(); i++) {
-        if (str[i] == '-')
+    for (UInt i = 0; i < str.length(); i++) {
+        if (i == 0 && str[i] == '-')
             sign = -1;
         else if (str[i] == '.')
             dot = true;
@@ -39,35 +40,83 @@ float toFloat(string str) {
     return sign * out;
 }
 
-int toInt(string str) {
-    int out = 0;
-    for (unsigned int i = 0u; i < str.length(); i++)
-        out = out * 10 + (str[i] - '0');
-    return out;
+Int toInt(const string & str) {
+    if (str.find_first_not_of("-0123456789") != str.npos)
+        return 0; // erreur, not a valid integer string
+    Int out = 0;
+    Int sign = 1;
+    for (UInt i = 0; i < str.length(); i++) {
+        if (i == 0 && str[i] == '-')
+            sign = -1;
+        else if (str[i] >= '0' && str[i] <= '9')
+            out = out * 10 + (str[i] - '0');
+    }
+    return sign * out;
 }
 
-string toString(int value) {
+string toString(const Short & value) {
     string out = "";
     string sign = "";
-    if (value == 0)
+    Short v = value;
+    if (v == 0)
         out = "0";
     else {
-        if (value < 0) {
-            value = -value;
+        if (v < 0) {
+            v = -v;
             sign = "-";
         }
-        while (value != 0) {
-            char in = '0' + (value % 10);
+        while (v != 0) {
+            char in = '0' + (v % 10);
             out = in + out;
-            value = value / 10;
+            v = v / 10;
         }
     }
     return sign + out;
 }
 
-string toString(float value, int length) {
+string toString(const Int & value) {
     string out = "";
-    int left = 0, right = 0;
+    string sign = "";
+    Int v = value;
+    if (v == 0)
+        out = "0";
+    else {
+        if (v < 0) {
+            v = -v;
+            sign = "-";
+        }
+        while (value != 0) {
+            char in = '0' + (v % 10);
+            out = in + out;
+            v = v / 10;
+        }
+    }
+    return sign + out;
+}
+
+string toString(const Long & value) {
+    string out = "";
+    string sign = "";
+    Long v = value;
+    if (v == 0)
+        out = "0";
+    else {
+        if (v < 0) {
+            v = -v;
+            sign = "-";
+        }
+        while (v != 0) {
+            char in = '0' + (v % 10);
+            out = in + out;
+            v = v / 10;
+        }
+    }
+    return sign + out;
+}
+
+string toString(const float & value, const UShort & length) {
+    string out = "";
+    Int left = 0, right = 0;
     float mantis;
     left = (int) value;
     mantis = value - left;
@@ -75,12 +124,12 @@ string toString(float value, int length) {
         right = (int) (mantis * pow(10, length));
     out += toString(left);
     if (right != 0)
-        out += "." + toString(abs(right));
+        out += "." + toString(right > 0 ? right : -right);
     return out;
 }
 
-float expressionValue(string expr) {
-    for (int i = expr.length() - 2; i >= 0; i--) //assuming last character will not be an operand
+float expressionValue(const string & expr) {
+    for (Int i = expr.length() - 2; i >= 0; i--) //assuming last character will not be an operand
     {
         switch (expr.at(i)) {
             case MULT:
@@ -91,7 +140,7 @@ float expressionValue(string expr) {
                         expressionValue(expr.substr(i + 1, expr.length() - i - 1));
         }
     }
-    for (int i = expr.length() - 2; i >= 0; i--) //assuming last character will not be an operand
+    for (Int i = expr.length() - 2; i >= 0; i--) //assuming last character will not be an operand
     {
         switch (expr.at(i)) {
             case PLUS:
@@ -105,10 +154,10 @@ float expressionValue(string expr) {
     return toFloat(expr);
 }
 
-string inter(string str, string left, string right) {
-    int start = str.find(left);
+string inter(const string & str, const string & left, const string & right) {
+    Int start = str.find(left);
     if (start != -1) {
-        int end = str.find(right);
+        Int end = str.find(right);
         if (end != -1) {
             return str.substr(start + left.length(), end - start - right.length());
         }
@@ -116,10 +165,10 @@ string inter(string str, string left, string right) {
     return string("");
 }
 
-std::string readUntil(std::string &str, std::string end) {
+std::string readUntil(std::string & str, const std::string & end) {
     if (str == "")
         return std::string("");
-    int stop = str.find_first_of(end);
+    Int stop = str.find_first_of(end);
     if (stop == -1)
         return std::string("");
 
@@ -132,7 +181,7 @@ std::string readUntil(std::string &str, std::string end) {
 
 string inParathesis(const string & in) {
     string out;
-    int a, b;
+    Int a, b;
     a = in.find_first_of('(') + 1;
     b = in.find_last_of(')');
     if (a > -1 && b > -1)

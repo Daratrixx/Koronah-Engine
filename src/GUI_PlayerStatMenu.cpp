@@ -1,6 +1,6 @@
 #include "GUI.h"
 
-GUI_PlayerStatMenu::GUI_PlayerStatMenu(Unit* player) : GUI_Window() {
+/*GUI_PlayerStatMenu::GUI_PlayerStatMenu(Unit* player) : GUI_Window() {
     setPosition(50, 50);
     setSize(700, 500);
     setColor(1, 1, 1, 0.9f);
@@ -86,4 +86,4 @@ void GUI_PlayerStatMenu::setPlayer(Unit* player) {
 
 Unit* GUI_PlayerStatMenu::getPlayer() const {
     return m_player;
-}
+}*/

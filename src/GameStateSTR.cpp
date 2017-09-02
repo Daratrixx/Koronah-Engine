@@ -51,6 +51,10 @@ void GameStateSTR::load() {
     m_guiStopOrderButton = orderPanel->m_orderStop;
     m_guiHoldOrderButton = orderPanel->m_orderHold;
     m_guiPatrolOrderButton = orderPanel->m_orderPatrol;
+    
+    GUI_PlayerInfoPanel* infoPanel = new GUI_PlayerInfoPanel();
+    m_guiRoot->addChild(infoPanel);
+    infoPanel->setPlayerInfoSource(m_gameEngine.m_players[m_gameEngine.m_currentPlayerId]);
 
     m_heightMapData = new HeightMapData("data/heightmap/Sc2wB.bmp");
     m_heightMapData->setModelId(Graphic->createHeightMapModel(m_heightMapData));
@@ -68,10 +72,10 @@ void GameStateSTR::onEnter() {
 void GameStateSTR::onLeave() {
 }
 
-int GameStateSTR::mainFunction(float time) {
+UShort GameStateSTR::mainFunction(float time) {
     setLoopTime(time);
     m_scanGenerated = false;
-    int order = inputManagement();
+    UShort order = inputManagement();
     update();
     Graphic->startRender();
     render();
@@ -82,10 +86,43 @@ int GameStateSTR::mainFunction(float time) {
     return order;
 }
 
-int GameStateSTR::inputManagement() {
-    if (Input->getKeyboardPushed(SDL_SCANCODE_TAB))
-        return ORDER_TO_MENU;
+UShort GameStateSTR::inputManagement() {
+    SDL_Event EVENT_QUEUE;
+    UShort out = ORDER_CONTINUE;
+    UShort in = ORDER_CONTINUE;
+    while (SDL_PollEvent(&EVENT_QUEUE)) {
+        // Enregistrement de l'input
+        Input->updateEvents(EVENT_QUEUE);
+        // Switch sur le type d'évènement
+        switch (EVENT_QUEUE.type) {
+                // Cas d'une touche enfoncée
+            case SDL_KEYDOWN:
+                in = keyboardInput(EVENT_QUEUE);
+                break;
+                // Cas d'une touche relâchée
+            case SDL_KEYUP:
+                in = keyboardInput(EVENT_QUEUE);
+                break;
+                // Cas de pression sur un bouton de la souris
+            case SDL_MOUSEBUTTONDOWN:
+                in = mouseInput(EVENT_QUEUE);
+                break;
+                // Cas du relâchement d'un bouton de la souris
+            case SDL_MOUSEBUTTONUP:
+                in = mouseInput(EVENT_QUEUE);
+                break;
+                // Cas d'un mouvement de souris
+            case SDL_MOUSEMOTION:
+                in = mouseInput(EVENT_QUEUE);
+                break;
+            default:
+                break;
+        }
+        if (out == ORDER_CONTINUE)
+            out = in;
+    }
 
+    // other input control
     if (Input->getKeyboardDown(SDL_SCANCODE_LEFT))
         m_cameraHolder->addPositionXY(-50 * m_elapsedTime, 0);
     if (Input->getKeyboardDown(SDL_SCANCODE_RIGHT))
@@ -94,68 +131,67 @@ int GameStateSTR::inputManagement() {
         m_cameraHolder->addPositionXY(0, 50 * m_elapsedTime);
     if (Input->getKeyboardDown(SDL_SCANCODE_DOWN))
         m_cameraHolder->addPositionXY(0, -50 * m_elapsedTime);
-    if (Input->getMouseMoved())
-        m_guiRoot->tryHover(Input->getMousePositionX(), Input->getMousePositionY());
 
+    return out;
+}
+
+UShort GameStateSTR::mouseInput(SDL_Event & EVENT_QUEUE) {
+    if (EVENT_QUEUE.type == SDL_MOUSEMOTION) {
+        m_guiRoot->tryHover(Input->getMousePositionX(), Input->getMousePositionY());
+    }
     GUI* active = null;
     GUI* clicked = null;
     switch (m_currentState) {
         case GAME_NO_STATE:
-            if (Input->getMouseReleased(SDL_BUTTON_LEFT))
-                clicked = m_guiRoot->tryClick(Input->getMousePositionX(), Input->getMousePositionY());
-            if (clicked == m_guiMoveOrderButton || Input->getKeyboardPushed(SDL_SCANCODE_Q)) {
-                m_currentState = GAME_LEFT_WAIT_ORDER_MOVE;
-                break;
-            }
-            if (clicked == m_guiAttackOrderButton || Input->getKeyboardPushed(SDL_SCANCODE_W)) {
-                m_currentState = GAME_LEFT_WAIT_ORDER_ATTACK;
-                break;
-            }
-
-            if (clicked == m_guiStopOrderButton || Input->getKeyboardPushed(SDL_SCANCODE_E)) {
-                for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
-                    Unit* su = m_selectedUnits[i];
-                    if (su->getOwnerId() == m_gameEngine.m_currentPlayerId) {
-                        su->orderStop();
+            if (EVENT_QUEUE.type == SDL_MOUSEBUTTONUP) {
+                if (EVENT_QUEUE.button.button == SDL_BUTTON_LEFT) { // left mouse up, a button may have been pressed
+                    clicked = m_guiRoot->tryClick(Input->getMousePositionX(), Input->getMousePositionY());
+                    if (clicked == m_guiMoveOrderButton) {
+                        inputMoveOrder();
+                        break;
+                    }
+                    if (clicked == m_guiAttackOrderButton) {
+                        inputAttackOrder();
+                        break;
+                    }
+                    if (clicked == m_guiStopOrderButton) {
+                        inputStopOrder();
+                        break;
+                    }
+                    if (clicked == m_guiHoldOrderButton) {
+                        inputHoldPositionOrder();
+                        break;
+                    }
+                    if (clicked == m_guiPatrolOrderButton) {
+                        inputPatrolOrder();
+                        break;
                     }
                 }
-                break;
-            }
-            if (clicked == m_guiHoldOrderButton || Input->getKeyboardPushed(SDL_SCANCODE_R)) {
-                for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
-                    Unit* su = m_selectedUnits[i];
-                    if (su->getOwnerId() == m_gameEngine.m_currentPlayerId) {
-                        su->orderHold();
-                    }
-                }
-                break;
-            }
-            if (clicked == m_guiPatrolOrderButton || Input->getKeyboardPushed(SDL_SCANCODE_T)) {
-                m_currentState = GAME_LEFT_WAIT_ORDER_PATROL;
-                break;
-            }
-            if (Input->getMousePushed(SDL_BUTTON_LEFT)) {
-                active = m_guiRoot->tryActive(Input->getMousePositionX(), Input->getMousePositionY());
-                if (active == null || active == m_guiRoot)
-                    m_currentState = GAME_LEFT_DOWN;
-            }
-            if (Input->getMousePushed(SDL_BUTTON_RIGHT)) {
-                m_selectedUnitId = getUnitId(Input->getMousePositionX(), Input->getMousePositionY());
-                m_guiUnitId->setText(toString(m_selectedUnitId));
-                if (m_selectedUnitId > -1) {
-                    Unit* u = m_gameEngine.getUnit(m_selectedUnitId);
-                    if (u != null) {
+            } else if (EVENT_QUEUE.type == SDL_MOUSEBUTTONDOWN) {
+                if (EVENT_QUEUE.button.button == SDL_BUTTON_LEFT) { // left mouse down - may be in game space
+                    active = m_guiRoot->tryActive(Input->getMousePositionX(), Input->getMousePositionY());
+                    if (active == null || active == m_guiRoot)
+                        m_currentState = GAME_LEFT_DOWN; // game space indeed
+                } else if (EVENT_QUEUE.button.button == SDL_BUTTON_RIGHT) {
+                    m_selectedUnitId = getUnitId(Input->getMousePositionX(), Input->getMousePositionY());
+                    // m_guiUnitId->setText(toString(m_selectedUnitId));
+                    if (m_selectedUnitId > -1) {
+                        Unit* u = m_gameEngine.getUnit(m_selectedUnitId);
+                        if (u != null) {
+                            for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
+                                Unit* su = m_selectedUnits[i];
+                                if (su->m_ownerId == m_gameEngine.m_currentPlayerId) {
+                                    m_gameEngine.doRightClick(su, u);
+                                }
+                            }
+                        }
+                    } else {
+                        glm::vec3 targetPosition = getClickWorldPosition(Input->getMousePositionX(), std::min(getGraphicSetting()->screenHeight - 1.f, (float) Input->getMousePositionY()));
                         for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
                             Unit* su = m_selectedUnits[i];
-                            m_gameEngine.doRightClick(su, u);
-                        }
-                    }
-                } else {
-                    glm::vec3 targetPosition = getClickWorldPosition(Input->getMousePositionX(), std::min(getGraphicSetting()->screenHeight - 1.f, (float) Input->getMousePositionY()));
-                    for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
-                        if (m_selectedUnits[i]->getOwnerId() == m_gameEngine.m_currentPlayerId) {
-                            Unit* su = m_selectedUnits[i];
-                            m_gameEngine.doRightClick(su, glm::vec2(targetPosition.x, targetPosition.y));
+                            if (su->m_ownerId == m_gameEngine.m_currentPlayerId) {
+                                m_gameEngine.doRightClick(su, glm::vec2(targetPosition.x, targetPosition.y));
+                            }
                         }
                     }
                 }
@@ -163,7 +199,7 @@ int GameStateSTR::inputManagement() {
             break;
         case GAME_LEFT_DOWN:
             if (Input->getMousePushed(SDL_BUTTON_RIGHT)) {
-                m_currentState = GAME_NO_STATE;
+                inputCancel();
                 break;
             }
             if (Input->getMouseMoved()) {
@@ -313,8 +349,76 @@ int GameStateSTR::inputManagement() {
             }
         default: break;
     }
-
     return ORDER_CONTINUE;
+}
+
+UShort GameStateSTR::keyboardInput(SDL_Event & EVENT_QUEUE) {
+    if (EVENT_QUEUE.type == SDL_KEYDOWN) { // key pushed
+        if (EVENT_QUEUE.key.keysym.scancode == SDL_SCANCODE_TAB)
+            return ORDER_TO_MENU;
+    } else if (EVENT_QUEUE.type == SDL_KEYUP) { // key released
+        switch (m_currentState) {
+            case GAME_NO_STATE:
+                if (EVENT_QUEUE.key.keysym.scancode == SDL_SCANCODE_Q) {
+                    inputMoveOrder();
+                    break;
+                }
+                if (EVENT_QUEUE.key.keysym.scancode == SDL_SCANCODE_W) {
+                    inputAttackOrder();
+                    break;
+                }
+                if (EVENT_QUEUE.key.keysym.scancode == SDL_SCANCODE_E) {
+                    inputStopOrder();
+                    break;
+                }
+                if (EVENT_QUEUE.key.keysym.scancode == SDL_SCANCODE_R) {
+                    inputHoldPositionOrder();
+                    break;
+                }
+                if (EVENT_QUEUE.key.keysym.scancode == SDL_SCANCODE_T) {
+                    inputPatrolOrder();
+                    break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    return ORDER_CONTINUE;
+}
+
+void GameStateSTR::inputMoveOrder() {
+    m_currentState = GAME_LEFT_WAIT_ORDER_MOVE;
+}
+
+void GameStateSTR::inputAttackOrder() {
+    m_currentState = GAME_LEFT_WAIT_ORDER_ATTACK;
+}
+
+void GameStateSTR::inputStopOrder() {
+    for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
+        Unit* su = m_selectedUnits[i];
+        if (su->getOwnerId() == m_gameEngine.m_currentPlayerId) {
+            su->orderStop();
+        }
+    }
+}
+
+void GameStateSTR::inputHoldPositionOrder() {
+    for (unsigned int i = 0; i < m_selectedUnits.size(); i++) {
+        Unit* su = m_selectedUnits[i];
+        if (su->getOwnerId() == m_gameEngine.m_currentPlayerId) {
+            su->orderHold();
+        }
+    }
+}
+
+void GameStateSTR::inputPatrolOrder() {
+    m_currentState = GAME_LEFT_WAIT_ORDER_PATROL;
+}
+
+void GameStateSTR::inputCancel() {
+    m_currentState = GAME_NO_STATE;
 }
 
 void GameStateSTR::clearSelection() {
@@ -346,27 +450,27 @@ void GameStateSTR::doSquareSelection() {
     square.z = std::max(std::max(targetOrigin1.x, targetOrigin2.x), std::max(targetPosition1.x, targetPosition2.x));
     square.w = std::max(std::max(targetOrigin1.y, targetOrigin2.y), std::max(targetPosition1.y, targetPosition2.y));
     // m_clicPosition
-    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAll.begin(); it != m_gameEngine.m_unitsAll.end(); it++) {
+    for (std::list<Unit*>::iterator it = m_gameEngine.m_unitsAlive.begin(); it != m_gameEngine.m_unitsAlive.end(); it++) {
         Unit* u = *it;
-        //if (u->getOwnerId() == m_gameEngine.m_currentPlayerId && u->isAlive()) {
-        glm::vec2 unitPosition = u->getPositionXY();
-        if (unitPosition.x > square.x && unitPosition.x < square.z
-                && unitPosition.y > square.y && unitPosition.y < square.w) {
-            if (isPointInPolygon(squarePositions, 4, unitPosition)) {
-                if (m_gameEngine.m_currentPlayerId == u->m_ownerId) {
-                    u->m_selectionCircleColor = glm::vec3(0, 1, 0);
-                    u->m_selectionCircleDisplayed = true;
-                } else if (m_gameEngine.playerIsAlly(m_gameEngine.m_currentPlayerId, u->m_ownerId)) {
-                    u->m_selectionCircleColor = glm::vec3(0.75f, 0.75f, 0);
-                    u->m_selectionCircleDisplayed = true;
-                } else {
-                    u->m_selectionCircleColor = glm::vec3(1, 0, 0);
-                    u->m_selectionCircleDisplayed = true;
+        if (u->m_ownerId == m_gameEngine.m_currentPlayerId) {
+            glm::vec2 unitPosition = u->getPositionXY();
+            if (unitPosition.x > square.x && unitPosition.x < square.z
+                    && unitPosition.y > square.y && unitPosition.y < square.w) {
+                if (isPointInPolygon(squarePositions, 4, unitPosition)) {
+                    if (m_gameEngine.m_currentPlayerId == u->m_ownerId) {
+                        u->m_selectionCircleColor = glm::vec3(0, 1, 0);
+                        u->m_selectionCircleDisplayed = true;
+                    } else if (m_gameEngine.playerIsAlly(m_gameEngine.m_currentPlayerId, u->m_ownerId)) {
+                        u->m_selectionCircleColor = glm::vec3(0.75f, 0.75f, 0);
+                        u->m_selectionCircleDisplayed = true;
+                    } else {
+                        u->m_selectionCircleColor = glm::vec3(1, 0, 0);
+                        u->m_selectionCircleDisplayed = true;
+                    }
+                    m_selectedUnits.push_back(u);
                 }
-                m_selectedUnits.push_back(u);
             }
         }
-        //}
     }
 }
 
@@ -390,7 +494,7 @@ void GameStateSTR::render() {
     }
 }
 
-int GameStateSTR::getUnitId(unsigned int x, unsigned int y) {
+Int GameStateSTR::getUnitId(UInt x, UInt y) {
     if (!m_scanGenerated) {
         Graphic->renderScanStart();
         m_scanGenerated = true;
@@ -408,7 +512,7 @@ int GameStateSTR::getUnitId(unsigned int x, unsigned int y) {
     return unitId;
 }
 
-glm::vec3 GameStateSTR::getClickWorldPosition(unsigned int x, unsigned int y) {
+glm::vec3 GameStateSTR::getClickWorldPosition(UInt x, UInt y) {
     if (!m_scanGenerated) {
         Graphic->renderScanStart();
         Graphic->renderObjectScan(m_heightMapData, -1);

@@ -1,6 +1,8 @@
 # Blender v2.72 (sub 0) OBJ File: ''
 # www.blender.org
 o Cylinder01
+cpt data/texture/boletusTexture.png
+hpt data/texture/boletusHalo.png
 v -1.170145 -0.437586 1.045241
 v -1.251960 0.128055 1.066452
 v -1.029067 0.246892 0.005066

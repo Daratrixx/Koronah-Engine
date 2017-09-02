@@ -9,13 +9,13 @@ Spell::~Spell() {
 
 }
 
-void Spell::onAttacking(Unit* owner, int &damage) {
+void Spell::onAttacking(Unit* owner, UInt & damage) {
 }
 
-void Spell::onAttackHiting(Unit* owner, Unit* target, int &damage) { // trigger when attack hits something
+void Spell::onAttackHiting(Unit* owner, Unit* target, UInt & damage) { // trigger when attack hits something
 }
 
-void Spell::onAttackHited(Unit* owner, Unit* origin, int &damage) { // trigger when being hit by an attack
+void Spell::onAttackHited(Unit* owner, Unit* origin, UInt & damage) { // trigger when being hit by an attack
 }
 
 void Spell::onSpelling(Unit* owner, Triggerable* spell) { // trigger when casting a spell

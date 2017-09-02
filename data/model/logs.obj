@@ -1,6 +1,7 @@
 # Blender v2.72 (sub 0) OBJ File: ''
 # www.blender.org
 o Wood_Cylinder
+cpt data/texture/logs.png
 v 0.751677 3.167151 4.292972
 v 0.444685 3.167151 4.307403
 v 0.407060 2.649858 4.491878

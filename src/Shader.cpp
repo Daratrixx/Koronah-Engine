@@ -5,7 +5,7 @@
 Shader::Shader() : m_vertexID(0), m_fragmentID(0), m_programID(0), m_vertexSource(), m_geometrySource(), m_fragmentSource() {
 }
 
-Shader::Shader(Shader const &shaderACopier) {
+Shader::Shader(const Shader & shaderACopier) {
     // Copie des fichiers sources
     m_vertexSource = shaderACopier.m_vertexSource;
     m_geometrySource = shaderACopier.m_geometrySource;
@@ -17,7 +17,7 @@ Shader::~Shader() {
     std::cout << "Shader deleted." << std::endl;
 }
 
-Shader& Shader::operator=(Shader const &shaderACopier) {
+Shader& Shader::operator=(const Shader & shaderACopier) {
     m_vertexSource = shaderACopier.m_vertexSource;
     m_geometrySource = shaderACopier.m_geometrySource;
     m_fragmentSource = shaderACopier.m_fragmentSource;
@@ -67,7 +67,7 @@ void Shader::loadAll() {
         glAttachShader(m_programID, m_fragmentID);
 }
 
-bool Shader::loadTexture(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+bool Shader::loadTexture(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource) {
     // Enregistrement des chemins
     m_vertexSource = vertexSource;
     m_geometrySource = geometrySource;
@@ -88,7 +88,7 @@ bool Shader::loadTexture(std::string vertexSource, std::string geometrySource, s
     return link();
 }
 
-bool Shader::loadScan(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+bool Shader::loadScan(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource) {
     // Enregistrement des chemins
     m_vertexSource = vertexSource;
     m_geometrySource = geometrySource;
@@ -109,7 +109,7 @@ bool Shader::loadScan(std::string vertexSource, std::string geometrySource, std:
     return link();
 }
 
-bool Shader::loadText(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+bool Shader::loadText(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource) {
     // Enregistrement des chemins
     m_vertexSource = vertexSource;
     m_geometrySource = geometrySource;
@@ -125,7 +125,7 @@ bool Shader::loadText(std::string vertexSource, std::string geometrySource, std:
     return link();
 }
 
-bool Shader::loadParticle(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+bool Shader::loadParticle(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource) {
     // Enregistrement des chemins
     m_vertexSource = vertexSource;
     m_geometrySource = geometrySource;
@@ -147,7 +147,7 @@ bool Shader::loadParticle(std::string vertexSource, std::string geometrySource, 
     return link();
 }
 
-bool Shader::loadGUI(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+bool Shader::loadGUI(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource) {
     // Enregistrement des chemins
     m_vertexSource = vertexSource;
     m_geometrySource = geometrySource;
@@ -168,7 +168,7 @@ bool Shader::loadGUI(std::string vertexSource, std::string geometrySource, std::
     return link();
 }
 
-bool Shader::loadScreen(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+bool Shader::loadScreen(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource) {
     // Enregistrement des chemins
     m_vertexSource = vertexSource;
     m_geometrySource = geometrySource;
@@ -188,7 +188,7 @@ bool Shader::loadScreen(std::string vertexSource, std::string geometrySource, st
     return link();
 }
 
-bool Shader::loadSquare(std::string vertexSource, std::string geometrySource, std::string fragmentSource) {
+bool Shader::loadSquare(const std::string & vertexSource, const std::string & geometrySource, const std::string & fragmentSource) {
     // Enregistrement des chemins
     m_vertexSource = vertexSource;
     m_geometrySource = geometrySource;
@@ -241,7 +241,7 @@ bool Shader::link() {
         return true;
 }
 
-bool Shader::compile(GLuint &shader, GLenum type, std::string const &fichierSource) {
+bool Shader::compile(GLuint & shader, const GLenum & type,  const std::string & fichierSource) {
     if (fichierSource == "")
         return true; // nothing to load
     // Création du shader

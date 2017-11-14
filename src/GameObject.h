@@ -79,7 +79,6 @@ public:
     
     glm::mat4 getVertexMatrice();
     glm::mat4 getCircleMatrice();
-    glm::mat4 getNormalMatrice();
     
     
     UInt m_objectId;

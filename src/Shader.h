@@ -7,6 +7,8 @@
 #include "Types.h"
 #endif
 
+#include "String.h"
+
 class Shader {
 public:
     Shader();

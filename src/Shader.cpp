@@ -262,14 +262,9 @@ bool Shader::compile(GLuint & shader, const GLenum & type,  const std::string & 
         glDeleteShader(shader);
         return false;
     }
-
-    // Strings permettant de lire le code source
-    std::string ligne;
     std::string codeSource;
 
-    // Lecture
-    while (std::getline(fichier, ligne))
-        codeSource += ligne + '\n';
+    codeSource = getGLSL(fichier);
 
     // Fermeture du fichier
     fichier.close();

@@ -117,10 +117,9 @@ void GraphicEngine::renderObjectNormal(GameObject* object) {
     int idModel(object->getModelId());
     if (idModel > -1) {
         glm::mat4 model = object->getVertexMatrice();
-        glm::mat4 normal = object->getNormalMatrice();
         Model* modelData = getModel(idModel);
         if (modelData != null) {
-            renderModelNormal(modelData, model, normal);
+            renderModelNormal(modelData, model);
         }
     }
 }
@@ -144,9 +143,8 @@ void GraphicEngine::renderModelTexture(Model* modelData, Texture* textureData, g
     modelData->drawUsingVao(textureData);
 }
 
-void GraphicEngine::renderModelNormal(Model* modelData, glm::mat4 &model, glm::mat4 &normal) {
+void GraphicEngine::renderModelNormal(Model* modelData, glm::mat4 &model) {
     glUniformMatrix4fv(glGetUniformLocation(m_shaderNormal.getProgramID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-    glUniformMatrix4fv(glGetUniformLocation(m_shaderNormal.getProgramID(), "normal"), 1, GL_FALSE, glm::value_ptr(normal));
     modelData->drawUsingVao(null);
 }
 

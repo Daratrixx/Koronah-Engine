@@ -188,3 +188,33 @@ string inParathesis(const string & in) {
         out = in.substr(a, b - a);
     return out;
 }
+
+
+std::string getFileContentGLSL(std::string const & filePath)  {
+    // Flux de lecture
+    std::ifstream fichier(filePath.c_str());
+
+    // Test d'ouverture
+    if (!fichier) {
+        std::cout << "Erreur le fichier " << filePath << " est introuvable" << std::endl;
+        fichier.close();
+        return "// ERROR LOADING FILE " + filePath;
+    }
+    
+    std::string codeSource = getGLSL(fichier);
+    
+    fichier.close();
+    return codeSource;
+}
+
+std::string getGLSL(std::ifstream & fichier)  {
+    std::string ligne;
+    std::string codeSource;
+
+    // Lecture
+    while (std::getline(fichier, ligne)) {
+        if(ligne[0] == '@')
+            codeSource += "// " + ligne + '\n' + getFileContentGLSL(ligne.substr(1));
+        codeSource += ligne + '\n';
+    }
+}

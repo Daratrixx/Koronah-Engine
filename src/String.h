@@ -25,6 +25,9 @@ bool replace(std::string & str, const std::string & from, const std::string & to
 std::string inter(const std::string & str, const std::string & left, const std:: string & right);
 std::string readUntil(std::string & str, const std::string & end);
 std::string inParathesis(const std::string & in);
+
+std::string getFileContentGLSL(std::string const & filePath);
+std::string getGLSL(std::ifstream & fichier);
 /*
     - - String parser - -
     http://stackoverflow.com/questions/17073979/string-calculator-substr

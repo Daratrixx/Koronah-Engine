@@ -65,7 +65,7 @@ public:
     void renderObjectNormal(GameObject* object);
     void renderObjectHaloMap(GameObject* object);
     void renderModelTexture(Model* modelData, Texture* texture, glm::mat4 &model);
-    void renderModelNormal(Model* modelData, glm::mat4 &model, glm::mat4 &normal);
+    void renderModelNormal(Model* modelData, glm::mat4 &model);
     void renderModelFrameBuffer(Model* modelData, Texture* texture, glm::mat4 &model);
     void renderParticle(glm::vec3* position, float* opacity, float* size, int count);
     void renderParticle(glm::vec3* position, float* opacity, float* size, int count, Texture* texture, glm::mat4 &view);

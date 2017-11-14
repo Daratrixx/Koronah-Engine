@@ -265,11 +265,3 @@ glm::mat4 GameObject::getCircleMatrice() {
     out = glm::scale(out, circle);
     return out;
 }
-
-glm::mat4 GameObject::getNormalMatrice() {
-    glm::mat4 out;
-    out = glm::rotate(out, m_angle.z, glm::vec3(0, 0, 1));
-    out = glm::rotate(out, m_angle.x, glm::vec3(1, 0, 0));
-    out = glm::rotate(out, m_angle.y, glm::vec3(0, 1, 0));
-    return out;
-}
